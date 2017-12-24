@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>iOS热更新 - 八种实现方式</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="iOS热更新 - 八种实现方式"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        iOS热更新 - 八种实现方式
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-29T04:02:22.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-29
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-HotPatch/">iOS, HotPatch</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="一、JSPatch"><a href="#一、JSPatch" class="headerlink" title="一、JSPatch"></a>一、JSPatch</h2><p>个人开发者开源的<a href="https://github.com/bang590/JSPatch" target="_blank">JSPatch</a>，做热更新时，从服务器拉去js脚本。理论上可以修改和新建所有的模块，但是不建议这样做。<br>建议 用来做紧急的小需求和 修复严重的线上bug。</p>
+<h2 id="二、lua脚本"><a href="#二、lua脚本" class="headerlink" title="二、lua脚本"></a>二、lua脚本</h2><p>阿里开源的<a href="https://github.com/alibaba/wax" target="_blank">wax</a>，热更新时，从服务器拉去lua脚本。游戏开发经常用到。也可以用于iOS应用的热更新/修复。</p>
+<h2 id="三、Weex"><a href="#三、Weex" class="headerlink" title="三、Weex"></a>三、Weex</h2><p>阿里开源的<a href="https://github.com/apache/incubator-weex" target="_blank">weex</a>跨平台，一套代码，iOS、Android都可以运行。用前端语法实现原生效果。比React Native更好用。<br>weex基于vue.js，ReactNative使用React。<br>ReactNative安装配置麻烦。 weex安装cli之后就可以使用。</p>
+<p>react模板JSX有一定的学习成本，vue和常用的web开发类似，模板是普通的html，数据绑定用mustache风格，样式直接使用css。</p>
+<p>淘宝干的漂亮，中国在编码的实力越来越牛叉了。威武！！！ </p>
+<h2 id="四、React-Native"><a href="#四、React-Native" class="headerlink" title="四、React Native"></a>四、React Native</h2><p>Facebook开源的<a href="https://github.com/facebook/react-native" target="_blank">React Native</a><br>不像Weex能一套代码多端运行，需要自己分别做修改。</p>
+<p>React Native 可以动态添加业务模块，但无法做到修改原生OC代码。</p>
+<p>JSPatch、lua 配合React Native可以让一个原生APP时刻处于可扩展可修改的状态。</p>
+<h2 id="五、Hybrid"><a href="#五、Hybrid" class="headerlink" title="五、Hybrid"></a>五、Hybrid</h2><p>像PhoneGap之类的框架, 基本概念和web差不多, 通过更新js/html来实现动态化，没有原生的效果流畅。</p>
+<h2 id="六、动态库"><a href="#六、动态库" class="headerlink" title="六、动态库"></a>六、动态库</h2><p>可以做demo用，真实使用的时候会被苹果禁止。</p>
+<p>因为 打包发到AppStore的ipa安装包 里的每个动态库 都有唯一的编码，iOS系统会进行验证，所以动态通过网络获取 新的动态库 也用不了。</p>
+<h2 id="七、rollout-io"><a href="#七、rollout-io" class="headerlink" title="七、rollout.io"></a>七、rollout.io</h2><p><a href="https://rollout.io/" target="_blank">rollout</a>紧急修复线上bug。后端有相关的管理页面。因为是国外的网站，然后呢，要翻墙才能使用。</p>
+<h2 id="八、DynamicCocoa"><a href="#八、DynamicCocoa" class="headerlink" title="八、DynamicCocoa"></a>八、DynamicCocoa</h2><p>滴滴iOS的一个框架，准备在2017年初开源，与JSPatch比更加智能化，用OC在XCode中写完代码，用工具可以自动生成可以更新的js文件。<br>到现为止也用不了。</p>
+<p>我猜微信和QQ都自己研发了一套热更新的代码，知道原理了，其实自己搞一套也不是很难。</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

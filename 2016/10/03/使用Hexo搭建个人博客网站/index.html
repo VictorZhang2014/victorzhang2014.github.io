@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>使用Hexo搭建个人博客网站</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="使用Hexo搭建个人博客网站"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        使用Hexo搭建个人博客网站
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2016-10-03T15:50:11.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2016-10-03
+</time>
+
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/victor-hexo/">victor, hexo</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>使用Hexo搭建个人博客网站，类似这种文章在网上能找到很多，在这里我就不再一一赘述了，以下是个人搭建博客站点的经验所得，以分享。</p>
+<p>Hexo官方文档：<a href="https://hexo.io/" target="_blank" rel="noopener">https://hexo.io/</a></p>
+<p>Let’s get started!</p>
+<p>需要安装git和nodejs</p>
+<p>安装nvm，Node版本管理器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install nvm</span><br></pre></td></tr></table></figure></p>
+<p>安装nodejs<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install 4.5.0</span><br></pre></td></tr></table></figure></p>
+<h3 id="注意：如果以上遇到nvm和nodejs的命令安装不成功的话，请使用各自官网的MAC-OS-X的Installer"><a href="#注意：如果以上遇到nvm和nodejs的命令安装不成功的话，请使用各自官网的MAC-OS-X的Installer" class="headerlink" title="注意：如果以上遇到nvm和nodejs的命令安装不成功的话，请使用各自官网的MAC OS X的Installer"></a>注意：如果以上遇到nvm和nodejs的命令安装不成功的话，请使用各自官网的MAC OS X的Installer</h3><h4 id="1-新建一个github的repository，名称必须后缀为-github-io"><a href="#1-新建一个github的repository，名称必须后缀为-github-io" class="headerlink" title="1.新建一个github的repository，名称必须后缀为.github.io"></a>1.新建一个github的repository，名称必须后缀为.github.io</h4><p>   例如：  victorzhang2014.github.io 名称必须和自己的github账户名相同</p>
+<h4 id="2-安装hexo必要的组件-全局安装，加-g参数"><a href="#2-安装hexo必要的组件-全局安装，加-g参数" class="headerlink" title="2.安装hexo必要的组件  全局安装，加-g参数"></a>2.安装hexo必要的组件  全局安装，加-g参数</h4>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-cli -g</span><br><span class="line">sudo npm install hexo --save   # 或者 sudo npm install -g hexo</span><br><span class="line">sudo npm install hexo-deployer-git -save    # hexo发布时使用的命令</span><br><span class="line">sudo npm install hexo-server --save         # hexo调试时的本地server</span><br></pre></td></tr></table></figure>
+<h4 id="3-新建一个hexo文件夹"><a href="#3-新建一个hexo文件夹" class="headerlink" title="3.新建一个hexo文件夹"></a>3.新建一个hexo文件夹</h4>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init victorzhang</span><br></pre></td></tr></table></figure>
+<p>hexo会在victorzhang目录下新建hexo所需要的文件</p>
+<p>   依次执行以下命令<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-renderer-ejs --save</span><br><span class="line">npm install hexo-renderer-stylus --save</span><br><span class="line">npm install hexo-renderer-marked --save</span><br></pre></td></tr></table></figure></p>
+<p>   主题的切换，hexo默认的主题的landscape, 也可以不需要下载jacman主题风格<br>   主题网站：  <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a><br>   找一个喜欢的，先clone到themes目录下，然后在_config.yml文件改下theme: 你指定的主题名称<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/duanhjlt/jacman.git themes/jacman</span><br></pre></td></tr></table></figure></p>
+<p>   在_config.yml的配置文件中修改配置如下<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: jacman</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-启动服务，可以在本地预览了"><a href="#4-启动服务，可以在本地预览了" class="headerlink" title="4.启动服务，可以在本地预览了"></a>4.启动服务，可以在本地预览了</h4>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<h4 id="5-新建文件"><a href="#5-新建文件" class="headerlink" title="5.新建文件"></a>5.新建文件</h4><p>   先停止本地运行的server<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new “hello world“</span><br></pre></td></tr></table></figure></p>
+<p>  会生成一个文件，然后编辑文件</p>
+<h4 id="6-生成静态文件"><a href="#6-生成静态文件" class="headerlink" title="6.生成静态文件"></a>6.生成静态文件</h4>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo  generate</span><br></pre></td></tr></table></figure>
+<h4 id="7-配置-config-yml文件"><a href="#7-配置-config-yml文件" class="headerlink" title="7.配置_config.yml文件"></a>7.配置_config.yml文件</h4><p>   拖到最后，例如下面：<br>   注意：冒号后面一定要有一个空格，否则不生效<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type:git</span><br><span class="line">  repository:git@github.com:VictorZhang2014/victorzhang.github.io.git</span><br><span class="line">  branch:master</span><br></pre></td></tr></table></figure></p>
+<p>一定要先配置好ssh访问github<br>如果不想使用SSH配置，当然也可以配置https访问，<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https://github.com/VictorZhang2014/victorzhang2014.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
+<h4 id="8-安装hexo-deployer-git"><a href="#8-安装hexo-deployer-git" class="headerlink" title="8.安装hexo-deployer-git"></a>8.安装hexo-deployer-git</h4><p>   第一次使用需要安装<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git —save</span><br></pre></td></tr></table></figure></p>
+<h4 id="9-发布"><a href="#9-发布" class="headerlink" title="9.发布"></a>9.发布</h4> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p> 它会自动把本地文件上传到github上</p>
+<h4 id="10-可以成功预览了"><a href="#10-可以成功预览了" class="headerlink" title="10.可以成功预览了"></a>10.可以成功预览了</h4><p>  <a href="https://victorzhang2014.github.io">https://victorzhang2014.github.io</a></p>
+<h4 id="11-如果需要绑定自己的申请的域名和hexo站点文件，需要建立一个CNAME文件在public目录下"><a href="#11-如果需要绑定自己的申请的域名和hexo站点文件，需要建立一个CNAME文件在public目录下" class="headerlink" title="11.如果需要绑定自己的申请的域名和hexo站点文件，需要建立一个CNAME文件在public目录下"></a>11.如果需要绑定自己的申请的域名和hexo站点文件，需要建立一个CNAME文件在public目录下</h4>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo  &gt; public/CNAME</span><br></pre></td></tr></table></figure>
+<p>  CNAME内容是，例如：(以下是我个人的网站域名，读者请换成自己申请的域名)<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">www.googleplus.party</span><br><span class="line">googleplus.party</span><br><span class="line">blog.googleplus.party</span><br></pre></td></tr></table></figure></p>
+<h4 id="12-文章分类"><a href="#12-文章分类" class="headerlink" title="12.文章分类"></a>12.文章分类</h4><p>在主题的目录里的<code>_config.yml</code>文件里，添加你想要的<code>categories</code>，如：我想添加一个<code>Life</code>，那么它的路径就应该是<code>/categories/Life/</code>，此时如果直接在浏览器上预览这个地址，肯定报错，找不到，所以，我们需要新建文章，并且在文章的开头地方加上<code>categories: Life</code>，然后重新运行项目，即可看到分类文章了</p>
+<p>常用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo new   文章名称 #新建文章</span><br><span class="line">hexo new page  页面名称 #新建页面</span><br><span class="line">hexo generate  #生成静态页面至public目录</span><br><span class="line">hexo server   #开启本地预览访问端口</span><br><span class="line">hexo deploy  #发布到github上</span><br><span class="line">hexo help  #查看帮助</span><br><span class="line">hexo version #查看hexo版本号</span><br></pre></td></tr></table></figure></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>RSA Example in iOS/C#</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="RSA Example in iOS/C#"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        RSA Example in iOS/C#
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-03-31T10:39:55.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-03-31
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/RSA-Cryptography/">RSA, Cryptography</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h1 id="RSA-Cryptography"><a href="#RSA-Cryptography" class="headerlink" title="RSA Cryptography"></a>RSA Cryptography</h1><p>A set of RSA Cryptographic ways to your project in iOS/C#<br><a href="https://github.com/VictorZhang2014/ZRCryptographyOC" target="_blank" rel="noopener">ZRCryptographyOC</a></p>
+<h2 id="RSA-Overview"><a href="#RSA-Overview" class="headerlink" title="RSA Overview"></a>RSA Overview</h2><p>RSA is an algorithm used by modern computers to encrypt and decrypt messages. It is an asymetric cryptographic algorithm. Asymetric means that there are two different keys. This is also called public key cryptography, because one of them can be given to everyone. The other key must be kept private. It is based on the fact that finding the factors of an integer is hard(the factoring problem). RSA stands for Ron Rivest, Adi Shamir and Leonard Adleman, who first publicly described it in 1978. A user of RSA creates and then publishes the product of two large prime numbers, along with an auxiliary value, as their public key. The prime factors must be kept secret. Anyone can use the public key to encrypt a message, but with currently published methods, if the public key is large enough, only someone with knowledge of the prime factors can feasibly decode the message.</p>
+<p><a href="https://simple.wikipedia.org/wiki/RSA_(algorithm" target="_blank" rel="noopener">See more infomation</a>)</p>
+<h4 id="Please-Note"><a href="#Please-Note" class="headerlink" title="Please Note"></a>Please Note</h4><blockquote>
+<p>The public key to encrypt messages, after encrypted, it must be encoded by base 64.<br>The private key to decrypt messages, before decrypting, it must be decoded by base 64.</p>
+</blockquote>
+<h2 id="How-do-I-create-a-public-key-and-a-private-key-See-blow"><a href="#How-do-I-create-a-public-key-and-a-private-key-See-blow" class="headerlink" title="How do I create a public key and a private key? See blow."></a>How do I create a public key and a private key? See blow.</h2><p>First of all, open up the Terminal in your MAC.</p>
+<p>1.Generates a private key certificate with extension .pem<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; openssl genrsa -out private_key.pem 1024</span><br></pre></td></tr></table></figure></p>
+<p>2.Generates a certificate file with extension .csr<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; openssl req -new -key private_key.pem -out rsaCertReq.csr</span><br></pre></td></tr></table></figure></p>
+<p>Then, you have to enter extra information by the hint on the terminal of your MAC.</p>
+<p>3.Generates a certificate file with extension .crt using by x509<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; openssl x509 -req -days 3650 -in rsaCertReq.csr -signkey private_key.pem -out rsaCert.crt</span><br></pre></td></tr></table></figure></p>
+<p>4.Generates a public key certificate with extension .der<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; openssl x509 -outform der -in rsaCert.crt -out public_key.der</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>Generates a private key certificate with extension .p12, it will be entered password by the hint<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; openssl pkcs12 -export -out private_key.p12 -inkey private_key.pem -in rsaCert.crt</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>So, we have a public key certificate <code>public_key.der</code> and a private key certificate <code>private_key.p12</code>.</p>
+<h2 id="How-do-I-use-these-two-certificate-See-below"><a href="#How-do-I-use-these-two-certificate-See-below" class="headerlink" title="How do I use these two certificate? See below."></a>How do I use these two certificate? See below.</h2><p>The code was written in Objective-C in iOS client.<br>1.Invokes by main function</p>
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+
+//Download here https://github.com/VictorZhang2014/ZRCryptographyOC
+#import &lt;ZRCryptographyOC/ZRCryptographyOC.h&gt;
+
+/**************** The following methods are decryption/encryption by using a certificate   ****************/
+NSString * EncryptoString(NSString *inputStr)
+{
+    ZRCryptographyOC *rsa = [[ZRCryptographyOC alloc] init];
+
+    //Load your public Key file
+    [rsa loadPublicKeyFromFile:@&quot;/Your bundle path/public_key.der&quot;];
+
+    //encrypt
+    return [rsa rsaEncryptString:inputStr];
+}
+
+NSString *DecryptoString(NSString *secureText)
+{
+    ZRCryptographyOC *rsa = [[ZRCryptographyOC alloc] init];
+
+    //Load your private key file
+    [rsa loadPrivateKeyFromFile:@&quot;/Your bundle path/private_key.p12&quot; password:@&quot;123456&quot;];
+
+    //decrypt
+    return [rsa rsaDecryptString:secureText];
+}
+
+void TestRSACryptography()
+{
+    NSLog(@&quot;\n\n\n\n\n&quot;);
+
+    //1.Encrypt String
+    NSString *hello = @&quot;RSA is an algorithm used by modern computers to encrypt and decrypt messages. It is an asymmetric cryptographic algorithm. Asymmetric means that there are two different keys. This is also called public key cryptography, because one of them can be given to everyone. The other key must be kept private. It is based on the fact that finding the factors of an integer is hard (the factoring problem). RSA stands for Ron Rivest, Adi Shamir and Leonard Adleman, who first publicly described it in 1978. A user of RSA creates and then publishes the product of two large prime numbers, along with an auxiliary value, as their public key. The prime factors must be kept secret. Anyone can use the public key to encrypt a message, but with currently published methods, if the public key is large enough, only someone with knowledge of the prime factors can feasibly decode the message.&quot;;
+
+    NSString *secureHello = EncryptoString(hello);
+    NSLog(@&quot;Cipher Data : %@ \n&quot;, secureHello);
+
+    //2.Decrypt String
+    NSString *decryptStr = DecryptoString(secureHello);
+    NSLog(@&quot;Decrypted Data: %@&quot;, decryptStr);
+}
+</code></pre><h4 id="A-best-lib-for-encrytion-and-decryption"><a href="#A-best-lib-for-encrytion-and-decryption" class="headerlink" title="A best lib for encrytion and decryption"></a>A best lib for encrytion and decryption</h4><p><a href="https://github.com/VictorZhang2014/ZRCryptographyOC" target="_blank" rel="noopener">ZRCryptographyOC</a></p>
+<h2 id="But-how-interact-among-iOS-client-and-C-Server"><a href="#But-how-interact-among-iOS-client-and-C-Server" class="headerlink" title="But how interact among iOS client and C# Server?"></a>But how interact among iOS client and C# Server?</h2><p>There are several ways that I show you.<br>1.Client has public key;<br>2.Server has private key, and server can get public key in terms of private key;<br>3.Client send data (which will encrypt by public key) to server.<br>4.Server receive data and decrypt it by private key; And server identifies whether the data is trusted from client, if yes, then sends its private key to client, if not, refuses respond;<br>5.If the client is trusted and it receives private key; Next time, server sends data to client that can decrypt by the private key.</p>
+<h2 id="Please-Note-1"><a href="#Please-Note-1" class="headerlink" title="Please Note"></a>Please Note</h2><blockquote>
+<p>If you have any problem about this, commits or suggests below. Thank you for reading.</p>
+</blockquote>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

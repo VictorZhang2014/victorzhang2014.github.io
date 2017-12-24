@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>iOS瀑布流</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="iOS瀑布流"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        iOS瀑布流
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-11-11T10:33:36.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-11-11
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/瀑布流-UICollectionView/">瀑布流, UICollectionView</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p><img src="/img/iOS/autolayout/WaterFallFlowLayout_1.jpg" alt="" width="300" height="500"><img src="/img/iOS/autolayout/WaterFallFlowLayout_2.jpg" alt="" width="300" height="500"><br><a href="https://github.com/VictorZhang2014/WaterFallFlowLayout" target="_blank">Demo地址</a></p>
+<h2 id="一、实现方式"><a href="#一、实现方式" class="headerlink" title="一、实现方式"></a>一、实现方式</h2><ul>
+<li>1.<code>UIScrollView</code>        重点：<code>视图重用</code></li>
+<li>2.<code>UITableView</code>         重点：<code>滑动同步</code></li>
+<li>3.<code>UICollectionView</code>    重点：<code>布局</code></li>
+</ul>
+<h2 id="二、实现代码"><a href="#二、实现代码" class="headerlink" title="二、实现代码"></a>二、实现代码</h2><p>本文以<code>UICollectionView</code>作为讲解，要做成<code>瀑布流</code>的效果，其实很简单；基本分为三个步骤</p>
+<ul>
+<li>1.创建一个基本的<code>UICollectionView</code>，但是cell的大小不一致</li>
+<li>2.自定义一个类派生自<code>UICollectionViewFlowLayout</code></li>
+<li>3.在自定义的的flowLayout类里，实现：<ul>
+<li>3.1 获取<code>UICollectionView</code>的所有cell</li>
+<li>3.2 对所有的<code>cell</code>重新计算<code>frame</code></li>
+<li>3.3 将重新计算的<code>frame</code>赋值给<code>cell</code></li>
+</ul>
+</li>
+</ul>
+<p>代码1，创建<code>UICollectionView</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    WaterFallFlowLayout *flowLayout = [[WaterFallFlowLayout alloc] init];</span><br><span class="line">    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];</span><br><span class="line">    self.collectionView.backgroundColor = [UIColor yellowColor];</span><br><span class="line">    self.collectionView.delegate = self;</span><br><span class="line">    self.collectionView.dataSource = self;</span><br><span class="line">    //注册单元格</span><br><span class="line">    [self.collectionView registerClass:[WaterFallCollectionViewCell class] forCellWithReuseIdentifier:identifier];</span><br><span class="line">    [self.view addSubview:self.collectionView];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - UICollectionView dataSource</span><br><span class="line">- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section&#123;</span><br><span class="line">    return self.imgArr.count;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath&#123;</span><br><span class="line">    WaterFallCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];</span><br><span class="line">    if (!cell) &#123;</span><br><span class="line">        cell = [[WaterFallCollectionViewCell alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line">    cell.image = self.imgArr[indexPath.item];</span><br><span class="line">    return cell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (float)imgHeight:(float)height width:(float)width&#123;</span><br><span class="line">    /*</span><br><span class="line">        高度/宽度 = 压缩后高度/压缩后宽度（100）</span><br><span class="line">     */</span><br><span class="line">    float newHeight = height / width * 100;</span><br><span class="line">    return newHeight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#pragma mark - UICollectionView delegate flowLayout</span><br><span class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath&#123;</span><br><span class="line">    UIImage *image = self.imgArr[indexPath.item];</span><br><span class="line">    float height = [self imgHeight:image.size.height width:image.size.width];</span><br><span class="line">    return CGSizeMake(100, height);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section&#123;</span><br><span class="line">    CGFloat margin = (self.view.frame.size.width - 100 * 3) / 4;</span><br><span class="line">    UIEdgeInsets edgeInsets = &#123;margin,margin,margin,margin&#125;;</span><br><span class="line">    return edgeInsets;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>自定义一个类派生自<code>UICollectionViewFlowLayout</code>，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line">@interface WaterFallFlowLayout()</span><br><span class="line"></span><br><span class="line">@property (nonatomic, weak) id&lt;UICollectionViewDelegateFlowLayout&gt; delegate;</span><br><span class="line">@property (nonatomic, assign) NSInteger cellCount;//cell的个数</span><br><span class="line">@property (nonatomic, strong) NSMutableArray&lt;NSNumber *&gt; *colArr;//存放列的高度</span><br><span class="line">@property (nonatomic, strong) NSMutableDictionary&lt;NSString *, NSIndexPath *&gt; *attributeDict;//存放cell的位置信息</span><br><span class="line">@property (nonatomic, assign) int colCount;//cell共有几列</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation WaterFallFlowLayout</span><br><span class="line"></span><br><span class="line">//1.准备布局：</span><br><span class="line">//  1.1 得到cell的总个数，</span><br><span class="line">//  1.2 为每个cell确定自己的frame位置</span><br><span class="line">- (void)prepareLayout&#123;</span><br><span class="line">    [super prepareLayout];</span><br><span class="line">    </span><br><span class="line">    _colCount = 3;</span><br><span class="line">    _colArr = [NSMutableArray&lt;NSNumber *&gt; array];</span><br><span class="line">    _attributeDict = [NSMutableDictionary&lt;NSString *, NSIndexPath *&gt; dictionary];</span><br><span class="line">    self.delegate = (id&lt;UICollectionViewDelegateFlowLayout&gt;)self.collectionView.delegate;</span><br><span class="line">    </span><br><span class="line">   //获取cell的总个数</span><br><span class="line">    _cellCount = [self.collectionView numberOfItemsInSection:0];</span><br><span class="line">    if (_cellCount == 0) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //假设一开始cell的列的高度都等于0</span><br><span class="line">    for (int i = 0; i &lt; _colCount; i++) &#123;</span><br><span class="line">        [_colArr addObject:[NSNumber numberWithFloat:0]];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //循环调用layoutItemAtIndexPath方法，为每个cell布局，将indexPath传入，作为布局字典的key</span><br><span class="line">    //layoutAttributesForItemAtIndexPath方法的实现，这里用到了一个布局字典，其实就是将每个cell的位置信息与indexPath相对应，将它们放到字典中，方便后面视图的检索</span><br><span class="line">    for (int i = 0; i &lt; _cellCount; i++) &#123;</span><br><span class="line">        [self layoutItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//此方法会多次调用，为每个cell布局</span><br><span class="line">- (void)layoutItemAtIndexPath:(NSIndexPath *)indexPath&#123;</span><br><span class="line">    //通过协议得到cell的间隙</span><br><span class="line">    UIEdgeInsets edgeInsets = [self.delegate collectionView:self.collectionView layout:self insetForSectionAtIndex:indexPath.row];</span><br><span class="line">    </span><br><span class="line">    //得到每个cell的size</span><br><span class="line">    CGSize itemSize = [self.delegate collectionView:self.collectionView layout:self sizeForItemAtIndexPath:indexPath];</span><br><span class="line">    </span><br><span class="line">    float col = 0;</span><br><span class="line">    float shortHeight = [[_colArr objectAtIndex:col] floatValue];</span><br><span class="line">    </span><br><span class="line">    //找出高度最小的列，将cell加到最小列中</span><br><span class="line">    for (int i = 0; i &lt; _colArr.count; i++) &#123;</span><br><span class="line">        float height = [[_colArr objectAtIndex:i] floatValue];</span><br><span class="line">        if (height &lt; shortHeight) &#123;</span><br><span class="line">            shortHeight = height;</span><br><span class="line">            col = i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    float top = [[_colArr objectAtIndex:col] floatValue];</span><br><span class="line">    //确定cell的最终frame</span><br><span class="line">    CGRect frame = CGRectMake(edgeInsets.left + col * (edgeInsets.left + itemSize.width), top + edgeInsets.top, itemSize.width, itemSize.height);</span><br><span class="line">    </span><br><span class="line">    //将列高加入到数组里</span><br><span class="line">    [_colArr replaceObjectAtIndex:col withObject:[NSNumber numberWithFloat:top + edgeInsets.top + itemSize.height]];</span><br><span class="line">    </span><br><span class="line">    //将每个cell的frame对应一个indexPath，加入到字典中</span><br><span class="line">    [_attributeDict setObject:indexPath forKey:NSStringFromCGRect(frame)];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//返回cell的布局信息，如果忽略传入的rect一次性将所有的cell布局信息返回，图片过多时性能会很差</span><br><span class="line">- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect&#123;</span><br><span class="line">    NSMutableArray *muArr = [NSMutableArray array];</span><br><span class="line">    //indexPathsOfItem方法，根据传入的frame值计算当前应该显示的cell</span><br><span class="line">    NSArray *indexPaths = [self indexPathsOfItem:rect];</span><br><span class="line">    for (NSIndexPath *indexPath in indexPaths) &#123;</span><br><span class="line">        UICollectionViewLayoutAttributes *attribute = [self layoutAttributesForItemAtIndexPath:indexPath];</span><br><span class="line">        [muArr addObject:attribute];</span><br><span class="line">    &#125;</span><br><span class="line">    return muArr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//为每个cell布局完毕后，需要实现这个方法， 传入frame，返回的时cell的信息</span><br><span class="line">//传入当前可见cell的rect，视图滑动时调用</span><br><span class="line">- (NSArray *)indexPathsOfItem:(CGRect)rect&#123;</span><br><span class="line">    //遍历布局字典通过CGRectIntersectsRect方法确定每个cell的rect与传入的rect是否有交集，如果结果为true，则此cell应该显示，将布局字典中对应的indexPath加入数组</span><br><span class="line">    NSMutableArray *array = [NSMutableArray array];</span><br><span class="line">    for (NSString *rectStr in _attributeDict) &#123;</span><br><span class="line">        CGRect cellRect = CGRectFromString(rectStr);</span><br><span class="line">        if (CGRectIntersectsRect(cellRect, rect)) &#123;</span><br><span class="line">            NSIndexPath *indexPath = _attributeDict[rectStr];</span><br><span class="line">            [array addObject:indexPath];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return array;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//把重新计算的frame赋值给cell</span><br><span class="line">- (UICollectionViewLayoutAttributes*)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath&#123;</span><br><span class="line">    UICollectionViewLayoutAttributes *attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];</span><br><span class="line">    for (NSString *rectStr in _attributeDict) &#123;</span><br><span class="line">        if ([indexPath compare:_attributeDict[rectStr]] == NSOrderedSame) &#123;</span><br><span class="line">            attributes.frame = CGRectFromString(rectStr);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return attributes;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//最后还要实现这个方法，返回collectionView内容的大小</span><br><span class="line">//只需要遍历前面创建的存放列高的数组得到列最高的一个作为高度返回就可以了</span><br><span class="line">- (CGSize)collectionViewContentSize&#123;</span><br><span class="line">    CGSize size = self.collectionView.frame.size;</span><br><span class="line">    float maxHeight = [[_colArr objectAtIndex:0] floatValue];</span><br><span class="line">    //查找最高的列的高度</span><br><span class="line">    for (int i = 0; i &lt; _colArr.count; i++) &#123;</span><br><span class="line">        float colHeight = [[_colArr objectAtIndex:i] floatValue];</span><br><span class="line">        if (colHeight &gt; maxHeight) &#123;</span><br><span class="line">            maxHeight = colHeight;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    size.height = maxHeight;</span><br><span class="line">    return size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/VictorZhang2014/WaterFallFlowLayout" target="_blank">Demo地址</a></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

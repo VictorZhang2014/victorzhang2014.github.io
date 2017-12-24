@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>优先级反转</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="优先级反转"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        优先级反转
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-17T10:59:23.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-17
+</time>
+
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/优先级反转-Priority-Inversion/">优先级反转, Priority Inversion</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>优先级反转</code> 英文名叫做 <code>Priority Inversion</code>，一句话概括它的意思：<code>低优先级任务要比高优先级任务先执行</code>。</p>
+<p>先明白一些背景知识</p>
+<ul>
+<li>1.操作系统是<code>多任务</code>的</li>
+<li>2.任务之间谁都可以得到执行，是通过<code>任务调度</code>来完成</li>
+<li>3.任务<code>调度</code>有多种<code>算法</code>，常见的有：<ul>
+<li><code>罗宾环</code>调度算法：Round-robin scheduling algorithm</li>
+<li>基于<code>优先级</code>的调度算法：Priority-controlled scheduling algorithm</li>
+</ul>
+</li>
+<li>4.一般<code>操作系统</code>用的就是<code>优先级</code>调度<code>算法</code>，根据优先级别高低去调度，也就是优先级高的先执行，优先级低的后执行；<ul>
+<li>任务<code>调度器</code>，总是<code>先</code>去<code>激活</code>所有任务中<code>优先级</code>别<code>最高</code>的<code>任务</code>，且<code>该任务</code>处于<code>就绪状态</code>，然后让它<code>执行</code></li>
+<li>任务有<code>多种状态</code>：<code>就绪</code>，<code>挂起</code>，<code>执行</code>等；常见的如：需要某种<code>资源</code>时<code>被</code>别的任务<code>占用</code>了，那么<code>当前</code>任务就不得不<code>挂起</code>，<code>先让</code>被<code>占用资源</code>的<code>任务</code>执行</li>
+</ul>
+</li>
+<li>5.任务一般被称为：<code>进程</code>，或者粒度更小的<code>线程</code></li>
+</ul>
+<p><br></p>
+<h2 id="详细解释下为什么"><a href="#详细解释下为什么" class="headerlink" title="详细解释下为什么"></a>详细解释下为什么</h2><p>假设有以下条件</p>
+<ul>
+<li>1.<code>任务A</code> （低优先级）</li>
+<li>2.<code>任务B</code> （中优先级）</li>
+<li>3.<code>任务C</code> （高优先级）</li>
+<li>4.<code>资源</code> </li>
+</ul>
+<p><strong> 步骤 </strong></p>
+<ul>
+<li>1.<code>已知</code>任务<code>调度器</code>总是去<code>激活</code>所有任务中<code>优先级最高</code>的，且处于<code>就绪状态</code>的任务，去执行；但是当某个<code>最高优先级</code>的<code>任务A</code>，由于其所需要的<code>某个资源</code>被低优先级任务C所<code>占用</code>，而且还<code>没有释放</code>，那么高优先级<code>任务A</code>就<code>被阻塞</code>了。</li>
+<li>2.按照<code>调度规则</code>：<ul>
+<li>此<code>高</code>优先级<code>任务A</code>，必须<code>等</code>到低优先级<code>任务C</code>把自己占用的<code>资源释放</code>后，才能<code>继续</code>运行；</li>
+<li>但是要等到低优先级<code>任务C释放</code>其所占用的<code>资源</code>的话，则很明显，必须要让低优先级<code>任务C</code> <code>先去执行</code>，然后等低优先级<code>任务C</code>执行完毕并<code>释放资源</code>后，高优先级<code>任务A</code>就能<code>得</code>到的那个<code>资源</code>了；</li>
+<li>但是，<code>问题</code>就是：在高优先级<code>任务A</code>执行的这段时间内，某个<code>中优先级任务B</code>已经处于<code>就绪状态</code>了，所以当高优先级<code>任务A</code>，由于所需要的资源被占用而<code>挂起</code>，然后中优先级<code>任务B</code>，由于比低优先级<code>任务C</code>的优先级<code>高</code>，所以<code>被调度执行</code>，然后中优先级任务B就一直执行，知道结束。</li>
+</ul>
+</li>
+<li>3.这种情况就是：一个<code>中等</code>优先级<code>任务B</code>，却<code>比</code>一个<code>高更优先级</code>的<code>任务A</code> <code>先执行</code>，这就叫做<code>优先级反转</code></li>
+</ul>
+<p><img src="/img/iOS/thread/priority-inversion-graphic-explanation_thumb.png" alt="Priority Inversion"></p>
+<p><br><br>问题：<br>本来应该是优先级最高的任务A先执行的，结果却变成了，比高优先级任务A要低一些的中优先级任务B先执行了。<br>优先级反转如名字一样，就是他们的优先级别互换了一下（反转了一下）。</p>
+<p>有的朋友会问了，反转就反转了呗😄，有什么大不了的，程序还不是照样运行吗？</p>
+<p><br></p>
+<h2 id="优先级反转的有和危害"><a href="#优先级反转的有和危害" class="headerlink" title="优先级反转的有和危害"></a>优先级反转的有和危害</h2><p>实话说，当我刚学习计算机的时候，对计算机的概念都真的只是个概念，背后的技术和逻辑学的也是云里云雾的，而慢慢的成长，就会发现以前不理解的知识，现在看起来很重要很重要，而且也容易理解些了。</p>
+<p>对于实时系统，最重要的指标就是：确保任务执行时间是可预测的，即涉及到最后时间点等<br>比如：<br>要确保，某个时刻在执行某个任务，都不能超过某个时间等</p>
+<h3 id="危害一"><a href="#危害一" class="headerlink" title="危害一"></a>危害一</h3><ul>
+<li>由于优先级反转，造成任务调度时，时间的不确定性。<ul>
+<li>时间的不确定，破坏了实时系统的实时性<ul>
+<li>严重时可能导致系统崩溃</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="危害二"><a href="#危害二" class="headerlink" title="危害二"></a>危害二</h3><ul>
+<li>由于本身基于优先级设计的任务，每个优先级不同的任务，往往都对应着实际的现实中执行的任务<ul>
+<li>由于优先级反转，导致了低优先级比高优先级先执行了<ul>
+<li>直接导致任务错乱，逻辑错乱了<ul>
+<li>程序可能也就异常了<ul>
+<li>数据可能也会错误的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="现实中最有名也是第一例"><a href="#现实中最有名也是第一例" class="headerlink" title="现实中最有名也是第一例"></a>现实中最有名也是第一例</h2><p>当年的火星探路者号（Mars Pathfinder）就由于优先级反转问题而导致火星探路者号内部程序的执行逻辑出错。<br>在1997年7月4号发射后，在开始搜集气象数据之后没几天，系统就（无故）重启了。<br>后来，被相关技术人员找到了问题根源，就是优先级反转所导致的，然后他们就发送了一个简单的C程序到火星探路者上，以修复。<br>可以看这里：<a href="http://blog.jobbole.com/42802/" target="_blank" rel="noopener">http://blog.jobbole.com/42802/</a></p>
+<p><br></p>
+<h2 id="如何解决或避免优先级反转的问题了？"><a href="#如何解决或避免优先级反转的问题了？" class="headerlink" title="如何解决或避免优先级反转的问题了？"></a>如何解决或避免优先级反转的问题了？</h2><p>既然危害那么大，也发生了那么多年，肯定早就解决了。<br>解决方法就是：</p>
+<ul>
+<li><code>对于占了高优先级任务A的某种所需资源的低优先级任务C，赋予给低优先级任务C和高优先级任务A相同的优先级</code>;</li>
+<li>所以执行顺序就是 高优先级任务A执行时被阻塞了 -&gt; 执行高优先级任务C（原来是低优先级） -&gt; 执行剩下的任务A -&gt; 执行中优先级的任务B</li>
+</ul>
+<p>看图<br><img src="/img/iOS/thread/priority-inheritence-to-priority-inversion-be_soluted.png" alt="Priority Inversion being Soluted"><br>仔细对比这张图和上一张图的区别，<code>Priority Inheritance （优先级继承）</code></p>
+<p><br></p>
+<h2 id="Priority-Celling（最高优先级）"><a href="#Priority-Celling（最高优先级）" class="headerlink" title="Priority Celling（最高优先级）"></a>Priority Celling（最高优先级）</h2><p>由于临界区，mutex（互斥）了公用的资源部分，则赋予相同优先级。<br>由此，凡是想要用到临界区的资源的任务，要在进入临界区之前，都要将临界区的优先级赋予给该任务，从而使得该任务有了相同的优先级而不被打断，才可以保持继续运行，直到用过资源后，退出临界区，这样就避免了，被高优先级A发现某资源被低优先级C占用之类的问题了。</p>
+<p>好了，就说到这里，相信读者应该很清晰明白了<code>优先级反转</code>的原因和解决方案了吧。😄</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>Protocol Buffer</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="Protocol Buffer"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Protocol Buffer
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-18T14:52:27.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-18
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Protocol-Buffers-protobuff/">Protocol Buffers, protobuff</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>1.<a href="#introduction">介绍</a></li>
+<li>2.<a href="#downloadAndInstallation">下载与安装</a></li>
+<li>3.<a href="#examplePython">实例说明（Python代码）</a></li>
+<li>4.<a href="#exampleOC">实例说明（Objective-C代码）</a></li>
+<li>5.<a href="#explanationProtoFile">文件.proto的解释</a></li>
+</ul>
+<p><br></p>
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a><span id="introduction"></span>1.介绍</h2><p><a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">Protocol Buffer</a>，简单来说，就是一种数据交换格式，就像<code>JSON</code>和<code>XML</code>作用一样，只不过<a href="https://developers.google.com/protocol-buffers/docs/overview" target="_blank" rel="noopener">Protocol Buffer</a>是Google开源的一套二进制流网络传输协议，它独立于语言，独立于平台；而且它的性能、速度等非常优越于<code>JSON</code>和<code>XML</code>。google 提供了多种语言的实现：objective-c, swift,java、c#、c++、Go 和Python等，每一种实现都包含了相应语言的编译器以及库文件。由于它是一种二进制的格式，比使用 xml 进行数据交换快许多。可以把它用于分布式应用之间的数据通信或者异构环境下的数据交换。作为一种效率和兼容性都很优秀的二进制数据传输格式，可以用于诸如网络传输、配置文件、数据存储等诸多领域。</p>
+<p>对于XML来说，<code>Protocol Buffers</code>有太多优点了，尤其是针对序列化结构数据。优点：</p>
+<ul>
+<li>更简单</li>
+<li>小到3-10倍</li>
+<li>快到20-100倍</li>
+<li>相当少的歧义</li>
+<li>文档型协议</li>
+<li>T-L-V的数据存储方式 Tag-Length-Value</li>
+</ul>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p><code>protobuf</code>目前有两个版本<code>proto2</code>和<code>proto3</code>。这两个版本的语法并不是完全兼容的，所以为了避免使用时的麻烦，请仔细阅读<a href="https://developers.google.com/protocol-buffers/docs/proto" target="_blank">proto2</a>和<a href="https://developers.google.com/protocol-buffers/docs/proto3" target="_blank">proto3</a>的语法。</p>
+<p><br></p>
+<h2 id="2-下载与安装"><a href="#2-下载与安装" class="headerlink" title="2.下载与安装"></a><span id="downloadAndInstallation"></span>2.下载与安装</h2><p>我的环境：macOS Sierra Version 10.12.6</p>
+<ul>
+<li>1.<a href="https://github.com/google/protobuf/releases/tag/v3.4.1" target="_blank">下载</a>最新版本的ProtoBuff (我下载的是v3.4.1)。下载完后，解压压缩包。<code>注意</code>：解压后里面的<code>objectivec目录</code>是给<code>iOS</code>和<code>macOS</code>专用</li>
+<li>2.然后依次键入以下命令进行安装，以下的每个命令都可能或占用几分钟时间，请耐心等待下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$&gt; cd protobuf-3.4.1/</span><br><span class="line">$&gt; ./configure</span><br><span class="line">$&gt; make</span><br><span class="line">$&gt; make check</span><br><span class="line">$&gt; make install</span><br><span class="line"></span><br><span class="line">// 当输入此步骤时，如果正常输出版本号信息，就表示安装正确了</span><br><span class="line">$&gt; protoc --version</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><br></p>
+<h2 id="Python的使用命令"><a href="#Python的使用命令" class="headerlink" title="Python的使用命令"></a>Python的使用命令</h2><p><a href="https://developers.google.com/protocol-buffers/docs/pythontutorial" target="_blank">Python教程</a><br>编译一个<code>.proto</code>文件，命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//$SRC_DIR 为源文件目录</span><br><span class="line">//$DST_DIR 为目标文件目录</span><br><span class="line">protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto</span><br></pre></td></tr></table></figure></p>
+<p>然后，你就会看到后缀为：<code>_pb2.py</code>的文件在你指定的目录下。</p>
+<p><br></p>
+<h2 id="Objective-C的使用命令"><a href="#Objective-C的使用命令" class="headerlink" title="Objective-C的使用命令"></a>Objective-C的使用命令</h2><p><a href="https://developers.google.com/protocol-buffers/docs/reference/objective-c-generated" target="_blank">Objective-C教程</a><br>编译一个<code>.proto</code>文件，命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//$SRC_DIR 为源文件目录</span><br><span class="line">//$DST_DIR 为目标文件目录</span><br><span class="line">protoc --proto_path=$SRC_DIR --objc_out=$DST_DIR $SRC_DIR/addressbook.proto</span><br></pre></td></tr></table></figure></p>
+<p>然后，你就会看到后缀为：<code>.pbobjc.h</code>和<code>.pbobjc.m</code>的文件在你指定的目录下。</p>
+<p><br><br><br></p>
+<p>==========================================================================================</p>
+<h2 id="3-实例说明（Python代码）"><a href="#3-实例说明（Python代码）" class="headerlink" title="3.实例说明（Python代码）"></a><span id="examplePython"></span>3.实例说明（Python代码）</h2><p>我们先展示一段服务器和客户端通信的代码，使用TCP/IP协议。通常的代码，简化如下：<br><strong>服务器端</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">#  coding:utf-8</span><br><span class="line"></span><br><span class="line">from socket import *</span><br><span class="line"></span><br><span class="line">_HOST = &apos;127.0.0.1&apos;</span><br><span class="line">_PORT = 21567</span><br><span class="line">_BUFSIZE = 4096</span><br><span class="line">_ADDR = (_HOST, _PORT)</span><br><span class="line"></span><br><span class="line"># 创建socket -&gt; 地址绑定 -&gt; 监听客户端</span><br><span class="line">_tcpSerSock = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">_tcpSerSock.bind(_ADDR)</span><br><span class="line">_tcpSerSock.listen(5)</span><br><span class="line"></span><br><span class="line"># 这里就假设只连接上一个客户端</span><br><span class="line">print &quot;Waiting for connection...&quot;</span><br><span class="line">_tcpCliSock, _cliAddr = _tcpSerSock.accept()</span><br><span class="line">print &quot;connected from :&quot;, _cliAddr</span><br><span class="line"></span><br><span class="line"># 然后向该客户端写入数据</span><br><span class="line">_tcpCliSock.send(&apos;hello, client&apos;)</span><br><span class="line"></span><br><span class="line">_cliData = _tcpCliSock.recv(_BUFSIZE)</span><br><span class="line">print &quot;服务器端收到数据为: &quot;, _cliData</span><br><span class="line"></span><br><span class="line"># 把客户端连接断开</span><br><span class="line">_tcpCliSock.close()</span><br><span class="line">print &quot;Coerce closed client connection.&quot;</span><br><span class="line"></span><br><span class="line"># 服务器端关闭连接</span><br><span class="line">_tcpSerSock.close()</span><br><span class="line">print &quot;Server closed.&quot;</span><br></pre></td></tr></table></figure></p>
+<p><strong>客户端</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#  coding:utf-8</span><br><span class="line"></span><br><span class="line">from socket import *</span><br><span class="line"></span><br><span class="line">_HOST = &apos;127.0.0.1&apos;</span><br><span class="line">_PORT = 21567</span><br><span class="line">_BUFSIZE = 4096</span><br><span class="line">_ADDR = (_HOST, _PORT)</span><br><span class="line"></span><br><span class="line"># 创建客户端Socket，并连接上</span><br><span class="line">_tcpCliSock = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">_tcpCliSock.connect(_ADDR)</span><br><span class="line"></span><br><span class="line"># 假设收到服务器端的消息后，就回复一句，然后关闭连接</span><br><span class="line">_data = _tcpCliSock.recv(_BUFSIZE)</span><br><span class="line">print &quot;客户端收到数据为：&quot;, _data</span><br><span class="line"></span><br><span class="line">_tcpCliSock.send(&quot;Hey, server, I received your message.&quot;)</span><br><span class="line"></span><br><span class="line">_tcpCliSock.close()</span><br><span class="line">print &quot;client connection closed.&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码很简单，就是客户端和服务器连接上后，客户端会收到一条<code>服务器端</code>发送的消息，服务器也收到<code>客户端</code>发送的一条消息。<br>我们平时假如要使用socket发送消息时，一般就是json或者xml字符串的形式发送，两端都需要文档来解释<code>json</code>或者<code>xml</code>字符串里的每个字段代表的意思，而且两端都需要<code>包装json字符串</code>和<code>解析json字符串</code>，xml也是一样。</p>
+<p>那么此时，我们有一个更好的选择，就是使用Protocol Buffer，它的性能更快，更好，更简单，而且文档即协议，（我就不再赘述<code>protobuff</code>的好处了，因为该篇文章上面已经解释了），不需要额外的文档来说明传递的消息的字段，因为在<code>.proto</code>文件里就可以写上注释，表示相应的意思。</p>
+<p><strong> 使用Protocol Buffer来交互 </strong></p>
+<h3 id="1-准备proto文件"><a href="#1-准备proto文件" class="headerlink" title="1). 准备proto文件"></a>1). 准备proto文件</h3><p><a href="https://developers.google.com/protocol-buffers/docs/pythontutorial" target="_blank">以下数据由protocol buffers官方网站提供</a><br>首先我们需要创建一个<code>.proto</code>文件，内容如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto2&quot;;</span><br><span class="line"></span><br><span class="line">package tutorial;</span><br><span class="line"></span><br><span class="line">message Person &#123;</span><br><span class="line">    required int32 id = 1;</span><br><span class="line">    required string name = 2;</span><br><span class="line">    optional string email = 3;</span><br><span class="line"></span><br><span class="line">    enum PhoneType &#123;</span><br><span class="line">        MOBILE = 0;</span><br><span class="line">        HOME = 1;</span><br><span class="line">        WORK = 2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    message PhoneNumber &#123;</span><br><span class="line">        required string number = 1;</span><br><span class="line">        optional PhoneType type = 2 [default = HOME];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    repeated PhoneNumber phones = 4;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message AddressBook &#123;</span><br><span class="line">    repeated Person people = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后运行命令如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc -I=./ --python_out=./ addressbook.proto</span><br></pre></td></tr></table></figure></p>
+<p>就会生成后缀为<code>_pb2.py</code>的文件</p>
+<p><strong>服务器端</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">#  coding:utf-8</span><br><span class="line"></span><br><span class="line">from socket import *</span><br><span class="line">import addressbook_pb2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 1.创建AddressBook对象，并赋值</span><br><span class="line">_address_book = addressbook_pb2.Person()</span><br><span class="line">_address_book.id = 123456987</span><br><span class="line">_address_book.name = &quot;Victor Zhang&quot;</span><br><span class="line">_address_book.email = &quot;victorzhangq@gmail.com&quot;</span><br><span class="line">_phone_number = _address_book.PhoneNumber()</span><br><span class="line">_phone_number.number = &quot;18711112222&quot;</span><br><span class="line">_phone_number.type = addressbook_pb2.Person.MOBILE</span><br><span class="line"></span><br><span class="line"># 序列化数据</span><br><span class="line">_binaryStr = _address_book.SerializeToString()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_HOST = &apos;127.0.0.1&apos;</span><br><span class="line">_PORT = 21567</span><br><span class="line">_BUFSIZE = 4096</span><br><span class="line">_ADDR = (_HOST, _PORT)</span><br><span class="line"></span><br><span class="line"># 创建socket -&gt; 地址绑定 -&gt; 监听客户端</span><br><span class="line">_tcpSerSock = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">_tcpSerSock.bind(_ADDR)</span><br><span class="line">_tcpSerSock.listen(5)</span><br><span class="line"></span><br><span class="line"># 这里就假设只连接上一个客户端</span><br><span class="line">print &quot;Waiting for connection...&quot;</span><br><span class="line">_tcpCliSock, _cliAddr = _tcpSerSock.accept()</span><br><span class="line">print &quot;connected from :&quot;, _cliAddr</span><br><span class="line"></span><br><span class="line"># 然后向该客户端写入数据</span><br><span class="line">_tcpCliSock.send(_binaryStr)</span><br><span class="line">print &quot;已发送&quot;, len(_binaryStr)</span><br><span class="line"></span><br><span class="line">_cliData = _tcpCliSock.recv(_BUFSIZE)</span><br><span class="line">print &quot;服务器端收到数据为: &quot;, _cliData</span><br><span class="line"></span><br><span class="line"># 把客户端连接断开</span><br><span class="line">_tcpCliSock.close()</span><br><span class="line">print &quot;Coerce closed client connection.&quot;</span><br><span class="line"></span><br><span class="line"># 服务器端关闭连接</span><br><span class="line">_tcpSerSock.close()</span><br><span class="line">print &quot;Server closed.&quot;</span><br></pre></td></tr></table></figure></p>
+<p><strong>客户端代码</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#  coding:utf-8</span><br><span class="line"></span><br><span class="line">from socket import *</span><br><span class="line">import addressbook_pb2</span><br><span class="line"></span><br><span class="line">_address_book = addressbook_pb2.Person()</span><br><span class="line"></span><br><span class="line">_HOST = &apos;127.0.0.1&apos;</span><br><span class="line">_PORT = 21567</span><br><span class="line">_BUFSIZE = 4096</span><br><span class="line">_ADDR = (_HOST, _PORT)</span><br><span class="line"></span><br><span class="line"># 创建客户端Socket，并连接上</span><br><span class="line">_tcpCliSock = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">_tcpCliSock.connect(_ADDR)</span><br><span class="line"></span><br><span class="line"># 假设收到服务器端的消息后，就回复一句，然后关闭连接</span><br><span class="line">_data = _tcpCliSock.recv(_BUFSIZE)</span><br><span class="line"># 反序列化消息</span><br><span class="line">_address_book.ParseFromString(_data)</span><br><span class="line">print &quot;客户端收到数据为：&quot;, _address_book</span><br><span class="line"></span><br><span class="line">_tcpCliSock.send(&quot;Hey, server, I received your message.&quot;)</span><br><span class="line"></span><br><span class="line">_tcpCliSock.close()</span><br><span class="line">print &quot;client connection closed.&quot;</span><br></pre></td></tr></table></figure></p>
+<p>测试时，记得一定要先启动服务器端<code>python server.py</code>，然后再启动客户端<code>python client.py</code>，启动完客户端后你就能看到客户端收到服务器发过来的<code>protocol buffer</code>的数据了。</p>
+<p><br><br><br></p>
+<p>==========================================================================================</p>
+<h2 id="4-实例说明（Objective-C代码）"><a href="#4-实例说明（Objective-C代码）" class="headerlink" title="4.实例说明（Objective-C代码）"></a><span id="exampleOC"></span>4.实例说明（Objective-C代码）</h2><p>我这里写了<code>iOS</code>和<code>macOS</code>分别两个项目作为实例代码，以<code>Objective-C</code>代码编写的，socket服务器端和客户端交互，<a href="https://github.com/VictorZhang2014/ProtoBuf_Demo" target="_blank">下载地址</a></p>
+<p><strong>1).先来对Xcode配置一下</strong></p>
+<ul>
+<li>新建一个项目，在项目目录下，建一个<code>ProtoBuf</code>目录</li>
+<li>在<a href="#downloadAndInstallation">第二步</a>里找到<code>objectivec</code>目录，并且把这整个目录里所有的文件都拷贝到项目的<code>ProtoBuf</code>下<ul>
+<li>然后按照下图，依次配置<br><img src="/img/iOS/protobuf/protocbuf_step0.png" alt="protocbuf_step1"><br><img src="/img/iOS/protobuf/protocbuf_step1.png" alt="protocbuf_step1"><br><img src="/img/iOS/protobuf/protocbuf_step2.png" alt="protocbuf_step1"><br><img src="/img/iOS/protobuf/protocbuf_step3.png" alt="protocbuf_step1"><br><img src="/img/iOS/protobuf/protocbuf_step4.png" alt="protocbuf_step1"></li>
+</ul>
+</li>
+</ul>
+<p><strong>1).Person.proto文件内容</strong><br>先准备的<code>.proto</code>的文件，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">message Person&#123;</span><br><span class="line">	string name = 1;</span><br><span class="line">	int32 age = 2;</span><br><span class="line">    float height = 3;</span><br><span class="line"></span><br><span class="line">	enum DeviceType&#123; </span><br><span class="line">		IOS = 0;</span><br><span class="line">		Android = 1;</span><br><span class="line">		WP = 2;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	DeviceType deviceType = 4;</span><br><span class="line"></span><br><span class="line">	message Result&#123;</span><br><span class="line">		string url = 1;</span><br><span class="line">		string title = 2;</span><br><span class="line">	&#125;</span><br><span class="line">	repeated Result results = 5;</span><br><span class="line"></span><br><span class="line">	repeated Animal animals = 6;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message Animal&#123;</span><br><span class="line">	double price  = 2;</span><br><span class="line">	string name = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>服务器端</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &lt;sys/socket.h&gt;</span><br><span class="line">#import &lt;netdb.h&gt;</span><br><span class="line">#import &quot;Person.pbobjc.h&quot;</span><br><span class="line"></span><br><span class="line">NSData *  serialize();</span><br><span class="line">void deserialize();</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line"></span><br><span class="line">        //1.创建socket</span><br><span class="line">        int socketFD = socket(AF_INET, SOCK_STREAM, 0);</span><br><span class="line">        </span><br><span class="line">        struct sockaddr_in addr;</span><br><span class="line">        memset(&amp;addr, 0, sizeof(addr));</span><br><span class="line">        addr.sin_len = sizeof(addr);</span><br><span class="line">        addr.sin_family = AF_INET;</span><br><span class="line">        addr.sin_port = htons(6789);</span><br><span class="line">        addr.sin_addr.s_addr = INADDR_ANY; //指定监听的ip，指定为INADDR_ANY时，表示监听所有的ip</span><br><span class="line">        </span><br><span class="line">        //2.绑定并监听</span><br><span class="line">        int error = -1;</span><br><span class="line">        error = bind(socketFD, (const struct sockaddr *)&amp;addr, sizeof(addr));</span><br><span class="line">        error = listen(socketFD, 5);</span><br><span class="line">        printf(&quot;接收客户端连接中。。。\n&quot;);</span><br><span class="line">        </span><br><span class="line">        //3.接收客户端连接</span><br><span class="line">        struct sockaddr_in peerAddr;</span><br><span class="line">        socklen_t addrLen = sizeof(peerAddr);</span><br><span class="line">        int clientSocketFD = accept(socketFD, (struct sockaddr *)&amp;peerAddr, &amp;addrLen);</span><br><span class="line">        </span><br><span class="line">        //4.接收数据</span><br><span class="line">        void * buf = malloc(1024);</span><br><span class="line">        size_t len = sizeof(buf);</span><br><span class="line">        read(clientSocketFD, buf, 1024);</span><br><span class="line">        NSData *recData = [NSData dataWithBytes:buf length:1024];</span><br><span class="line">        deserialize(recData);</span><br><span class="line">        </span><br><span class="line">        //5.发送数据到客户端</span><br><span class="line">        NSData *pendingData = serialize();</span><br><span class="line">        ssize_t re = write(clientSocketFD, [pendingData bytes], pendingData.length);</span><br><span class="line">        if (re == pendingData.length) &#123;</span><br><span class="line">            NSLog(@&quot;发送成功！&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        close(clientSocketFD);</span><br><span class="line">        close(socketFD);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//序列化数据</span><br><span class="line">NSData * serialize()</span><br><span class="line">&#123;</span><br><span class="line">    //1.先初始化一些值吧</span><br><span class="line">    Person *person = [[Person alloc] init];</span><br><span class="line">    person.name = @&quot;Victor张 - 服务器&quot;;</span><br><span class="line">    person.age = 24;</span><br><span class="line">    person.height = 185;</span><br><span class="line">    person.deviceType = Person_DeviceType_Android;</span><br><span class="line">    </span><br><span class="line">    Person_Result *p_result = [[Person_Result alloc] init];</span><br><span class="line">    p_result.title = @&quot;我的博客 - 服务器&quot;;</span><br><span class="line">    p_result.URL = @&quot;http://www.googleplus.party/&quot;;</span><br><span class="line">    [person.resultsArray addObject:p_result];</span><br><span class="line">    </span><br><span class="line">    Person_Result *p_result1 = [[Person_Result alloc] init];</span><br><span class="line">    p_result1.title = @&quot;我的Facebook - 服务器&quot;;</span><br><span class="line">    p_result1.URL = @&quot;https://www.facebook.com/victor.john.92167789?ref=bookmarks&quot;;</span><br><span class="line">    [person.resultsArray addObject:p_result1];</span><br><span class="line">    </span><br><span class="line">    Animal *animal = [[Animal alloc] init];</span><br><span class="line">    animal.price = 109;</span><br><span class="line">    animal.name = @&quot;Ketty - 服务器&quot;;</span><br><span class="line">    [person.animalsArray addObject:animal];</span><br><span class="line">    </span><br><span class="line">    //序列化后的二进制数据</span><br><span class="line">    NSData *data = [person delimitedData];</span><br><span class="line">    </span><br><span class="line">    return data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//反序列化数据</span><br><span class="line">void deserialize(NSData *data)</span><br><span class="line">&#123;</span><br><span class="line">    //将二进制数据反序列化成对象</span><br><span class="line">    NSError *error = nil;</span><br><span class="line">    GPBCodedInputStream *inputStream = [GPBCodedInputStream streamWithData:data];</span><br><span class="line">    Person *de_person = [Person parseDelimitedFromCodedInputStream:inputStream extensionRegistry:nil error:&amp;error];</span><br><span class="line">    NSLog(@&quot;接受到数据，并反序列化：%@&quot;, de_person);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>客户端</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;ViewController.h&quot;</span><br><span class="line">#import &lt;sys/socket.h&gt;</span><br><span class="line">#import &lt;netdb.h&gt;</span><br><span class="line">#import &quot;Person.pbobjc.h&quot;</span><br><span class="line"></span><br><span class="line">@interface ViewController ()</span><br><span class="line"></span><br><span class="line">@property (nonatomic, assign) int socketFD;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation ViewController</span><br><span class="line"></span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    //1.先连接上socket</span><br><span class="line">    self.socketFD = socket(AF_INET, SOCK_STREAM, 0);</span><br><span class="line">    </span><br><span class="line">    struct hostent * remoteHostEnt = gethostbyname(&quot;127.0.0.1&quot;);</span><br><span class="line">    struct in_addr * remoteInAddr = (struct in_addr *)remoteHostEnt-&gt;h_addr_list[0];</span><br><span class="line">    struct sockaddr_in socketParameters;</span><br><span class="line">    socketParameters.sin_family = AF_INET;</span><br><span class="line">    socketParameters.sin_addr = *remoteInAddr;</span><br><span class="line">    socketParameters.sin_port = htons(6789);</span><br><span class="line">    </span><br><span class="line">    int ret = connect(self.socketFD, (struct sockaddr *) &amp;socketParameters, sizeof(socketParameters));</span><br><span class="line">    if (-1 == ret) &#123;</span><br><span class="line">        close(self.socketFD);</span><br><span class="line">        NSLog(@&quot;连接socket失败！&quot;);</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;已经连接上服务器！&quot;);</span><br><span class="line">    </span><br><span class="line">    [self serialize];</span><br><span class="line">    [self deserialize];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//序列化</span><br><span class="line">- (void)serialize</span><br><span class="line">&#123;</span><br><span class="line">    //1.先初始化一些值吧</span><br><span class="line">    Person *person = [[Person alloc] init];</span><br><span class="line">    person.name = @&quot;Victor张&quot;;</span><br><span class="line">    person.age = 25;</span><br><span class="line">    person.height = 175;</span><br><span class="line">    person.deviceType = Person_DeviceType_Ios;</span><br><span class="line">    </span><br><span class="line">    Person_Result *p_result = [[Person_Result alloc] init];</span><br><span class="line">    p_result.title = @&quot;我的博客&quot;;</span><br><span class="line">    p_result.URL = @&quot;http://www.googleplus.party/&quot;;</span><br><span class="line">    [person.resultsArray addObject:p_result];</span><br><span class="line">    </span><br><span class="line">    Person_Result *p_result1 = [[Person_Result alloc] init];</span><br><span class="line">    p_result1.title = @&quot;我的Facebook&quot;;</span><br><span class="line">    p_result1.URL = @&quot;https://www.facebook.com/victor.john.92167789?ref=bookmarks&quot;;</span><br><span class="line">    [person.resultsArray addObject:p_result1];</span><br><span class="line">    </span><br><span class="line">    Animal *animal = [[Animal alloc] init];</span><br><span class="line">    animal.price = 109;</span><br><span class="line">    animal.name = @&quot;Ketty&quot;;</span><br><span class="line">    [person.animalsArray addObject:animal];</span><br><span class="line">    </span><br><span class="line">    //序列化后的二进制数据</span><br><span class="line">    NSData *data = [person delimitedData];</span><br><span class="line">    </span><br><span class="line">    //向socket通道写入二进制数据</span><br><span class="line">    ssize_t re = write(self.socketFD, [data bytes], data.length);</span><br><span class="line">    if (re == data.length) &#123;</span><br><span class="line">        NSLog(@&quot;发送成功！&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//反序列化</span><br><span class="line">- (void)deserialize</span><br><span class="line">&#123;</span><br><span class="line">    //从socket通道中接收数据</span><br><span class="line">    void * buf = malloc(1024);</span><br><span class="line">    size_t len = sizeof(buf);</span><br><span class="line">    read(self.socketFD, buf, 1024);</span><br><span class="line">    NSData *data = [NSData dataWithBytes:buf length:1024];</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    //将二进制数据反序列化成对象</span><br><span class="line">    NSError *error = nil;</span><br><span class="line">    GPBCodedInputStream *inputStream = [GPBCodedInputStream streamWithData:data];</span><br><span class="line">    Person *de_person = [Person parseDelimitedFromCodedInputStream:inputStream extensionRegistry:nil error:&amp;error];</span><br><span class="line">    NSLog(@&quot;%@&quot;, de_person);</span><br><span class="line">    </span><br><span class="line">    //关闭socket</span><br><span class="line">    close(self.socketFD);</span><br><span class="line">&#125;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure></p>
+<p>这些代码就比较简单了，就不作解释了，在python的那一块已经解释过了。</p>
+<p><br><br><br></p>
+<p>==========================================================================================</p>
+<h2 id="5-文件-proto的解释"><a href="#5-文件-proto的解释" class="headerlink" title="5.文件.proto的解释"></a><span id="explanationProtoFile"></span>5.文件.proto的解释</h2><h2 id="Proto2"><a href="#Proto2" class="headerlink" title="Proto2"></a>Proto2</h2><p><a href="https://developers.google.com/protocol-buffers/docs/proto" target="_blank">Proto2官方文档</a></p>
+<p><strong>实例文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">message SearchRequest &#123;</span><br><span class="line">  required string query = 1;</span><br><span class="line">  optional int32 page_number = 2;</span><br><span class="line">  optional int32 result_per_page = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>分配标签</strong><br>从上面的代码，可以看出，每个字段后面都有一个数字，而是是递增的；官方说：这是个<code>唯一数字标签</code>，数字在<code>1到15</code>范围内，会占用一个字节去编码，如果是<code>16到2047</code>范围内，则是占用两个字节去编码。</p>
+<p><strong>指定每个字段的规则</strong></p>
+<ul>
+<li><code>required</code>，一个结构良好的message，必须有<code>required</code>修饰</li>
+<li><code>optional</code>，一个结构良好的message，可以是<code>没有optional</code>或者<code>一个optional</code>修饰</li>
+<li><p><code>repeated</code>，意思是，对修饰的字段进行多次重复，也就是数组，动态数组。</p>
+<ul>
+<li>因为历史原因，官方建议在使用<code>repeated</code>修饰时，一定要类似如下这样写：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">repeated int32 samples = 4 [packed=true];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>至于<code>packed</code>的意思，你可以在<a href="https://developers.google.com/protocol-buffers/docs/encoding#structure" target="_blank">这里</a>了解到</p>
+</li>
+</ul>
+<p><strong>添加多个message类型</strong><br>例如如下代码， 有时候你想在<code>.proto</code>文件里，添加多个`messge类型，可能由于业务需要，这是完全可以的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">message SearchRequest &#123;</span><br><span class="line">  required string query = 1;</span><br><span class="line">  optional int32 page_number = 2;</span><br><span class="line">  optional int32 result_per_page = 3;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message SearchResponse &#123;</span><br><span class="line"> ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>添加注释</strong><br><code>protobuf</code>是面向协议文档的，所以，你完全可以在<code>.proto</code>里写上相应的注释，放在以前，如果json格式，你还需要专门用一个文档来记录，json的键值对各个意思，protobuf就不用这么麻烦，直接写到<code>.proto</code>文件里即可。<br>注释的方式：<code>//...</code>和<code>/* ... */</code></p>
+<p><strong>reserved使用</strong><br>当你在调整业务时，可能某些字段用不到了，记住，千万不要直接移除，然后还把他的tag number给别的字段使用，这会导致非常致命的错误。<br>解决办法：以下展示了，那些tag number不在使用了，哪些字段被弃用了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">message Foo &#123;</span><br><span class="line">  reserved 2, 15, 9 to 11;</span><br><span class="line">  reserved &quot;foo&quot;, &quot;bar&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>标量值类型</strong><br><img src="/img/iOS/protobuf/protobuf_scalar_types1.png" alt="Scalar Type"><br><img src="/img/iOS/protobuf/protobuf_scalar_types2.jpeg" alt="Scalar Type"></p>
+<p><strong>设置默认值</strong><br>为<code>optional</code>修饰的字段做默认值，如果你不写默认值，则解析时自动填上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optional int32 result_per_page = 3 [default = 10];</span><br></pre></td></tr></table></figure></p>
+<p><strong>枚举</strong><br>例如：这样的枚举<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">message SearchRequest &#123;</span><br><span class="line">  required string query = 1;</span><br><span class="line">  optional int32 page_number = 2;</span><br><span class="line">  optional int32 result_per_page = 3 [default = 10];</span><br><span class="line">  enum Corpus &#123;</span><br><span class="line">    UNIVERSAL = 0;</span><br><span class="line">    WEB = 1;</span><br><span class="line">    IMAGES = 2;</span><br><span class="line">    LOCAL = 3;</span><br><span class="line">    NEWS = 4;</span><br><span class="line">    PRODUCTS = 5;</span><br><span class="line">    VIDEO = 6;</span><br><span class="line">  &#125;</span><br><span class="line">  optional Corpus corpus = 4 [default = UNIVERSAL];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>枚举里的tag number，也就是唯一数字不能重复，如果数字重复，则protobuf认为你是想做一个别名，如果想做一个别名，则需要按照以下方式写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">enum EnumAllowingAlias &#123;</span><br><span class="line">  option allow_alias = true;</span><br><span class="line">  UNKNOWN = 0;</span><br><span class="line">  STARTED = 1;</span><br><span class="line">  RUNNING = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>假如，你没有写<code>option allow_alias = true;</code> 则会引起编译错误。</p>
+<ul>
+<li>枚举值的范围32位整型数字</li>
+<li>如果你设置了负数，则是非常影响效率的</li>
+</ul>
+<p><strong>message类型嵌套</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">message SearchResponse &#123;</span><br><span class="line">  repeated Result result = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">message Result &#123;</span><br><span class="line">  required string url = 1;</span><br><span class="line">  optional string title = 2;</span><br><span class="line">  repeated string snippets = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>导入message定义文件</strong><br>如果你在其他的<code>.proto</code>文件里使用到了另外一个类里的<code>.proto</code>里的message，那么你可以通过<code>import</code>导入，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;myproject/other_protos.proto&quot;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>使用proto3的message类型</strong></p>
+<ul>
+<li>在proto2文件里，可以使用proto3的message，反过来也一样。但是proto2的枚举语法不能在proto3里用</li>
+</ul>
+<p><strong>嵌套类型</strong><br>你可以在一个message里嵌套另个一个message，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">message SearchResponse &#123;</span><br><span class="line">  message Result &#123;</span><br><span class="line">    required string url = 1;</span><br><span class="line">    optional string title = 2;</span><br><span class="line">    repeated string snippets = 3;</span><br><span class="line">  &#125;</span><br><span class="line">  repeated Result result = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>只要你喜欢，多层嵌套，也是可以的</p>
+<p><strong>更新一个message类型</strong><br>更新一个已经存在的message类型，也很简单，只需要注意以下几点</p>
+<ul>
+<li>不要改变任何一个已经存在的field的数字tag</li>
+<li>一个新添加的field应该是<code>optional</code>或者<code>repeated</code>，而且还需要设置一个默认值</li>
+<li>不需要的field可以被移除，只要这个被移除的field的tag number你不在使用即可</li>
+<li>如int32, uint32, int64, uint64, and bool直接可以相互的修改类型声明，<br>还有更多，看文档吧</li>
+</ul>
+<p><strong>extensions</strong><br>扩展message<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">message Foo &#123;</span><br><span class="line">  // ...</span><br><span class="line">  //Foo的message的值范围是在100到199之间</span><br><span class="line">  extensions 100 to 199;</span><br><span class="line">  optional int32 age = 120;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>扩展message，添加更多的field在另一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">extend Foo &#123;</span><br><span class="line">  optional string name = 130;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>oneof</strong></p>
+<p><strong>map</strong><br>map可以理解为字典，你在定义field的时候，如果用到字典类型的话，就用map，例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string, Project&gt; projects = 3;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>map不支持<code>repeated</code>, <code>optional</code>, 或者<code>required</code></li>
+</ul>
+<p><strong>options</strong></p>
+<ul>
+<li>file-level</li>
+<li>message-level</li>
+<li>field-level</li>
+</ul>
+<h2 id="Proto3"><a href="#Proto3" class="headerlink" title="Proto3"></a>Proto3</h2><p><a href="https://developers.google.com/protocol-buffers/docs/proto3" target="_blank">Proto3官方文档</a></p>
+<p><strong>定义一个message类型</strong><br>很简单，如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line"></span><br><span class="line">message SearchRequest &#123;</span><br><span class="line">  string query = 1;</span><br><span class="line">  int32 page_number = 2;</span><br><span class="line">  int32 result_per_page = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>分配标签</strong><br>从上面的代码，可以看出，每个字段后面都有一个数字，而是是递增的；官方说：这是个<code>唯一数字标签</code>，数字在<code>1到15</code>范围内，会占用一个字节去编码，如果是<code>16到2047</code>范围内，则是占用两个字节去编码。</p>
+<p><strong>field规则</strong></p>
+<ul>
+<li>repeated 跟proto2一样，就相当于数组一样，但不是数组</li>
+</ul>
+<p><strong>添加多个message</strong><br>跟proto2一样</p>
+<p><strong>添加注释</strong><br>跟proto2一样</p>
+<p><strong>保留field</strong><br>跟proto2一样</p>
+<p><strong>默认值</strong></p>
+<ul>
+<li>string，就是empty string</li>
+<li>bytes，就是empty bytes</li>
+<li>bool，就是false</li>
+<li>数字类型，就是0</li>
+<li>枚举，就是枚举的第一个选项值</li>
+<li>message，取决于语言</li>
+</ul>
+<p><strong>导入proto定义</strong><br>跟proto2一样</p>
+<p><strong>嵌套message类型</strong><br>跟proto2一样</p>
+<p><strong>更新一个message类型</strong><br>跟proto2一样</p>
+<p><strong>Any类型</strong><br>google还在开发中，暂时不建议使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import &quot;google/protobuf/any.proto&quot;;</span><br><span class="line"></span><br><span class="line">message ErrorStatus &#123;</span><br><span class="line">  string message = 1;</span><br><span class="line">  repeated google.protobuf.Any details = 2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>map</strong><br>跟proto2一样</p>
+<p><strong>JSON映射</strong><br>proto3支持典型的JSON编码，可以使它更容易的在系统之间分享数据，下面有一张表来表示<code>protobuf</code>与<code>JSON</code>对应的数据类型</p>
+<p><img src="/img/iOS/protobuf/protobuf3_scalar_types1.png" alt="protobuf3_scalar_types1"><br><img src="/img/iOS/protobuf/protobuf3_scalar_types2.png" alt="protobuf3_scalar_types2"><br><img src="/img/iOS/protobuf/protobuf3_scalar_types3.png" alt="protobuf3_scalar_types3"></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

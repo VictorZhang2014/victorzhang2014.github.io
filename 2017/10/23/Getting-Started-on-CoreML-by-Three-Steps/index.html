@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>Getting Started on CoreML by Three Steps</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="Getting Started on CoreML by Three Steps"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Getting Started on CoreML by Three Steps
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-23T03:47:53.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-23
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/CoreML-Machine-Learning-iOS11/">CoreML, Machine Learning, iOS11</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="Core-ML"><a href="#Core-ML" class="headerlink" title="Core ML"></a>Core ML</h2><p>This tutorial is based on <code>Core ML</code> which can be only running on <code>iOS 11</code>.<br><code>Core ML</code> allows you to integrate machine learning models into your app.<br>I’ll show you <code>Three Steps</code> on getting started on CoreML basic use.</p>
+<p><br></p>
+<hr>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>With Core ML, you can integrate trained machine learning models into your app. As shown below.<br><img src="/img/AI/coreml_framework_procedure.png" alt="CoreML framework Procedure"></p>
+<p>So what is <code>Trained Model</code>?<br>In fact, a <code>Trained Model</code> is the result of applying a machine learning algorithm to a set of training data. The model makes predictions based on new input data. For example, a model that’s been trained on a region’s historical house prices may be able to predict a house’s price when given the number of bedrooms and bathrooms.</p>
+<p>Core ML is the foundation for <code>domain-specific</code> frameworks and funcitonality. Core ML supports Vision for <code>image analysis</code>, Foundation for <code>natural language processing</code> (for example, the NSLinguisticTagger class), and GameplayKit for evaluating learned <code>decision trees</code>. Core ML itself builds on top of low-level primitives like Accelerate and BNNS, as well as Metal Performance Shaders.<br><img src="/img/AI/CoreML_Foundation_Structure.png" alt="CoreML framework Procedure"></p>
+<p>Core ML is optimized for on-device performance, which minimizes memory footprint and power consumption. Running strictly on the device ensures the privacy of user data and guarantees that your app remains functional and responsive when a network connection is unavailable.</p>
+<p><br></p>
+<hr>
+<h2 id="Go-Ahead"><a href="#Go-Ahead" class="headerlink" title="Go Ahead!"></a>Go Ahead!</h2><p>This example is showing your How to predict houses’ price?</p>
+<h2 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h2><p>First, you need to <a href="https://docs-assets.developer.apple.com/published/62efb7030a/IntegratingaCoreMLModelintoYourApp.zip" target="_blank" rel="noopener">download this project</a> . This is an official demo, if you can understand this project demo, just ignore my anatomy and next steps.</p>
+<h2 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h2><p>Second, <code>creating</code> a Xcode project -&gt; choosing <code>Swift language</code> -&gt; <code>dragging</code> the file <code>MarsHabitatPricer.mlmodel</code> into your project. <code>MarsHabitatPricer.mlmodel</code> file located in official demo.</p>
+<h2 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h2><p>Finally, There is a snnippet code in <code>ViewController.swift</code> file as shown below:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//1.Initialized an instance of MarsHabitatPricer</span><br><span class="line">let model = MarsHabitatPricer()</span><br><span class="line"></span><br><span class="line">override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event: UIEvent?) &#123;</span><br><span class="line">    </span><br><span class="line">    //2.Given the input data</span><br><span class="line">    let solarPanels: Double = 2.0 //Range from 1.0 to 5.0</span><br><span class="line">    let greenHouses: Double = 3   //Range from 1 to 5</span><br><span class="line">    let acres: Double = 1500      //Range from 750 to 10,000</span><br><span class="line">    </span><br><span class="line">    //3.Predict a price according by solarPanels, greenHouses and acres</span><br><span class="line">    guard let priceOutput = try? model.prediction(solarPanels: solarPanels, greenhouses: greenHouses, size: acres) else &#123;</span><br><span class="line">        fatalError(&quot;Getting an unexpected error.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //4.Output the predicted price</span><br><span class="line">    let outputPrice = priceOutput.price</span><br><span class="line">    print(&quot;house price prediction is \(outputPrice)&quot;)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>then, building and running your Core ML app and you’ll see there is a result outputed in Console<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">house price prediction is 7264.0491831318</span><br></pre></td></tr></table></figure></p>
+<p>which means you get the house price according by your input data(solarPanels, greenHouses and acres)</p>
+<p><br></p>
+<hr>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p><a href="https://developer.apple.com/documentation/coreml" target="_blank" rel="noopener">Core ML Documentation</a><br><a href="https://developer.apple.com/documentation/coreml/integrating_a_core_ml_model_into_your_app" target="_blank" rel="noopener">Integrating a Core ML Model into your App</a></p>
+<p><br></p>
+<p>======================================================================================================</p>
+<h2 id="Core-ML-1"><a href="#Core-ML-1" class="headerlink" title="Core ML"></a>Core ML</h2><p>这个简单的教程是基于<code>Core ML</code>，<code>Core ML</code>只能运行在<code>iOS 11</code>。<br><code>Core ML</code>允许你集成机器学习训练模型到你的iOS应用。<br>我将要通过三步曲来为你展示一下<code>Core ML</code>基本的使用。</p>
+<p><br></p>
+<hr>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>通过<code>Core ML</code>，你可以把机器学习训练的模型集成到你的iOS应用上，如下图所示：<br><img src="/img/AI/coreml_framework_procedure.png" alt="CoreML framework 流程"></p>
+<p>所以，什么是<code>训练的模型（Trained Model）</code>?<br>事实上，一个<code>训练的模型（Trained Model）</code>就是一个应用机器学习算法到一组训练数据的集合的结果。这个模型可以通过新提供的数据进行预测。 例如，一个模型在一个区域的历史房价上被训练了，那么这个模型可以通过给定的房间数和洗手间数来预测房价。 </p>
+<p><code>Core ML</code>是一个特定领域框架（domain-specific）和功能性的基础。<code>Core ML</code>支持视觉的图像分析，自然语言处理的基础（例如，<code>NSLinguisticTagger</code>类），还有<code>GameplayKit</code>用于评估学习<code>决策树（Decision Trees）</code>。<code>Core ML</code>本身是建立在低层的原语（<code>low-level primitives</code>）之上，就像<code>Accelerate</code>和<code>BNNS</code>，还有<code>Metal Performance Shaders</code>。<br><img src="/img/AI/CoreML_Foundation_Structure.png" alt="CoreML架构"></p>
+<p><code>Core ML</code>是在设备内部做的优化，这种优化可以大大的减小内存占用（<code>Memory Footprint</code>）和性能消耗（<code>Power Consumption</code>）。<br>当你的设备网络不可用时，并且在你的设备上运行<code>Core ML</code>，它严格的确保了用户数据的隐私性，也保证了设备上的应用的基本操作和响应性。</p>
+<p><br></p>
+<hr>
+<h2 id="开始吧！"><a href="#开始吧！" class="headerlink" title="开始吧！"></a>开始吧！</h2><p>这个例子是告诉你如何测试房价？</p>
+<h2 id="步骤一"><a href="#步骤一" class="headerlink" title="步骤一"></a>步骤一</h2><p>首先, 你需要<a href="https://docs-assets.developer.apple.com/published/62efb7030a/IntegratingaCoreMLModelintoYourApp.zip" target="_blank" rel="noopener">下载此项目</a> 。这是一个官方的例子，如果你可以理解这个项目，那你就忽略下面两步吧。</p>
+<h2 id="步骤二"><a href="#步骤二" class="headerlink" title="步骤二"></a>步骤二</h2><p>然后, 创建一个项目 -&gt; 选择Swift语言 -&gt; 拖拽<code>MarsHabitatPricer.mlmodel</code>文件到你的项目， 这个<code>MarsHabitatPricer.mlmodel</code>文件在第一步下载的Demo目录里.</p>
+<h2 id="步骤三"><a href="#步骤三" class="headerlink" title="步骤三"></a>步骤三</h2><p>最后，在<code>ViewController.swift</code>文件里，插入如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//1.初始化一个MarsHabitatPricer的实例</span><br><span class="line">let model = MarsHabitatPricer()</span><br><span class="line"></span><br><span class="line">override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event: UIEvent?) &#123;</span><br><span class="line">    </span><br><span class="line">    //2.给定输入数据</span><br><span class="line">    let solarPanels: Double = 2.0 //Range from 1.0 to 5.0</span><br><span class="line">    let greenHouses: Double = 3   //Range from 1 to 5</span><br><span class="line">    let acres: Double = 1500      //Range from 750 to 10,000</span><br><span class="line">    </span><br><span class="line">    //3.根据solarPanels、greenHouses和acres来预测房价</span><br><span class="line">    guard let priceOutput = try? model.prediction(solarPanels: solarPanels, greenhouses: greenHouses, size: acres) else &#123;</span><br><span class="line">        fatalError(&quot;捕获到未知的错误。&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //4.输出预测的房价</span><br><span class="line">    let outputPrice = priceOutput.price</span><br><span class="line">    print(&quot;房价预测的结果为： \(outputPrice)&quot;)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过<code>cmd + r</code> 或者Xcode导航栏左上角的启动按钮，启动你的Xcode项目，在控制台你就能看到输出的结果了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">房价预测的结果为： 7264.0491831318</span><br></pre></td></tr></table></figure></p>
+<p>这个结果的意思是，通过提供的solarPanels、greenHouses和acres输入数据预测出了房价</p>
+<p><br></p>
+<hr>
+<h2 id="References-1"><a href="#References-1" class="headerlink" title="References"></a>References</h2><p><a href="https://developer.apple.com/documentation/coreml" target="_blank" rel="noopener">Core ML官方文档</a><br><a href="https://developer.apple.com/documentation/coreml/integrating_a_core_ml_model_into_your_app" target="_blank" rel="noopener">集成Core ML模型到你的项目</a></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

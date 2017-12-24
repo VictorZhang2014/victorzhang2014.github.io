@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>Swift颜色渐变 - 动画更新/过渡</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="Swift颜色渐变 - 动画更新/过渡"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Swift颜色渐变 - 动画更新/过渡
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-11-08T14:16:49.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-11-08
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/CAGradientLayer-CAAnimation/">CAGradientLayer, CAAnimation</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p>在这篇文章，我将会教你如何使用<code>CAGradientLayer</code>的API去创建一个非常炫酷的渐变效果，而且还可以是动画过渡效果。<br>比如现有的App，像：陌陌，Instagram，Snapchat等，都有一样的效果，非常好看，酷比~~</p>
+<p><br></p>
+<h2 id="2-渐变之-CAGradientLayer"><a href="#2-渐变之-CAGradientLayer" class="headerlink" title="2.渐变之 CAGradientLayer"></a>2.渐变之 CAGradientLayer</h2><p><code>CAGradientLayer</code>是派生自<code>CALayer</code>，它允许我们绘制渐变效果；原理是它可以接收几种颜色作为输入源，然后混合这几种颜色到一起，并且渲染可持续的渐变颜色。</p>
+<h3 id="2-1-基本使用"><a href="#2-1-基本使用" class="headerlink" title="2.1 基本使用"></a>2.1 基本使用</h3><p>下面的代码会在两个颜色之间创建一个斜角渐变，渐变的方向是通过<code>startPoint</code>和<code>endPoint</code>的属性来控制。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let gradient = CAGradientLayer()</span><br><span class="line">gradient.frame = self.view.bounds</span><br><span class="line">gradient.colors = [</span><br><span class="line">    UIColor(red: 48/255, green: 62/255, blue: 103/255, alpha: 1).cgColor,</span><br><span class="line">    UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor</span><br><span class="line">]</span><br><span class="line">gradient.startPoint = CGPoint(x:0, y:0)</span><br><span class="line">gradient.endPoint = CGPoint(x:1, y:1)</span><br><span class="line">self.view.layer.addSublayer(gradient)</span><br></pre></td></tr></table></figure></p>
+<p>如图所示：<br><img src="/img/iOS/animation/gradient01.png" alt="" width="320" height="560"></p>
+<p><br></p>
+<h2 id="3-渐变动画"><a href="#3-渐变动画" class="headerlink" title="3.渐变动画"></a>3.渐变动画</h2><p>由于所有的<code>CALayer</code>的属性都是可动画形式的，所以我们可以创建一个<code>CABasicAnimation</code>实例，然后添加到<code>CAGraidentLayer</code>上，并且对<code>CABasicAnimation</code>的颜色属性设置相应的颜色，也就是从一种颜色到另一种颜色。<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let gradientChangeAnimation = CABasicAnimation(keyPath: &quot;colors&quot;)</span><br><span class="line">gradientChangeAnimation.duration = 5.0</span><br><span class="line">gradientChangeAnimation.toValue = [</span><br><span class="line">    UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor,</span><br><span class="line">    UIColor(red: 196/255, green: 70/255, blue: 107/255, alpha: 1).cgColor</span><br><span class="line">    ]</span><br><span class="line">gradientChangeAnimation.fillMode = kCAFillModeForwards</span><br><span class="line">gradientChangeAnimation.isRemovedOnCompletion = false</span><br><span class="line">gradient.add(gradientChangeAnimation, forKey: &quot;colorChange&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>效果如下视频</p>
+<iframe src="https://player.vimeo.com/video/214767743" width="640" height="360" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe>
+
+
+<h3 id="3-1-一直持续的渐变动画"><a href="#3-1-一直持续的渐变动画" class="headerlink" title="3.1 一直持续的渐变动画"></a>3.1 一直持续的渐变动画</h3><p>从上面的视频看出，该颜色只是切换了一次就结束了。。。其实我们还可以设置颜色不停的切换。<br>从这个方法中，我可以更好的扩展，创建一个循环式的动画，从一个渐变色无缝的过渡到另一个。实现这种代码也很简单，只需要我们的<code>ViewController</code>实现<code>CAAnimationDelegate</code>协议，和实现此方法<code>func animationDidStop(_ anim: CAAnimation, finished flag: Bool)</code>，代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">class ViewController: UIViewController, CAAnimationDelegate &#123;</span><br><span class="line">    </span><br><span class="line">    let gradient = CAGradientLayer()</span><br><span class="line">    var gradientSet = [[CGColor]]()</span><br><span class="line">    var currentGradient: Int = 0</span><br><span class="line">    var gradientChangeAnimation: CABasicAnimation?</span><br><span class="line">    </span><br><span class="line">    let gradientOne = UIColor(red: 48/255, green: 62/255, blue: 103/255, alpha: 1).cgColor</span><br><span class="line">    let gradientTwo = UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor</span><br><span class="line">    let gradientThree = UIColor(red: 196/255, green: 70/255, blue: 107/255, alpha: 1).cgColor</span><br><span class="line">    </span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        super.viewDidLoad()</span><br><span class="line">        // Do any additional setup after loading the view, typically from a nib.</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    override func viewDidAppear(_ animated: Bool) &#123;</span><br><span class="line">        super.viewDidAppear(animated)</span><br><span class="line">        </span><br><span class="line">        gradientSet.append([gradientOne, gradientTwo])</span><br><span class="line">        gradientSet.append([gradientTwo, gradientThree])</span><br><span class="line">        gradientSet.append([gradientThree, gradientOne])</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        gradient.frame = self.view.bounds</span><br><span class="line">        gradient.colors = gradientSet[currentGradient]</span><br><span class="line">        gradient.startPoint = CGPoint(x:0, y:0)</span><br><span class="line">        gradient.endPoint = CGPoint(x:1, y:1)</span><br><span class="line">        gradient.drawsAsynchronously = true</span><br><span class="line">        self.view.layer.addSublayer(gradient)</span><br><span class="line"></span><br><span class="line">        gradientChangeAnimation = CABasicAnimation(keyPath: &quot;colors&quot;)</span><br><span class="line">        gradientChangeAnimation!.duration = 5.0</span><br><span class="line">        gradientChangeAnimation!.fillMode = kCAFillModeForwards</span><br><span class="line">        gradientChangeAnimation!.isRemovedOnCompletion = false</span><br><span class="line">        gradientChangeAnimation!.delegate = self</span><br><span class="line">        </span><br><span class="line">        animateGradient()</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    func animateGradient() &#123;</span><br><span class="line">        if currentGradient &lt; gradientSet.count - 1 &#123;</span><br><span class="line">            currentGradient += 1</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            currentGradient = 0</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        gradientChangeAnimation!.toValue = gradientSet[currentGradient]</span><br><span class="line">        gradient.add(gradientChangeAnimation!, forKey: &quot;colorChange&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) &#123;</span><br><span class="line">        if flag &#123;</span><br><span class="line">            gradient.colors = gradientSet[currentGradient]</span><br><span class="line">            animateGradient()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如下视频</p>
+<iframe src="https://player.vimeo.com/video/214767743" width="640" height="360" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen></iframe>
+
+<p><br></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>CAGradientLayer</code>是一个非常强悍的API，经常被用来创建有关<code>CALayer</code>的炫酷动画以一种非常简单的方式。</p>
+<p>如有疑问，欢迎在下方提问~</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

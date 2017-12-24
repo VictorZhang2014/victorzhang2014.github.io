@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>你不得不知的SQLite</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="你不得不知的SQLite"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        你不得不知的SQLite
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-20T11:08:31.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-20
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/SQLite-优化/">SQLite, 优化</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>很多时候，随着业务越来越好，系统所牵涉到的数据数量也是越来越多、越来越大，这时，许多系统的瓶颈就在数据的存储上了，所以我们就不得不考虑对数据库进行优化了。</p>
+<h3 id="从服务器的角度来讲，"><a href="#从服务器的角度来讲，" class="headerlink" title="从服务器的角度来讲，"></a>从服务器的角度来讲，</h3><p>伸缩（scale）就是一种方式，它分为两种方法：</p>
+<ul>
+<li>1.<code>向上伸缩</code>（<code>scale up</code>），它的意思是通过使用更好的硬件来提高系统的性能参数。</li>
+<li>2.<code>向外伸缩</code>（<code>scale out</code>），它的意思是通过额外的硬件（如：服务器）来达到同样的效果。</li>
+</ul>
+<h3 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h3><p><code>读写分离</code>的意思是，一个<code>主数据库（master）</code>负责<code>写</code>数据，一个<code>从服务器（slave）</code>的数据库负责读数据；master负责将写操作的数据同步到各个<code>节点</code>，读写分离来提供系统性能的有点：</p>
+<ul>
+<li>物理服务器增加，机器处理能力提升，那硬件换性能</li>
+<li>主从只负责各自的写和读，极大程度缓解了X锁和S锁争用</li>
+</ul>
+<p>它们之间最大的问题就是同步，因为当一条数据写到主服务器后，从服务器如何同步？<br>这几个主流数据库都是良好支持主从同步的：</p>
+<ul>
+<li>MySQL Replication</li>
+<li>MongoDB Master Slave Replication</li>
+<li>Oracle Replication</li>
+<li>SQL Server Replication</li>
+</ul>
+<h3 id="数据分片（data-sharding）"><a href="#数据分片（data-sharding）" class="headerlink" title="数据分片（data sharding）"></a>数据分片（<code>data sharding</code>）</h3><p>是将整体数据分开存放，如：服务器端，可以是将数据存放在多台服务器之间；客户端，可以是将数据库/数据表分开存放，以满足大数据量的需要。<br>但是值得注意的是：本来是一张表或一个数据库的数据被分开存放了，那么对于<code>select</code>/<code>insert</code>/<code>update</code>/<code>delete</code>应该如何处理了？</p>
+<h3 id="策略如下："><a href="#策略如下：" class="headerlink" title="策略如下："></a>策略如下：</h3><ul>
+<li>1.根据取模，例如：先要对计算的key进行哈希计算，然后再对分开的表的数量或者设备进行取模运行，得到的结果是几，那么这条记录就放在编号为几的数据分区中</li>
+<li>2.根据时间范围，例如：前50万条数据放在第一个分区中，第二个50万条数据放在第二个分区，依次类推</li>
+<li>3.基于索引表：例如：新建立一个索引表，然后根据ID先去一个表内找到它所在的分区，然后再去目标分区进行查找</li>
+</ul>
+<p>数据分区虽然好处多多，尤其是对系统的性能（performance）和伸缩性(scalability)，但是同时也带来是开发的复杂度。</p>
+<p><br></p>
+<h2 id="那SQLite如何优化了？"><a href="#那SQLite如何优化了？" class="headerlink" title="那SQLite如何优化了？"></a>那SQLite如何优化了？</h2><p><a href="https://github.com/ccgus/fmdb" target="_blank" rel="noopener">FMDB</a>是基于SQLite封装的。早期的<a href="https://github.com/ccgus/fmdb" target="_blank" rel="noopener">FMDB</a>是不支持并发的，但是后来的版本中，FMDB已经解决了在并发问题。<br><code>SQLite共识</code>：</p>
+<ul>
+<li><code>四种锁</code>：<ul>
+<li><code>共享锁</code>（shared lock）</li>
+<li><code>预留锁</code>（reserved lock）</li>
+<li><code>未决锁</code>（pending lock）</li>
+<li><code>排他锁</code>（exclusive lock）</li>
+</ul>
+</li>
+<li><code>SQLite读操作</code>（如：<code>select</code>），可以并发的读取数据库，如果有一个读存在，那么就不允许写</li>
+<li><code>SQLite写操作</code>（如：<code>insert/update/delete</code>），<ul>
+<li>1.它首先会申请一个预留锁（reserved lock），在启用预留锁后，如果已存在的读操作可以继续，新的读请求也可以有；</li>
+<li>2.然后，它会把需要更新的数据写到缓冲区中；</li>
+<li>3.需要写到缓冲区的更新写完以后，就需要将更新刷到硬盘DB了，但是此时它会申请未决锁（pending lock），申请了该锁后，就不能再有新的共享锁被申请了，也就是阻止了新的读操作。但是已经存在的读操作还是可以继续读的。然后它就等待读操作全部完毕后，它就会申请排他锁（exclusive lock），此时不能再有其他的锁存在了，然后就进行commit操作，最后，将缓冲区的数据写到DB中。</li>
+</ul>
+</li>
+<li><code>事务</code>，就是一组SQL语句操作让它们顺序执行，要么都成功了，要么只要有一个错误，全部操作回滚；它们的特点如下，一般都是四个命令来控制，<code>begin transaction</code>，<code>commit</code>或者<code>end transaction</code>，<code>rollback</code>：<ul>
+<li><code>原子性</code>（Atomicity）：确保工作单位内的所有操作都成功完成，否则，事务会在出现故障的地方终止，并且回滚到以前的状态</li>
+<li><code>一致性</code>（Consistency）：确保数据库在成功提交的事务上正确的改变状态</li>
+<li><code>隔离性</code>（Isolation）：使事务操作相互独立和透明</li>
+<li><code>持久性</code>（Durability）：确保已提交事务的结果或效果在系统发生故障的情况下仍然存在</li>
+</ul>
+</li>
+</ul>
+<p><br></p>
+<h2 id="SQLite优化要点"><a href="#SQLite优化要点" class="headerlink" title="SQLite优化要点"></a>SQLite优化要点</h2><ul>
+<li>1.设计数据库时遵循三范式<ul>
+<li><code>第一范式</code>：每个字段（每一列）都不可再分，意思就是说：一列就是一个数据类型并且存储一种类型的值</li>
+<li><code>第二范式</code>：满足第一范式的情况下，我们还需要保证一条数据在表中有一个主键（唯一标识），不一定是id，也可以是身份证号（只要表示唯一性就行）</li>
+<li><code>第三范式</code>：满足第二范式的情况下，我们要确保数据表中的每一列数据都和主键有直接关系，而不是简介关系</li>
+</ul>
+</li>
+<li>2.数据量比较大的话，可以对数据表（data table）进行<code>分片</code>（sharding）</li>
+<li>3.从业务上可以分离，且数据量也较大的话，也可以<code>分库</code>（sub-database）</li>
+<li>4.查询数据太频繁的地方，不建议使用<code>连表</code>查询</li>
+</ul>
+<p>对数据表进行分片<br>对数据库也分子库</p>
+<ol>
+<li><a href="https://stackoverflow.com/questions/15778716/sqlite-insert-speed-slows-as-number-of-records-increases-due-to-an-index/17110004#17110004" target="_blank" rel="noopener">https://stackoverflow.com/questions/15778716/sqlite-insert-speed-slows-as-number-of-records-increases-due-to-an-index/17110004#17110004</a></li>
+<li><a href="https://stackoverflow.com/questions/128919/extreme-sharding-one-sqlite-database-per-user" target="_blank" rel="noopener">https://stackoverflow.com/questions/128919/extreme-sharding-one-sqlite-database-per-user</a></li>
+</ol>
+<p><br><br><strong> 读写死锁案例 </strong><br>所谓死锁，就是两个互相等待对方释放资源，在SQLite这里一样存在该问题。如：<br>伪码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">读操作A                                                写操作B</span><br><span class="line">sqlite&gt; select * from table;                        sqlite&gt; insert into table values(&apos;a&apos;,&apos;b&apos;);</span><br><span class="line">sqlite&gt; insert into table values(&apos;a&apos;,&apos;b&apos;);          sqlite&gt; commit;</span><br><span class="line">//SQL error: database is locked                      //SQL error: database is locked</span><br></pre></td></tr></table></figure></p>
+<p>有<code>读操作A</code>，<code>写操作B</code>；</p>
+<ul>
+<li>1.<code>写操作B</code>申请了预留锁；然后<code>读操作A</code>申请了共享锁（有预留锁时，是允许申请读操作（共享锁）的）；</li>
+<li>2.然后<code>读操作A</code>又同时想进行<code>写操作</code>（未释放共享锁的情况），此时申请了预留锁（因为已经有预留锁存在了）失败；</li>
+<li>3.<code>写操作B</code>写完缓存，想commit时，申请了未决锁，但是无法从未决锁提升到排他锁（因为有共享锁存在）；</li>
+<li>4.此时发生死锁，因为<code>读操作A</code>和<code>写操作B</code>都在互相等待对方释放锁。</li>
+<li>5.在四种锁中，保留锁和共享锁是可以同时存在的，而且出发这些锁的机制都取决于你的数据的操作</li>
+</ul>
+<p><strong>解决方法</strong>，就是采用<code>事务</code>（transaction）<br>伪码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">读操作A                                                写操作B</span><br><span class="line">sqlite&gt; begin transaction;                          sqlite&gt; begin transaction;</span><br><span class="line">sqlite&gt; select * from table;                        sqlite&gt; insert into table values(&apos;a&apos;,&apos;b&apos;);</span><br><span class="line">sqlite&gt; insert into table values(&apos;a&apos;,&apos;b&apos;);          sqlite&gt; commit;</span><br><span class="line">sqlite&gt; commit;                                     sqlite&gt; end transaction;</span><br><span class="line">sqlite&gt; end transaction;</span><br></pre></td></tr></table></figure></p>
+<p>事务的另一个<code>优点</code>就是：可以<code>大批量</code>插入数据，我们都知道正常情况下，sql语句每执行一条，就会打开和关闭一次数据库，这样的速度显然是很慢的，那么如果我们需要大批量插入数据，而且一次打开和关闭数据了？那就是使用事务，因为所有的<code>insert</code>语句会在<code>commit</code>之前被缓存到内存中。</p>
+<p><br><br><br></p>
+<h2 id="关系型数据库"><a href="#关系型数据库" class="headerlink" title="关系型数据库"></a>关系型数据库</h2><p><a href="https://github.com/Tencent/wcdb" target="_blank" rel="noopener">WCDB 由微信开发团队开源</a><br><a href="https://github.com/sqlcipher/sqlcipher" target="_blank" rel="noopener">SQLCiper 加密</a><br><a href="https://github.com/ccgus/fmdb" target="_blank" rel="noopener">FMDB 包含SQLCiper，多线程安全的</a><br><a href="http://www.runoob.com/sqlite/sqlite-tutorial.html" target="_blank" rel="noopener">SQLite中文教程</a><br><a href="https://www.sqlite.org/index.html" target="_blank" rel="noopener">SQLite Official</a></p>
+<h2 id="Key-Value数据库"><a href="#Key-Value数据库" class="headerlink" title="Key-Value数据库"></a>Key-Value数据库</h2><p>代表有<a href="https://realm.io/" target="_blank">Realm</a>，<a href="https://github.com/google/leveldb" target="_blank">LevelDB</a>，<a href="https://github.com/facebook/rocksdb" target="_blank">RocksDB</a>等<br>对于开发者而言，key-value的实现直接易懂，可以像使用NSDictionary一样使用Realm。并且ORM彻底，省去了拼装Object的过程。但其对代码侵入性很强，Realm要求类继承RLMObject的基类。这对于单继承的ObjC，意味着不能再继承其他自定义的子类。同时，key-value数据库对较为复杂的查询场景也比较无力。</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

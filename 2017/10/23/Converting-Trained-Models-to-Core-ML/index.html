@@ -1,0 +1,346 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>Converting Trained Models to Core ML</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="Converting Trained Models to Core ML"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Converting Trained Models to Core ML
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-23T11:43:32.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-23
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Core-ML/">Core ML</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>Convert trained models created with third-party machine learning tools to the Core ML model format.</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>If your model is created and trained using a supported third-party machine learning tool, you can use <a href="https://pypi.python.org/pypi/coremltools" target="_blank" rel="noopener">Core ML Tools</a> to convert it to the Core ML model format. There is <code>Table</code> as shown below, that lists the supported models and third-party tools. </p>
+<blockquote>
+<p>Note<br>Core ML Tools is a Python package(coremltools), hosted at the Python Package Index(PyPI).</p>
+<p>The table shows Models and third-party tools supported by Core ML Tools</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Model Type</th>
+<th>Supported Models</th>
+<th>Supported Tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Neural networks</td>
+<td>Feedforward, convolutional, recurrent</td>
+<td>Caffe v1, Keras 1.2.2+</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Tree ensembles</td>
+<td>Random forests, boosted trees, decision trees</td>
+<td>scikit-learn 0.18, XGBoost 0.6</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Support vector machines</td>
+<td>Scalar regression, multiclass classification</td>
+<td>scikit-learn 0.18, LIBSVM 3.22</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Generalized linear models</td>
+<td>Linear regression, logistic regression</td>
+<td>scikit-learn 0.18</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Feature engineering</td>
+<td>Sparse vectorization, dense vectorization, categorical processing</td>
+<td>scikit-learn 0.18</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Pipeline models</td>
+<td>Sequentially chained models</td>
+<td>scikit-learn 0.18</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="Convert-your-Model"><a href="#Convert-your-Model" class="headerlink" title="Convert your Model"></a>Convert your Model</h2><p>Convert your model using the Core ML converter that corresponds to your models third-party tool. Call the converter’s convert method and save the resulting model to the Core ML model format(.mlmodel).</p>
+<p>For example, if your model was created using Caffe, pass the Caffe mode(.caffemodel) to the <code>coremltools.converters.caffe.convert</code> method.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; import coremltools</span><br><span class="line">&gt; coreml_model = coremltools.converters.caffe.convert(&apos;my_caffe_model.caffemodel&apos;)</span><br></pre></td></tr></table></figure>
+<p>Now save the resulting model in the Core ML model format.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; coreml_model.save(&apos;my_model.mlmodel&apos;)</span><br></pre></td></tr></table></figure>
+<p>Depending on your model, you might need to update inputs, outputs, and lables, or you might need to declare image names, types, and formats. The conversion tools are bundled with more documentation, as the options available vary by tool. For more information about Core ML Tools, see the <a href="https://apple.github.io/coremltools/" target="_blank" rel="noopener">Package Documentation</a>.</p>
+<p><br></p>
+<h2 id="Alternatively-write-a-Custome-Conversion-Tool"><a href="#Alternatively-write-a-Custome-Conversion-Tool" class="headerlink" title="Alternatively, write a Custome Conversion Tool"></a>Alternatively, write a Custome Conversion Tool</h2><p>It’s possible to create your own conversion tool when you need to convert a model that isn’t in a format supported by the tools listed in above table.</p>
+<p>Writing your own conversion tool involves translating the representation of your model’s input, output, and architecture into the Core ML model format. You do this by defining each layer of the model’s architecture and its connectivity with other layers. Use the conversion tools provided by <a href="https://pypi.python.org/pypi/coremltools" target="_blank" rel="noopener">Core ML Tools</a> as examples; they demonstrate how various model types created from third-party are converted to the Core ML model format.</p>
+<blockquote>
+<p>Note<br>The Core ML model format is defined by a set of protocol buffer files and is described in detail in the <a href="https://developer.apple.com/machine-learning/" target="_blank" rel="noopener">Core ML Model Specification</a>.</p>
+</blockquote>
+<p><br></p>
+<p><a href="https://developer.apple.com/documentation/coreml/converting_trained_models_to_core_ml" target="_blank" rel="noopener">Official Tutorial</a></p>
+<p><br><br><br></p>
+<p>把第三方机器学习工具创建的训练模型转换到Core ML模型格式</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>如果你的模型是由第三方机器学习工具创建的和训练的，那么你可以使用<a href="https://pypi.python.org/pypi/coremltools" target="_blank" rel="noopener">Core ML Tools</a>工具，该工具可以把这些模型转换成Core ML可用模型。下面有一张表，是<a href="https://pypi.python.org/pypi/coremltools" target="_blank" rel="noopener">Core ML Tools</a>转换工具所支持的。</p>
+<blockquote>
+<p>注意<br>Core ML Tools是一个Python包，叫做coremltools，该工具是在Python Package Index(PyPI)运行的.</p>
+<p> 下面的表格是<a href="https://pypi.python.org/pypi/coremltools" target="_blank" rel="noopener">Core ML Tools</a>工具所支持的第三方机器学习工具创建的模型</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>模型类型</th>
+<th>所支持的模型</th>
+<th>所支持的工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Neural networks</td>
+<td>Feedforward, convolutional, recurrent</td>
+<td>Caffe v1, Keras 1.2.2+</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Tree ensembles</td>
+<td>Random forests, boosted trees, decision trees</td>
+<td>scikit-learn 0.18, XGBoost 0.6</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Support vector machines</td>
+<td>Scalar regression, multiclass classification</td>
+<td>scikit-learn 0.18, LIBSVM 3.22</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Generalized linear models</td>
+<td>Linear regression, logistic regression</td>
+<td>scikit-learn 0.18</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Feature engineering</td>
+<td>Sparse vectorization, dense vectorization, categorical processing</td>
+<td>scikit-learn 0.18</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+<tr>
+<td>Pipeline models</td>
+<td>Sequentially chained models</td>
+<td>scikit-learn 0.18</td>
+</tr>
+<tr>
+<td>—————————-</td>
+<td>——————————————————————–</td>
+<td>———————————-</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h2 id="转换你可用模型"><a href="#转换你可用模型" class="headerlink" title="转换你可用模型"></a>转换你可用模型</h2><p>使用Core ML转换器将第三方工具创建的模型转换成你可用的模型。就调用转换器的<code>convert</code>方法，并且保存Core ML模型的结果，以扩展名为.mlmodel。</p>
+<p>例如：如果你使用的是Caffe创建的模型，那传递Caffe模型（扩展名为：.caffemodel）到 <code>coremltools.converters.caffe.convert</code>方法，如下代码所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; import coremltools</span><br><span class="line">&gt; coreml_model = coremltools.converters.caffe.convert(&apos;my_caffe_model.caffemodel&apos;)</span><br></pre></td></tr></table></figure>
+<p>现在就把结果的模型保存，以Core ML的格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; coreml_model.save(&apos;my_model.mlmodel&apos;)</span><br></pre></td></tr></table></figure>
+<p>这取决于你的模型，可能你需要更新输入、输出和标签，或者你可能需要声明image names、types和格式。这个转化工具里有些文档，你可以查阅，由于工具不同所以相应的参数也不一样。更多关于Core ML Tools的信息, 来这里看<a href="https://apple.github.io/coremltools/" target="_blank" rel="noopener">Package Documentation</a>.</p>
+<p><br></p>
+<h2 id="这个是可选的，编写一个自定义的转换工具"><a href="#这个是可选的，编写一个自定义的转换工具" class="headerlink" title="这个是可选的，编写一个自定义的转换工具"></a>这个是可选的，编写一个自定义的转换工具</h2><p>在上面的列表中，如果没有适合你的工具，那么你也可以创建一个转换工具，转换成你想要的模型。</p>
+<p>编写一个转换工具会涉及到你模型的输入、输出和架构的表现，转换到Core ML模型。你需要做的就是，定义模型架构的每一层和每一层的连接性。那我们提供的<a href="https://pypi.python.org/pypi/coremltools" target="_blank" rel="noopener">Core ML Tools</a> 举例，从第三方创建的不同的模型类型转换到Core ML所需要的模型格式。</p>
+<blockquote>
+<p>注意<br>Core ML格式是由一组协议缓冲文件所定义的，并且在<a href="https://developer.apple.com/machine-learning/" target="_blank" rel="noopener">Core ML Model Specification</a> 有详细描述。</p>
+</blockquote>
+<p><br></p>
+<p><a href="https://developer.apple.com/documentation/coreml/converting_trained_models_to_core_ml" target="_blank" rel="noopener">官方教程</a></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

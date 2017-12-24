@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>iOS跟踪内存分配和循环引用</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="iOS跟踪内存分配和循环引用"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        iOS跟踪内存分配和循环引用
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-27T12:27:16.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-27
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-FBMemoryProfiler/">iOS, FBMemoryProfiler</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>我们在开发iOS应用期间，可能有时候就会遇到循环引用，或者内存分配状态等信息的问题，那么有没有办法可以在应用运行期间检测到了？答案是：当然有了！那就是开源的 <a href="https://github.com/facebook/FBMemoryProfiler" target="_blank">FBMemoryProfiler</a> ，由Facebook提供。使用起来也是非常的简单，下面我就讲解下</p>
+<h2 id="FBMemoryProfiler"><a href="#FBMemoryProfiler" class="headerlink" title="FBMemoryProfiler"></a>FBMemoryProfiler</h2><p><a href="https://github.com/facebook/FBMemoryProfiler" target="_blank">FBMemoryProfiler</a>是一个在应用运行期间也可以浏览内存使用情况，专为iOS开发者设计的，基本包含<a href="https://github.com/facebook/FBAllocationTracker" target="_blank">FBAllocationTracker</a>和<a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank">FBRetainCycleDetector</a>。</p>
+<p><code>FBAllocationTracker</code>是收集对象的信息，也支持生成和检测循环引用。</p>
+<p><br></p>
+<h2 id="一。FBMemoryProfiler的安装与使用"><a href="#一。FBMemoryProfiler的安装与使用" class="headerlink" title="一。FBMemoryProfiler的安装与使用"></a>一。FBMemoryProfiler的安装与使用</h2><p>跟踪与现实内存使用情况</p>
+<h2 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h2><p>使用<code>Carthage</code>，那么你需要在项目的<code>Cartfile</code>文件里添加上代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">github &quot;facebook/FBMemoryProfiler&quot;</span><br></pre></td></tr></table></figure></p>
+<p><code>FBMemoryProfiler</code>需要在非debug（non-debug）模式下编译，所以你需要键入如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">carthage update --configuration Debug</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>CocoaPods</code>，那么需要你在<code>Podfile</code>文件里添加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;FBMemoryProfiler&apos;</span><br></pre></td></tr></table></figure></p>
+<p>然后，在<code>Terminal</code>里<code>cd</code>到项目目录，最后键入<code>pod install</code><br>这个你完全可以在<code>Debug</code>模式下编译，这是有该<a href="https://github.com/facebook/FBMemoryProfiler/blob/master/FBMemoryProfiler/FBMemoryProfiler.h#L29" target="_blank" rel="noopener">编译标签</a>控制的。</p>
+<h2 id="1-2-使用"><a href="#1-2-使用" class="headerlink" title="1.2 使用"></a>1.2 使用</h2><p>1.在<code>main.m</code>文件里添加如下代码，意味着开启<code>FBAllocationTracker</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line">#import &quot;AppDelegate.h&quot;</span><br><span class="line">#import &lt;FBAllocationTracker/FBAllocationTrackerManager.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];</span><br><span class="line">    [[FBAllocationTrackerManager sharedManager] enableGenerations];</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.开启内存占用剖析检测功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;FBMemoryProfiler/FBMemoryProfiler.h&gt;</span><br><span class="line"></span><br><span class="line">FBMemoryProfiler *memoryProfiler = [FBMemoryProfiler new];</span><br><span class="line">[memoryProfiler enable];</span><br><span class="line"></span><br><span class="line">_memoryProfiler = memoryProfiler;</span><br></pre></td></tr></table></figure></p>
+<p><code>FBMemoryProfiler</code>一般是你需要在哪个控制器检测，你就把上面这块代码放到哪个控制器；我的建议是放到所有的控制器的父控制器（父控制器是你自定义的类，你所有使用带控制器的类就会从这个类继承），这比较方便，所有的控制器都可以检测到。<br>运行你的程序后，你就可以看到界面上有一个按钮，点击按钮，你就能看到内存使用情况了。</p>
+<p>来看下效果<br><img src="/img/iOS/memory/FBMemoryProfiler_Example.gif" alt="" width="320" height="640"></p>
+<p><br></p>
+<h2 id="二。FBAllocationTracker的安装与使用"><a href="#二。FBAllocationTracker的安装与使用" class="headerlink" title="二。FBAllocationTracker的安装与使用"></a>二。FBAllocationTracker的安装与使用</h2><p>跟踪Objective-C对象的分配状态</p>
+<h2 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h2><p>使用<code>Carthage</code>，那么你需要在项目的<code>Cartfile</code>文件里添加上代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">github &quot;facebook/FBAllocationTracker&quot;</span><br></pre></td></tr></table></figure></p>
+<p><code>FBAllocationTracker</code>需要在非debug（non-debug）模式下编译，所以你需要键入如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">carthage update --configuration Debug</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>CocoaPods</code>，那么需要你在<code>Podfile</code>文件里添加如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;FBAllocationTracker&apos;</span><br></pre></td></tr></table></figure></p>
+<p>然后，在<code>Terminal</code>里<code>cd</code>到项目目录，最后键入<code>pod install</code><br>这个你完全可以在<code>Debug</code>模式下编译，这是有该<a href="https://github.com/facebook/FBAllocationTracker/blob/master/FBAllocationTracker/FBAllocationTrackerImpl.h#L17" target="_blank" rel="noopener">编译标签</a>控制的。</p>
+<p><strong>这个其实在安装FBMemoryProfiler的时候就安装好了</strong></p>
+<h2 id="2-2-使用"><a href="#2-2-使用" class="headerlink" title="2.2 使用"></a>2.2 使用</h2><p>其实如果你在第一步已经配置了如下代码，那么这一步就不需要在添加了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;FBAllocationTracker/FBAllocationTrackerManager.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">  [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];</span><br><span class="line">  [[FBAllocationTrackerManager sharedManager] enableGenerations];</span><br><span class="line">  @autoreleasepool &#123;</span><br><span class="line">      return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在我来解释下<code>FBAllocationTracker</code>的两种模式：分别是<code>tracking objects</code>和<code>counting allocs/deallocs</code>，也就是<code>跟踪对象</code>和<code>分配与释放计数</code>。<code>tracking objects</code>比较有意思但是这里不做解释了。<code>counting allocs/deallocs</code>意思是当你想使用这个功能并且统计，而且不想影响性能时，你就可以使用这个模式。<br><code>startTrackingAllocations</code>方法负责替换<code>NSObject&#39;s</code>的<code>+alloc</code>和<code>-dealloc</code>方法，当启用<code>enableGenerations</code>方法时，会开始跟踪实际对象实例数。</p>
+<p>当然，我们也可以来抓取一下该应用的所有的类的分配情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSArray&lt;FBAllocationTrackerSummary *&gt; *summaries = [[FBAllocationTrackerManager sharedManager] currentAllocationSummary];</span><br></pre></td></tr></table></figure></p>
+<p><code>FBAllocationTrackerSummary</code>会告诉你，在你指定的类里，还有多少个存活的实例对象。</p>
+<p>当我们指定一个类，并且要得知该类有多少个活着的实例对象时，可以使用如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSArray *instances =[[FBAllocationTrackerManager sharedManager] instancesOfClasses:@[[ViewController class]]];</span><br></pre></td></tr></table></figure></p>
+<p>我们也可以查看<a href="https://github.com/facebook/FBAllocationTracker/blob/master/FBAllocationTracker/FBAllocationTrackerManager.h" target="_blank">FBAllocationTrackerManager</a>头文件来得知更多的功能。</p>
+<p><br></p>
+<h2 id="三。FBRetainCycleDetector的安装与使用"><a href="#三。FBRetainCycleDetector的安装与使用" class="headerlink" title="三。FBRetainCycleDetector的安装与使用"></a>三。FBRetainCycleDetector的安装与使用</h2><p><a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank">FBRetainCycleDetector</a>是用来检测在iOS应用运行期间出现的循环引用问题。循环应用(Retain Cycles)是比较经典的问题，因为它会引起内存泄露。随着业务的增加，代码的复杂度也随着增加了，那么有时候要从代码中找出来哪一行代码引起了循环引用，这是一个头疼的问题，但是了？<a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank">FBRetainCycleDetector</a>就是来解决这个问题的。</p>
+<h2 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h2><p>安装很简单，跟上面的一样，如果安装了<code>FBMemoryProfiler</code>，那它会把这三个库一并安装上。</p>
+<h2 id="3-2-使用"><a href="#3-2-使用" class="headerlink" title="3.2 使用"></a>3.2 使用</h2><h3 id="3-3-1-检测循环引用"><a href="#3-3-1-检测循环引用" class="headerlink" title="3.3.1 检测循环引用"></a>3.3.1 检测循环引用</h3><p>比较简单<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//导入头文件</span><br><span class="line">#import &lt;FBRetainCycleDetector/FBRetainCycleDetector.h&gt;</span><br><span class="line"></span><br><span class="line">FBRetainCycleDetector *detector = [FBRetainCycleDetector new];</span><br><span class="line">[detector addCandidate:myObject];</span><br><span class="line">NSSet *retainCycles = [detector findRetainCycles];</span><br><span class="line">NSLog(@&quot;%@&quot;, retainCycles);</span><br></pre></td></tr></table></figure></p>
+<p><code>myObject</code>就是你想要跟踪的实例对象。<br><code>retainCycles</code>就是返回循环引用对象的个数，及每一条循环应用的路径</p>
+<h3 id="3-3-2-过滤循环引用对象"><a href="#3-3-2-过滤循环引用对象" class="headerlink" title="3.3.2 过滤循环引用对象"></a>3.3.2 过滤循环引用对象</h3><p>过滤掉你不想检测到的循环引用对象，因为并不是每个循环应用都是内存泄露，代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">NSMutableArray *filters = @[</span><br><span class="line">  FBFilterBlockWithObjectIvarRelation([UIView class], @&quot;_subviewCache&quot;),</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">FBObjectGraphConfiguration *configuration =</span><br><span class="line">[[FBObjectGraphConfiguration alloc] initWithFilterBlocks:filters</span><br><span class="line">                                     shouldInspectTimers:YES];</span><br><span class="line">FBRetainCycleDetector *detector = [[FBRetainCycleDetector alloc] initWithConfiguration:configuration];</span><br><span class="line">[detector addCandidate:myObject];</span><br><span class="line">NSSet *retainCycles = [detector findRetainCycles];</span><br><span class="line">NSLog(@&quot;%@&quot;, retainCycles);</span><br></pre></td></tr></table></figure></p>
+<p>每一个过滤器其实是一个block，每个block有两个<code>FBObjectiveCGraphElement</code>对象，可以说他们的关系是有效的。</p>
+<h3 id="3-3-3-objc-setAssociatedObject"><a href="#3-3-3-objc-setAssociatedObject" class="headerlink" title="3.3.3 objc_setAssociatedObject"></a>3.3.3 objc_setAssociatedObject</h3><p>Objective-C允许我们对类进行动态的添加成员变量，可以通过<code>objc_setAssociatedObject</code>方法。那么当我们使用<code>OBJC_ASSOCIATION_RETAIN_NONATOMIC</code>策略时，有可能这些方法也会引起循环引用。<code>FBRetainCycleDetector</code>也可以捕获到这样的循环引用，但是，我们需要多一步设置，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;FBRetainCycleDetector/FBAssociationManager.h&gt;</span><br><span class="line"></span><br><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">  @autoreleasepool &#123;</span><br><span class="line">    [FBAssociationManager hook];</span><br><span class="line">    return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面这块代码<code>[FBAssociationManager hook]</code>其实使用的是<a href="https://github.com/facebook/fishhook" target="_blank">fishhook</a>，因为它可以干涉函数<code>objc_setAssociatedObject</code>和<code>objc_resetAssociatedObjects</code>，并且跟踪它们的引用</p>
+<p>好了，就这么多了。。。</p>
+<p><br><br><br></p>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p><a href="https://github.com/facebook/FBMemoryProfiler" target="_blank">FBMemoryProfiler</a><br><a href="https://github.com/facebook/FBAllocationTracker" target="_blank">FBAllocationTracker</a><br><a href="https://github.com/facebook/FBRetainCycleDetector" target="_blank">FBRetainCycleDetector</a><br><a href="https://github.com/facebook/fishhook" target="_blank">fishhook</a></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

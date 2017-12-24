@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>NSThread的认知</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="NSThread的认知"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        NSThread的认知
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-15T10:36:14.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-NSThread/">iOS, NSThread</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>NSThread</code>多线程编程，超级简单，NSthread是基于pthread_t封装的，所以基本上在使用方面pthread_t和NSThread差不多</p>
+<p>线程的生命周期，五种状态</p>
+<ul>
+<li>1.新建（new Thread）,就是实例化了一个线程对象<br>  在iOS中，<code>self.alwasyThread = [[NSThread alloc] initWithTarget:self selector:@selector(alwaysRun) object:nil];</code></li>
+<li>2.就绪（runnable），就是线程在就绪队列中等待CPU分配时间片，一般是<code>start</code>方法<br>  在iOS中，<code>[self.alwasyThread start];</code></li>
+<li>3.运行（running），就是线程已经获得CPU资源并且马上执行任务，一般是<code>run</code>方法<br>  在iOS中，<code>start</code>方法就表示进入就绪状态，并且获得CPU资源后进入运行状态</li>
+<li>4.死亡（dead），就是线程执行完任务，或者被其他线程杀死，这时就不能再进入就绪状态，重新运行。调用<code>stop</code>方法终止线程<br>  在iOS中，<code>[NSThread exit];</code></li>
+<li>5.阻塞（blocked），就是某种原因导致正在运行的线程暂停自己，让出CPU，那么自己就进入了阻塞状态（suspend），阻塞状态可以调用<code>resume</code>恢复<br>  在iOS中，<code>sleep(3);</code>，<code>[NSThread sleepForTimeInterval:3.0f];</code>，<code>[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:3.0]];</code></li>
+</ul>
+<p><br><br>我们分三步说下吧</p>
+<h2 id="1-创建子线程"><a href="#1-创建子线程" class="headerlink" title="1.创建子线程"></a>1.创建子线程</h2><p>第一种方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)nsthread_test &#123;</span><br><span class="line">    NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];</span><br><span class="line">    [thread start];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)run &#123;</span><br><span class="line">    NSLog(@&quot;NSThread子线程 %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2017-10-16 test[25785:1117888] NSThread子线程 &lt;NSThread: 0x604000270200&gt;&#123;number = 3, name = (null)&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第二种方式，仅限iOS 10及以上版本可用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSThread *thread = [[NSThread alloc] initWithBlock:^&#123;</span><br><span class="line">    NSLog(@&quot;NSThread子线程 %@&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;];</span><br><span class="line">[thread start];</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="2-分离线程"><a href="#2-分离线程" class="headerlink" title="2.分离线程"></a>2.分离线程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)nsthread_test &#123;</span><br><span class="line">    [NSThread detachNewThreadSelector:@selector(run:) toTarget:self withObject:@[ @&quot;这是&quot;, @&quot;参数&quot;]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)run:(id)parameters &#123;</span><br><span class="line">    NSLog(@&quot;NSThread子线程 parameter=%@ %@&quot;, parameters, [NSThread currentThread]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2017-10-16 test[25940:1121175] NSThread子线程 parameter=(&quot;这是&quot;, &quot;参数&quot;) &lt;NSThread: 0x604000460240&gt;&#123;number = 3, name = (null)&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="3-后台线程"><a href="#3-后台线程" class="headerlink" title="3.后台线程"></a>3.后台线程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)nsthread_test &#123;</span><br><span class="line">    [self performSelectorInBackground:@selector(run:) withObject:@[ @&quot;这是&quot;, @&quot;参数&quot;]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)run:(id)parameters &#123;</span><br><span class="line">    NSLog(@&quot;NSThread后台线程 parameter=%@ %@&quot;, parameters, [NSThread currentThread]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2017-10-16 test[25940:1127130] NSThread后台线程 parameter=(&quot;这是&quot;, &quot;参数&quot;) &lt;NSThread: 0x6000002718c0&gt;&#123;number = 3, name = (null)&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还有几个方法都是通过<code>self</code>调用的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//在主线程上执行</span><br><span class="line">- (void)performSelectorOnMainThread:(SEL)aSelector withObject:(nullable id)arg waitUntilDone:(BOOL)wait;</span><br><span class="line"></span><br><span class="line">//在指定线程上执行</span><br><span class="line">- (void)performSelector:(SEL)aSelector onThread:(NSThread *)thr withObject:(nullable id)arg waitUntilDone:(BOOL)wait;</span><br></pre></td></tr></table></figure></p>
+<p><br><br><br><br><a href="/2017/10/15/GCD的一般认知/">GCD的一般认知</a><br><a href="/2017/10/15/NSOperation的认知/">NSOperation的认知</a><br><a href="/2017/10/15/iOS中的锁/">iOS中的锁</a><br><a href="/2017/10/15/iOS的Runloop认知/">iOS的Runloop认知</a></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

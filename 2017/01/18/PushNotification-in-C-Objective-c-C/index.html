@@ -1,0 +1,213 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>PushNotification in C#,Objective-c/C</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="PushNotification in C#,Objective-c/C"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        PushNotification in C#,Objective-c/C
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-01-18T09:46:50.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-01-18
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/C-APNs-Objective-C-C/">C#,APNs,Objective-C,C</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h1 id="PushNotification"><a href="#PushNotification" class="headerlink" title="PushNotification"></a>PushNotification</h1><p>A simplest way to push notification on your own server in C# and C/Objective-C.</p>
+<h2 id="APNs-Overview"><a href="#APNs-Overview" class="headerlink" title="APNs Overview"></a>APNs Overview</h2><p>Apple Push Notification service (APNs) is the centerpiece of the remote notifications feature. It is a robust and highly efficient service for propagating information to iOS (and, indirectly, WatchOS), tvOS, and macOS devices. On initial launch, your app establishes an accredited and encrypted IP connection with APNs from the user’s device. Over time, APNs delivers notifications using this persistent connection. If a notification arrives when your app is not running. the device receives the notification and handles its delivery to your app at an appropriate time.</p>
+<p>In addition to APNs and your app, another piece is required for the delivery of remote notifications. You must configure your own server to originate those notifications. Your server, known as the provider, has the following responsibilities:</p>
+<ul>
+<li>It receives device tokens and relevant data from your app.</li>
+<li>It determines when remote notifications need to be sent to a device.</li>
+<li>It communicates the notification data to APNs, which then handles the delivery of the notifications to that device.</li>
+</ul>
+<p>For each remote notification, your provider:</p>
+<ul>
+<li>Constructs a JSON dictionary with the notification’s payload; described in the Remote Notification Payload.</li>
+<li>Attaches the payload and an appropriate device token to an HTTP/2 request.</li>
+<li>Sends the request to APNs over a persistent and secure channel that uses the HTTP/2 network protocol.</li>
+</ul>
+<p><img src="/img/iOS/notification/remote_notif_simple_2x.png" alt="Notification Flow"></p>
+<h2 id="What-can-this-repository-do"><a href="#What-can-this-repository-do" class="headerlink" title="What can this repository do?"></a>What can this repository do?</h2><ul>
+<li>Provide the simplest way to send remote notification to user’s device in C#</li>
+<li>Using the most simple code in C#/iOS , a newcomer can be able to understood</li>
+<li>In order to test your iOS app when you’re an iOS developer</li>
+<li>In order to write the code of server end when you’re an ASP.NET/C# developer</li>
+</ul>
+<p>For more details, linked to <a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html#//apple_ref/doc/uid/TP40008194-CH8-SW1" title="APNs" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Let me introduce the server end(C#) at first.<br>See the flow briefly firstly.</p>
+<ul>
+<li>1.Using <code>TcpClient</code> and <code>SslStream</code> classes to connect with Apple Server</li>
+<li>2.Setting certificate through <code>AuthenticateAsClient()</code> method within a passphrase, this method involves setting basic parameters and handshaking</li>
+<li>3.<code>Write()</code> for writing data bytes to APNs before splicing a whole string of payload</li>
+</ul>
+<p><br></p>
+<ul>
+<li>Here is the simplest <code>payload</code> of a remote notification<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;aps&quot;:&#123;&quot;alert&quot;:&quot;This is a message for testing APNs&quot;,&quot;badge&quot;:123,&quot;sound&quot;:&quot;default&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>These header files should be referenced<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.IO;</span><br><span class="line">using System.Net.Security;</span><br><span class="line">using System.Net.Sockets;</span><br><span class="line">using System.Security.Authentication;</span><br><span class="line">using System.Security.Cryptography.X509Certificates;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>Reading the p12 file which is downloaded from <a href="https://developer.apple.com" target="_blank" rel="noopener">Apple Developer Website</a>, the varieble certFilePath is your p12 certificate whole path and the varieble certPwd is the passphrase of certificate, code snippet below</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X509Certificate2 cert = new X509Certificate2(certFilePath, certPwd);</span><br><span class="line">X509CertificateCollection certificate = new X509CertificateCollection();</span><br><span class="line">certificate.Add(cert);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Then, create an instance of SslStream and handshake before passing host address and port, code snippet below</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">//For distribution mode, the host is gateway.push.apple.com    </span><br><span class="line">//For development mode, the host is gateway.sandbox.push.apple.com</span><br><span class="line">TcpClient client = new TcpClient(&quot;gateway.push.apple.com&quot;, 2195);</span><br><span class="line"></span><br><span class="line">SslStream sslStream = new SslStream(client.GetStream(), false, new RemoteCertificateValidationCallback(ServerCertificateValidationCallback), null);</span><br><span class="line"></span><br><span class="line">//The method AuthenticateAsClient() may cause an exception, so we need to try..catch.. it</span><br><span class="line">try</span><br><span class="line">&#123;</span><br><span class="line">    //Reference of SslStream </span><br><span class="line">    //https://msdn.microsoft.com/en-us/library/system.net.security.sslstream(v=vs.110).aspx?cs-save-lang=1&amp;cs-lang=csharp#code-snippet-2</span><br><span class="line"></span><br><span class="line">    sslStream.AuthenticateAsClient(_host, certificate, SslProtocols.Default, false);</span><br><span class="line">&#125;</span><br><span class="line">catch (Exception e)</span><br><span class="line">&#123;</span><br><span class="line">    Console.WriteLine(&quot;Exception Message: &#123;0&#125; &quot;, e.Message);</span><br><span class="line">    sslStream.Close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Obviously , this is a method of callback when handshaking</span><br><span class="line">bool ServerCertificateValidationCallback(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)</span><br><span class="line">&#123;</span><br><span class="line">    if (sslPolicyErrors == SslPolicyErrors.None)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(&quot;Specified Certificate is accepted.&quot;);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(&quot;Certificate error : &#123;0&#125; &quot;, sslPolicyErrors);</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Push a remote notification before consisting of the Payload string</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">//This is definition of PushNotificationPayload of struct </span><br><span class="line">public struct PushNotificationPayload</span><br><span class="line">&#123;</span><br><span class="line">    public string deviceToken;</span><br><span class="line">    public string message;</span><br><span class="line">    public string sound;</span><br><span class="line">    public int badge;</span><br><span class="line"></span><br><span class="line">    public string PushPayload()</span><br><span class="line">    &#123;</span><br><span class="line">        return &quot;&#123;\&quot;aps\&quot;:&#123;\&quot;alert\&quot;:\&quot;&quot; + message + &quot;\&quot;,\&quot;badge\&quot;:&quot; + badge + &quot;,\&quot;sound\&quot;:\&quot;&quot; + sound + &quot;\&quot;&#125;&#125;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//We gave values to it to consisting of the payload content</span><br><span class="line">PushNotificationPayload payload = new PushNotificationPayload();</span><br><span class="line">payload.deviceToken = &quot;dc67b56c eb5dd9f9 782c37fd cfdcca87 3b7bc77c 3b090ac4 c538e007 a2f23a24&quot;;</span><br><span class="line">payload.badge = 56789;</span><br><span class="line">payload.sound = &quot;default&quot;;</span><br><span class="line">payload.message = &quot;This message was pushed by C# platform.&quot;;</span><br><span class="line"></span><br><span class="line">//And then, calling Push() method to invoke it</span><br><span class="line">public void Push(PushNotificationPayload payload)</span><br><span class="line">&#123;</span><br><span class="line">    string payloadStr = payload.PushPayload();</span><br><span class="line">    string deviceToken = payload.deviceToken;</span><br><span class="line"></span><br><span class="line">    MemoryStream memoryStream = new MemoryStream();</span><br><span class="line">    BinaryWriter writer = new BinaryWriter(memoryStream);</span><br><span class="line"></span><br><span class="line">    writer.Write((byte)0); //The command</span><br><span class="line">    writer.Write((byte)0); //The first byte of deviceId length (Big-endian first byte)</span><br><span class="line">    writer.Write((byte)32); //The deviceId length (Big-endian second type)</span><br><span class="line"></span><br><span class="line">    //Method of DataWithDeviceToken() , see source code in this repo.</span><br><span class="line">    byte[] deviceTokenBytes = DataWithDeviceToken(deviceToken.ToUpper());</span><br><span class="line">    writer.Write(deviceTokenBytes);</span><br><span class="line"></span><br><span class="line">    writer.Write((byte)0); //The first byte of payload length (Big-endian first byte)</span><br><span class="line">    writer.Write((byte)payloadStr.Length); //payload length (Big-endian second byte)</span><br><span class="line"></span><br><span class="line">    byte[] bytes = Encoding.UTF8.GetBytes(payloadStr);</span><br><span class="line">    writer.Write(bytes);</span><br><span class="line">    writer.Flush();</span><br><span class="line"></span><br><span class="line">    _sslStream.Write(memoryStream.ToArray());</span><br><span class="line">    _sslStream.Flush();</span><br><span class="line"></span><br><span class="line">    Thread.Sleep(3000);</span><br><span class="line"></span><br><span class="line">    //Method of ReadMessage() , see source code in this repo.</span><br><span class="line">    string result = ReadMessage(_sslStream);</span><br><span class="line">    Console.WriteLine(&quot;server said: &quot; + result);</span><br><span class="line"></span><br><span class="line">    _sslStream.Close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><br><br><br><br><br><br><br></p>
+<p>Secondly, let me introduce the client side written by C/Objective-C.<br>See the flow briefly firstly.</p>
+<ul>
+<li>1.Using <code>socket()</code> to connect with Apple Server</li>
+<li>2.Setting certificate through <code>SSLSetCertificate()</code> function within a passphrase</li>
+<li>3.<code>SSLHandshake()</code> with Apple Push Notification server</li>
+<li>4.<code>SSLWrite()</code> for writing data bytes to APNs before splicing a whole string of payload</li>
+</ul>
+<ul>
+<li>Here is the simplest <code>payload</code> of a remote notification<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;aps&quot;:&#123;&quot;alert&quot;:&quot;This is a message for testing APNs&quot;,&quot;badge&quot;:123,&quot;sound&quot;:&quot;default&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>These header files should be referenced<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;Security/SecureTransport.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">#include &lt;netdb.h&gt;</span><br><span class="line">#include &lt;fcntl.h&gt;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">bool connectSocket()</span><br><span class="line">&#123;</span><br><span class="line">    int sock = socket(AF_INET, SOCK_STREAM, 0);</span><br><span class="line">    if (sock &lt; 0) &#123;</span><br><span class="line">        printf(&quot;Socket creation failed!&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    struct sockaddr_in addr;</span><br><span class="line">    memset(&amp;addr, 0, sizeof(struct sockaddr_in));</span><br><span class="line">    struct hostent *entr = gethostbyname(_host);</span><br><span class="line">    if (!entr) &#123;</span><br><span class="line">        printf(&quot;Got socket host failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    struct in_addr host;</span><br><span class="line">    memcpy(&amp;host, entr-&gt;h_addr, sizeof(struct in_addr));</span><br><span class="line">    addr.sin_addr = host;</span><br><span class="line">    addr.sin_port = htons((u_short)_port);</span><br><span class="line">    addr.sin_family = AF_INET;</span><br><span class="line">    int conn = connect(sock, (struct sockaddr *)&amp;addr, sizeof(struct sockaddr_in));</span><br><span class="line">    if (conn &lt; 0) &#123;</span><br><span class="line">        printf(&quot;Connected to APNs failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    int cntl = fcntl(sock, F_SETFL, O_NONBLOCK);</span><br><span class="line">    if (cntl &lt; 0) &#123;</span><br><span class="line">        printf(&quot;fcntl() function creation failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    int set = 1, sopt = setsockopt(sock, SOL_SOCKET, SO_NOSIGPIPE, (void *)&amp;set, sizeof(int));</span><br><span class="line">    if (sopt &lt; 0) &#123;</span><br><span class="line">        printf(&quot;setsockopt() function set failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    _socket = sock;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h3><p>Setting parameters, passphrase and certificate to <code>SSLContextRef</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">bool connectSSLWithCertificate(NSString * certificateFilePath, NSString * certificatePasswords)</span><br><span class="line">&#123;</span><br><span class="line">    SSLContextRef context = SSLCreateContext(NULL, kSSLClientSide, kSSLStreamType);</span><br><span class="line">    if (!context) &#123;</span><br><span class="line">        printf(&quot;SSLContextRef creation failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    OSStatus setio = SSLSetIOFuncs(context, VZSSLRead, VZSSLWrite);</span><br><span class="line">    if (setio != errSecSuccess) &#123;</span><br><span class="line">        printf(&quot;OSStatus set failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    OSStatus setconn = SSLSetConnection(context, (SSLConnectionRef)(unsigned long)_socket);</span><br><span class="line">    if (setconn != errSecSuccess) &#123;</span><br><span class="line">        printf(&quot;SSLSetConnection() function failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    OSStatus setpeer = SSLSetPeerDomainName(context, _host, strlen(_host));</span><br><span class="line">    if (setpeer != errSecSuccess) &#123;</span><br><span class="line">        printf(&quot;SSLSetPeerDomainName() function failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    id certificate = importPKCS12Data(certificateFilePath, certificatePasswords);</span><br><span class="line">    OSStatus setcert = SSLSetCertificate(context, (__bridge CFArrayRef)@[certificate]);</span><br><span class="line">    if (setcert != errSecSuccess) &#123;</span><br><span class="line">        printf(&quot;SSLSetCertificate() function failed! \n&quot;);</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    _context = context;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Step-3"><a href="#Step-3" class="headerlink" title="Step 3"></a>Step 3</h3><p>Handshaking<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">bool handshakeSSL()</span><br><span class="line">&#123;</span><br><span class="line">    OSStatus status = errSSLWouldBlock;</span><br><span class="line">    for (int i = 0; i &lt; NWSSL_HANDSHAKE_TRY_COUNT &amp;&amp; status == errSSLWouldBlock; i++) &#123;</span><br><span class="line">        status = SSLHandshake(_context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bool result = false;</span><br><span class="line">    switch (status) &#123;</span><br><span class="line">        case errSecSuccess: &#123;</span><br><span class="line">            printf(&quot;SSLHandshake() success! \n&quot;);</span><br><span class="line">            result = true;</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line">        case errSSLWouldBlock:</span><br><span class="line">        case errSecIO:</span><br><span class="line">        case errSecAuthFailed:</span><br><span class="line">        case errSSLUnknownRootCert:</span><br><span class="line">        case errSSLNoRootCert:</span><br><span class="line">        case errSSLCertExpired:</span><br><span class="line">        case errSSLXCertChainInvalid:</span><br><span class="line">        case errSSLClientCertRequested:</span><br><span class="line">        case errSSLServerAuthCompleted:</span><br><span class="line">        case errSSLPeerCertExpired:</span><br><span class="line">        case errSSLPeerCertRevoked:</span><br><span class="line">        case errSSLPeerCertUnknown:</span><br><span class="line">        case errSecInDarkWake:</span><br><span class="line">        case errSSLClosedAbort: &#123;</span><br><span class="line">            printf(&quot;SSLHandshake failed! Failure code = %d \n&quot;, status);</span><br><span class="line">            result = false;</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Step-4"><a href="#Step-4" class="headerlink" title="Step 4"></a>Step 4</h3><p>Writting data to APNs server<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int writePushData(NSData *data, NSUInteger *length)</span><br><span class="line">&#123;</span><br><span class="line">    *length = 0;</span><br><span class="line">    size_t processed = 0;</span><br><span class="line">    OSStatus status = SSLWrite(_context, data.bytes, data.length, &amp;processed);</span><br><span class="line">    *length = processed;</span><br><span class="line">    if (status == errSecSuccess) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;, securityErrorMessageString(status));</span><br><span class="line">        return errSecSuccess;</span><br><span class="line">    &#125;</span><br><span class="line">    return status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>Classifying Images with Vision and Core ML</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="Classifying Images with Vision and Core ML"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        Classifying Images with Vision and Core ML
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-23T08:45:58.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-23
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Core-ML-Classifying-Images/">Core ML, Classifying Images</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p>If you don’t know the basic use of Core ML, see <a href="/2017/10/23/Getting-Started-on-CoreML-by-Three-Steps/">this page</a> , on the contrary, keep going our tutorial.</p>
+<p>Use Vision with Core ML to perform image classification.</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>With the <code>Core ML</code> framework, you can use a trained machine learning model to classify input data. The Vision framework works with Core ML to apply classification models to images, and to preprocess those images to make machine learning tasks easier and more reliable.</p>
+<p>This tutorial I’m going to show you the open source <code>MobileNet</code> model, which identifies an image using 1000 classification categories as seen in the example screenshots below.</p>
+<p><img src="/img/AI/officialClassifyImages.png" alt="Official Classifying Image"></p>
+<center>Figure - Official Test Case <a href="https://docs-assets.developer.apple.com/published/43bca2cbbd/ClassifyingImageswithVisionandCoreML.zip" target="_blank" rel="noopener">Download Sample Code</a></center>
+
+<p><br><br><img src="/img/AI/FountainMobileNet.jpeg" alt="" width="320" height="568"><img src="/img/AI/StrawberryMobileNet.jpeg" alt="" width="320" height="568"><br><img src="/img/AI/LuHanMobileNet.jpeg" alt="" width="320" height="568"><img src="/img/AI/avatarMobileNet.jpeg" alt="" width="320" height="568"></p>
+<center>Figure - My Test Case</center>
+
+<p>Now, we’ve seen it’s completely identified in official test case, but in my test case, half of them are failed to be identified. So I can sum this example code up,the trained model is unmatured. </p>
+<p>But anyway, this is a good and easy step for us to going.</p>
+<h2 id="Start-to-my-performance"><a href="#Start-to-my-performance" class="headerlink" title="Start to my performance"></a>Start to my performance</h2><p><code>Core ML</code> automatically generates a Swift class which is <code>MobileNet</code>, that provides easy access to your ML model. To set up a Vision request using the model, create an instance of that class and use its model property to create a <code>VNCoreMLRequest</code> object. Use the request object’s completion handler to specify a method to receive results from the model after you run the request. </p>
+<p><strong> Download the Model </strong><br><a href="https://docs-assets.developer.apple.com/coreml/models/MobileNet.mlmodel" target="_blank" rel="noopener">Download Model</a><br>After downloaded, dragging it to your project, complete snippet code as seen below.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line">import CoreML</span><br><span class="line">import Vision</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">    </span><br><span class="line">    override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event: UIEvent?) &#123;</span><br><span class="line">        choosePhotosAndHandle()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //1. Choose an image and handle it</span><br><span class="line">    func choosePhotosAndHandle() &#123;</span><br><span class="line">        //Specific an image</span><br><span class="line">        let imgpath = Bundle.main.path(forResource: &quot;Strawberry&quot;, ofType: &quot;.jpeg&quot;)</span><br><span class="line">        if imgpath == nil &#123;</span><br><span class="line">            print(&quot;You specified image is nonexistent&quot;)</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        let image = UIImage(contentsOfFile: imgpath!)!</span><br><span class="line">        let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))!</span><br><span class="line">        guard let ciImage = CIImage(image: image) else &#123;</span><br><span class="line">            fatalError(&quot;Unable to create \(CIImage.self) from \(image).&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        DispatchQueue.global(qos: .userInitiated).async &#123;</span><br><span class="line">            let handler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation)</span><br><span class="line">            do &#123;</span><br><span class="line">                try handler.perform([self.classifyRequest])</span><br><span class="line">            &#125; catch &#123;</span><br><span class="line">                print(&quot;Failed to perform classification.\n\(error.localizedDescription)&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //2.Initialized an instance of MobileNet in lazy mode</span><br><span class="line">    lazy var classifyRequest: VNCoreMLRequest = &#123;</span><br><span class="line">        let mlModel = MobileNet().model</span><br><span class="line">        </span><br><span class="line">        do &#123;</span><br><span class="line">            let model = try VNCoreMLModel(for: mlModel)</span><br><span class="line">            let request = VNCoreMLRequest(model: model) &#123; [weak self] request, error in</span><br><span class="line">                self?.processClassifications(for: request, error: error)</span><br><span class="line">            &#125;</span><br><span class="line">            request.imageCropAndScaleOption = .centerCrop</span><br><span class="line">            return request</span><br><span class="line">        &#125; catch &#123;</span><br><span class="line">            fatalError(&quot;Failed to load Vision ML model: \(error)&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    // 3.This is an callback</span><br><span class="line">    func processClassifications(for request: VNRequest, error: Error?) &#123;</span><br><span class="line">        DispatchQueue.main.async &#123;</span><br><span class="line">            guard let results = request.results else &#123;</span><br><span class="line">                print(&quot;Unable to classify image. \(error!.localizedDescription)&quot;)</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            // The `results` will always be `VNClassificationObservation`s, as specified by the Core ML model in this project.</span><br><span class="line">            let classifications = results as! [VNClassificationObservation]</span><br><span class="line">            </span><br><span class="line">            if classifications.isEmpty &#123;</span><br><span class="line">                print(&quot;Nothing recognized&quot;)</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                // Display top classifications ranked by confidence in the UI</span><br><span class="line">                let topClassifications = classifications.prefix(2)</span><br><span class="line">                let descriptions = topClassifications.map(&#123; classification in</span><br><span class="line">                    return String(format: &quot;   (%.2f) %@&quot;, classification.confidence, classification.identifier)</span><br><span class="line">                &#125;)</span><br><span class="line">                </span><br><span class="line">                //This is the output result</span><br><span class="line">                print(&quot;Classification: \n&quot; + descriptions.joined(separator: &quot;\n&quot;))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>What we will always be seen in the console window as shown below:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Classification: </span><br><span class="line">   (1.00) strawberry</span><br><span class="line">   (0.00) trifle</span><br></pre></td></tr></table></figure></p>
+<p>The property of <code>imageCropAndScaleOption</code> in the class of <code>VNCoreMLRequest</code> illustration is an ML model processes input images in a fixed aspect ratio, but input images may have arbitrary aspect ratio, so Vision must scale of crop the image to fit. For best results, set a value to this property that matches the image layout the model was trained with. For the <a href="https://developer.apple.com/machine-learning/" target="_blank" rel="noopener">available classification models</a>, the <code>centerCrop</code> option is appropriate unless noted otherwise.</p>
+<p><a href="https://developer.apple.com/documentation/vision/classifying_images_with_vision_and_core_ml" target="_blank" rel="noopener">Official Classifying Images Tutorial</a><br><br><br><br></p>
+<p>=======================================================================================================<br>如果你还不知道Core ML的基本使用，那就先看看这个<a href="/2017/10/23/Getting-Started-on-CoreML-by-Three-Steps/">教程</a> ，相反，就直接往下看吧。</p>
+<p>使用<code>Vision with Core ML</code>来执行图片分类（<code>image classification</code>）。</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>通过<code>Core ML</code>framework，你可以通过已经训练的机器模型对输入的数据（提供的图片）进行分类。<code>Vision</code>framework与<code>Core ML</code>紧密结合工作，应用于分类模型到图片，并且预处理那些图片，使机器学习任务更简单，更可靠。</p>
+<p>本章教程，我将展示给你一个开源<code>MobileNet</code>模型的使用，这个模型能使用1000中分类类型来识别图片，如下截图所示：</p>
+<p><img src="/img/AI/officialClassifyImages.png" alt="官方分类后图片效果"></p>
+<center>图片 - 官方测试案例 <a href="https://docs-assets.developer.apple.com/published/43bca2cbbd/ClassifyingImageswithVisionandCoreML.zip" target="_blank" rel="noopener">下载样本代码</a></center>
+
+<p><br><br><img src="/img/AI/FountainMobileNet.jpeg" alt="" width="320" height="568"><img src="/img/AI/StrawberryMobileNet.jpeg" alt="" width="320" height="568"><br><img src="/img/AI/LuHanMobileNet.jpeg" alt="" width="320" height="568"><img src="/img/AI/avatarMobileNet.jpeg" alt="" width="320" height="568"></p>
+<center>图片 - 我的测试案例</center>
+
+<p>现在，我们可以看到，官方的测试案例的图片全部正确识别了，但是在我的案例里，一半被识别出来了，一半失败了。简单的总结，这个模型并不成熟。</p>
+<p>但是，不管怎么样，这对我们来说，是一个简单而且很不错的开始。</p>
+<h2 id="开始我的表演吧😄"><a href="#开始我的表演吧😄" class="headerlink" title="开始我的表演吧😄"></a>开始我的表演吧😄</h2><p><code>Core ML</code>自动生成<code>Swift</code>类，这个类叫做<code>MobileNet</code>，提供了轻松的访问这个ML模型。使用这个模型来创建<code>VNCoreMLRequest</code>对象，并且设置相关的属性，最后给这个请求指定一个回调用来接收模型的输出结果。</p>
+<p><a href="https://docs-assets.developer.apple.com/coreml/models/MobileNet.mlmodel" target="_blank" rel="noopener">下载模型</a><br>下载后，把这个模型拖拽到你的项目，完整的代码如下显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line">import CoreML</span><br><span class="line">import Vision</span><br><span class="line"></span><br><span class="line">class ViewController: UIViewController &#123;</span><br><span class="line">    </span><br><span class="line">    override func touchesBegan(_ touches: Set&lt;UITouch&gt;, with event: UIEvent?) &#123;</span><br><span class="line">        choosePhotosAndHandle()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //1. 选择一张图片并且处理它</span><br><span class="line">    func choosePhotosAndHandle() &#123;</span><br><span class="line">        //指定一张图片</span><br><span class="line">        let imgpath = Bundle.main.path(forResource: &quot;Strawberry&quot;, ofType: &quot;.jpeg&quot;)</span><br><span class="line">        if imgpath == nil &#123;</span><br><span class="line">            print(&quot;You specified image is nonexistent&quot;)</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        let image = UIImage(contentsOfFile: imgpath!)!</span><br><span class="line">        let orientation = CGImagePropertyOrientation(rawValue: UInt32(image.imageOrientation.rawValue))!</span><br><span class="line">        guard let ciImage = CIImage(image: image) else &#123;</span><br><span class="line">            fatalError(&quot;Unable to create \(CIImage.self) from \(image).&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        DispatchQueue.global(qos: .userInitiated).async &#123;</span><br><span class="line">            let handler = VNImageRequestHandler(ciImage: ciImage, orientation: orientation)</span><br><span class="line">            do &#123;</span><br><span class="line">                try handler.perform([self.classifyRequest])</span><br><span class="line">            &#125; catch &#123;</span><br><span class="line">                print(&quot;未能执行分类.\n\(error.localizedDescription)&quot;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //2.懒加载MobileNet</span><br><span class="line">    lazy var classifyRequest: VNCoreMLRequest = &#123;</span><br><span class="line">        let mlModel = MobileNet().model</span><br><span class="line">        </span><br><span class="line">        do &#123;</span><br><span class="line">            let model = try VNCoreMLModel(for: mlModel)</span><br><span class="line">            let request = VNCoreMLRequest(model: model) &#123; [weak self] request, error in</span><br><span class="line">                self?.processClassifications(for: request, error: error)</span><br><span class="line">            &#125;</span><br><span class="line">            request.imageCropAndScaleOption = .centerCrop</span><br><span class="line">            return request</span><br><span class="line">        &#125; catch &#123;</span><br><span class="line">            fatalError(&quot;Failed to load Vision ML model: \(error)&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    // 3.这是回调</span><br><span class="line">    func processClassifications(for request: VNRequest, error: Error?) &#123;</span><br><span class="line">        DispatchQueue.main.async &#123;</span><br><span class="line">            guard let results = request.results else &#123;</span><br><span class="line">                print(&quot;Unable to classify image. \(error!.localizedDescription)&quot;)</span><br><span class="line">                return</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            // `results`永远都是`VNClassificationObservation`数组，在这个项目中有ML Model特指的</span><br><span class="line">            let classifications = results as! [VNClassificationObservation]</span><br><span class="line">            </span><br><span class="line">            if classifications.isEmpty &#123;</span><br><span class="line">                print(&quot;Nothing recognized&quot;)</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                // Display top classifications ranked by confidence in the UI</span><br><span class="line">                let topClassifications = classifications.prefix(2)</span><br><span class="line">                let descriptions = topClassifications.map(&#123; classification in</span><br><span class="line">                    return String(format: &quot;   (%.2f) %@&quot;, classification.confidence, classification.identifier)</span><br><span class="line">                &#125;)</span><br><span class="line">                </span><br><span class="line">                //这是输出结果</span><br><span class="line">                print(&quot;Classification: \n&quot; + descriptions.joined(separator: &quot;\n&quot;))</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以在控制台窗口看到如下输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Classification: </span><br><span class="line">   (1.00) strawberry</span><br><span class="line">   (0.00) trifle</span><br></pre></td></tr></table></figure></p>
+<p>在类<code>VNCoreMLRequest</code>的属性<code>imageCropAndScaleOption</code>，解释：一个ML模型处理图片时是基于固定宽高比（fixed aspect ratio）的，但是提供的图片的宽高比可能是任意的，所以<code>Vision</code>就必须把图片进行裁切或者规格化后去适配这个模型所需。为了达到最好的效果，我们一般会设置一个值来匹配图片的布局，这样的图片的布局就是模型所需要的。<a href="https://developer.apple.com/machine-learning/" target="_blank" rel="noopener">所有可用的分类模型</a>，参数选项<code>centerCrop</code>是较为合适的，除非有特殊说明用别的，否则，就是这个。</p>
+<p><a href="https://developer.apple.com/documentation/vision/classifying_images_with_vision_and_core_ml" target="_blank" rel="noopener">官方图片分类教程</a></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>fishhook的基本使用，fishhook可以勾住系统函数</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="fishhook的基本使用，fishhook可以勾住系统函数"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        fishhook的基本使用，fishhook可以勾住系统函数
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-26T11:15:02.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-26
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Valgrind-C-C-内存管理/">Valgrind, C/C++, 内存管理</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h2><p><a href="https://github.com/facebook/fishhook" target="_blank">fishhook</a>是一个非常牛的Mach-O二进制库，原因是因为它可以<code>动态</code>的<code>重新绑定Mach-O符号</code>，专门用于在iOS系统上（模拟器或者真机都可以）。</p>
+<p>这个库的最大功能就是可以干涉系统函数，类似在Mac OS X上使用<a href="https://opensource.apple.com/source/dyld/dyld-210.2.3/include/mach-o/dyld-interposing.h" target="_blank">DYLD_INTERPOSE</a>。</p>
+<p>在Facebook，我们惊奇的发现使用<a href="https://github.com/facebook/fishhook" target="_blank">fishhook</a>可以勾住<code>libSystem</code>的函数调用，目的了？就是用于<code>debugging</code>（又叫做<code>调试</code>）或者<code>tracing</code>（又叫做<code>追踪</code>）。<br>例如：对带有文件描述符的双重关闭问题进行稽核。原文是（auditing for double-close issues with file descriptors）。</p>
+<h2 id="2-用法"><a href="#2-用法" class="headerlink" title="2.用法"></a>2.用法</h2><p>使用的方法也是超简单，这里了，我们就拿打开(<code>open()</code>)一个文件和关闭(<code>close()</code>)一个文件来举例。我们把系统打开文件函数<code>open</code>重写一下（其实是叫做<code>symbols rebinding</code>），也对关闭文件函数<code>close</code>重写一下（它也叫作<code>symbols rebinding</code>）。<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;dlfcn.h&gt;</span><br><span class="line"></span><br><span class="line">//导入头文件</span><br><span class="line">#import &quot;fishhook.h&quot;</span><br><span class="line"></span><br><span class="line">//系统open函数的函数指针声明</span><br><span class="line">static int (*orig_open)(const char *, int, ...);</span><br><span class="line"></span><br><span class="line">//系统close函数的函数指针声明</span><br><span class="line">static int (*orig_close)(int);</span><br><span class="line"></span><br><span class="line">//对系统open函数重写（其实是符号重新绑定），但是我感觉就像是重写</span><br><span class="line">int my_open(const char *path, int oflag, ...)</span><br><span class="line">&#123;</span><br><span class="line">    va_list ap = &#123;0&#125;;</span><br><span class="line">    mode_t mode = 0;</span><br><span class="line">    </span><br><span class="line">    if ((oflag &amp; O_CREAT) != 0) &#123;</span><br><span class="line">        va_start(ap, oflag);</span><br><span class="line">        mode = va_arg(ap, int);</span><br><span class="line">        va_end(ap);</span><br><span class="line">        </span><br><span class="line">        printf(&quot;1.先调用my_open()，然后在调用系统的open() (&apos;%s&apos;, %d, %d) \n&quot;, path, oflag, mode);</span><br><span class="line">        return orig_open(path, oflag, mode);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        printf(&quot;1.先调用my_open()，然后在调用系统的open() (&apos;%s&apos;, %d, %d) \n&quot;, path, oflag, mode);</span><br><span class="line">        return orig_open(path, oflag, mode);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//对系统close函数重写（其实是符号重新绑定），但是我感觉就像是重写</span><br><span class="line">int my_close(int fd)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;2.先调用my_close()，然后调用系统的close函数 \n&quot;);</span><br><span class="line">    return orig_close(fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        </span><br><span class="line">        //对open和close函数的符号重新绑定</span><br><span class="line">        rebind_symbols((struct rebinding[2])&#123;&#123;&quot;close&quot;, my_close, (void *)&amp;orig_close&#125;, &#123;&quot;open&quot;, my_open, (void *)&amp;orig_open&#125;&#125;, 2);</span><br><span class="line">        </span><br><span class="line">        //假设打开一个文件，并且只读取前4个字节，以后你想要操作其他的系统函数，用法也是一样的</span><br><span class="line">        //调用open方法时，会先调用my_open</span><br><span class="line">        int fd = open(argv[0], O_RDONLY);</span><br><span class="line">        </span><br><span class="line">        //读取四个字节并打印</span><br><span class="line">        uint32_t magic_number = 0;</span><br><span class="line">        read(fd, &amp;magic_number, 4);</span><br><span class="line">        printf(&quot;Mach-O Magic Number: %x \n&quot;, magic_number);</span><br><span class="line">        </span><br><span class="line">        //关闭文件描述符，会先调用my_close</span><br><span class="line">        close(fd);</span><br><span class="line">    </span><br><span class="line">        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.先调用my_open()，然后在调用系统的open() (&apos;你的应用的路径/testFishhook.app/testFishhook&apos;, 0, 0) </span><br><span class="line">Mach-O Magic Number: feedfacf </span><br><span class="line">2.先调用my_close()，然后调用系统的close函数1.先调用my_open()，然后在调用系统的open() (&apos;你的应用的路径/testFishhook.app/Info.plist&apos;, 0, 0) </span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong> va_list, va_start, va_arg, va_end 的介绍 </strong><br><a href="https://baike.baidu.com/item/va_list/8573665?fr=aladdin" target="_blank">百度百科</a>说: va_list是在C语言中解决变参问题的一组宏，所在头文件：#include &lt; stdarg.h &gt; ，用于获取不确定的个数的参数。<br><strong>用法</strong></p>
+<ul>
+<li>（1）首先在函数里定义一具<code>VA_LIST</code>型的变量，这个变量是指向参数的指针；</li>
+<li>（2）然后用<code>VA_START</code>宏初始化刚定义的<code>VA_LIST</code>变量；</li>
+<li>（3）然后用<code>VA_ARG</code>返回可变的参数，<code>VA_ARG</code>的第二个参数是你要返回的参数的类型（如果函数有多个可变参数的，依次调用<code>VA_ARG</code>获取各个参数）；</li>
+<li>（4）最后用<code>VA_END</code>宏结束可变参数的获取。</li>
+</ul>
+<p><br><br><br></p>
+<h2 id="其他工具引荐介绍"><a href="#其他工具引荐介绍" class="headerlink" title="其他工具引荐介绍"></a>其他工具引荐介绍</h2><p>Valgrind是一个相当强悍的C/C++的内存管理动态分析工具，<a href="http://valgrind.org/docs/manual/QuickStart.html" target="_blank" rel="noopener">官方文档</a> 。<br>Valgrind工具套件提供了大量的<code>调试</code>和<code>分析</code>工具，这些分析工具能帮助你并且让你的<code>程序更快</code>和<code>更正确</code>。这个超级流行的工具就叫做<code>Memcheck</code>。<code>Memcheck</code>工具能检测大量内存相关的<code>errors</code>，该工具主要针对<code>C</code>和<code>C++</code>程序，这写<code>errors</code>能引起崩溃和不可预测的行为。</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>iOS App Dumps Encrypted Shell and Disassembling</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="iOS App Dumps Encrypted Shell and Disassembling"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        iOS App Dumps Encrypted Shell and Disassembling
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-04-15T11:36:52.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-04-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-Reverse-Engineering-Unshell-Disassembling/">iOS Reverse Engineering, Unshell, Disassembling</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Software reverse engineering refers to the process of deducing the implementation and design details of a program or a system by analyzing the functions, structures or behaviors of it. When we are very interested in a certain software feature while not having the access to the source code, we can try to analyze it by reverse engineering.</p>
+<p>Although the recipe of Coca-Cola is highly confidential, some other companies can still copy its taste. Although we don’t have access to the source code of others’ Apps, we can dig into their details of reverse engineering.</p>
+<h2 id="PDF-Document"><a href="#PDF-Document" class="headerlink" title="PDF Document"></a>PDF Document</h2><ol>
+<li><a href="https://drive.google.com/file/d/0B9vGMCW0Vvs3UHd0b0UwQ2x1OUk/view?usp=sharing" target="_blank" rel="noopener">FOR MORE DETAILS OF iOS REVERSE ENGINEERING, SEE HERE.</a></li>
+<li><a href="http://download.csdn.net/detail/u013538542/9815713" target="_blank" rel="noopener">iOS应用逆向工程（第二版）</a></li>
+</ol>
+<h2 id="Chinese-Blog"><a href="#Chinese-Blog" class="headerlink" title="Chinese Blog"></a>Chinese Blog</h2><p><a href="http://blog.csdn.net/u013538542/article/details/70196590" target="_blank" rel="noopener">iOS逆向 - 获取AppStore上的应用的所有头文件和源文件  http://blog.csdn.net/u013538542/article/details/70196590</a></p>
+<h2 id="What’s-the-main-purpose-of-this-article-saying"><a href="#What’s-the-main-purpose-of-this-article-saying" class="headerlink" title="What’s the main purpose of this article saying?"></a>What’s the main purpose of this article saying?</h2><blockquote>
+<p>1.Browses all directories on the iPhone;<br>2.SSH login to the jailbreak iPhone;<br>3.Dumps the encrypted App which is downloaded from the App Store and shows you a decrypted Mach-O file(It indicates the binary file of the IPA);<br>4.Gets all header files and disassembles the binary file of the App, shows you the pseudo code of Objective-C;<br>5.Copies files from Mac to iPhone, vice versa.</p>
+</blockquote>
+<h2 id="Let’s-get-prepared"><a href="#Let’s-get-prepared" class="headerlink" title="Let’s get prepared!"></a>Let’s get prepared!</h2><p>First of all, you have to prepare some tools and libraries which I show you underneath.</p>
+<h4 id="Hardware"><a href="#Hardware" class="headerlink" title="Hardware"></a>Hardware</h4><blockquote>
+<p>1.A jailbroken iPhone/iPad/iPod;<br>2.A MacBook Pro.</p>
+</blockquote>
+<h4 id="Software"><a href="#Software" class="headerlink" title="Software"></a>Software</h4><blockquote>
+<p>1.<a href="https://en.wikipedia.org/wiki/Cydia" target="_blank" rel="noopener">Cydia</a> has been installed in the iPhone;<br>2.Installs OpenSSH, directly search it in Cydia in the iPhone;<br>3.Download the repository of <a href="https://github.com/VictorZhang2014/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted</a>, which unshells the app;<br>4.<a href="http://www.i-funbox.com/" target="_blank" rel="noopener">iFunBox</a> which can browse all directories and files on your iPhone;<br>5.<a href="http://stevenygard.com/projects/class-dump/" target="_blank" rel="noopener">class-dump</a> is capable of getting all header files of an application;<br>6.<a href="https://www.hopperapp.com/" target="_blank" rel="noopener">Hopper</a> is capable of analyse the source code of an application in pseudo code. If you’d like to use <a href="https://www.hex-rays.com/products/ida/" target="_blank" rel="noopener">IDA</a> that’s okay for it.</p>
+</blockquote>
+<h2 id="Let’s-get-started"><a href="#Let’s-get-started" class="headerlink" title="Let’s get started!"></a>Let’s get started!</h2><p>When you get ready for these necessary software and hardware, then I start with <a href="https://github.com/VictorZhang2014/dumpdecrypted" target="_blank" rel="noopener">dumpdecrypted</a> is open source project that you can find it on <a href="(https://github.com/VictorZhang2014/dumpdecrypted">github</a>).</p>
+<h3 id="1-Firstly-we-have-to-generate-a-dumpdecrypted-dylib-that-is-a-dynamic-library-because-we-need-it-for-unshelling-the-encrypted-binary-file"><a href="#1-Firstly-we-have-to-generate-a-dumpdecrypted-dylib-that-is-a-dynamic-library-because-we-need-it-for-unshelling-the-encrypted-binary-file" class="headerlink" title="1.Firstly, we have to generate a dumpdecrypted.dylib that is a dynamic library, because we need it for unshelling the encrypted binary file."></a>1.Firstly, we have to generate a dumpdecrypted.dylib that is a dynamic library, because we need it for unshelling the encrypted binary file.</h3><p><img src="/img/iOS/ReverseEngineering/dumpdecryptedCommand.png" alt="dumpdecrypted command"><br>You’ll see a dynamic library<br><img src="/img/iOS/ReverseEngineering/dumpdecryptedDirectory.png" alt="dumpdecrypted directory"></p>
+<p><br><br><br></p>
+<h3 id="2-Secondly-we-use-iFunBox-or-OpenSSH-connecting-to-the-jailbroken-device-and-find-applications"><a href="#2-Secondly-we-use-iFunBox-or-OpenSSH-connecting-to-the-jailbroken-device-and-find-applications" class="headerlink" title="2.Secondly, we use iFunBox or OpenSSH connecting to the jailbroken device, and find applications."></a>2.Secondly, we use <a href="http://www.i-funbox.com/" target="_blank" rel="noopener">iFunBox</a> or OpenSSH connecting to the jailbroken device, and find applications.</h3><p>Here, I choose <a href="http://www.i-funbox.com/" target="_blank" rel="noopener">iFunBox</a>.</p>
+<blockquote>
+<p>Figure - 1. All the sandbox of applications directory, but you have to find one what you want.</p>
+</blockquote>
+<p><img src="/img/iOS/ReverseEngineering/iFunBoxApplicationsSandBoxDir.png" alt="iFunBox Applications SandBox Directory"></p>
+<blockquote>
+<p>Figure - 2. Application Directory, we take WeChat.app for instance.</p>
+</blockquote>
+<p><img src="/img/iOS/ReverseEngineering/iFunBoxApplicationDirectory.png" alt="iFunBox Application Directory"></p>
+<blockquote>
+<p>Figure - 3. The SandBox of WeChat application  <a href="https://developer.apple.com/library/content/documentation/Security/Conceptual/AppSandboxDesignGuide/AboutAppSandbox/AboutAppSandbox.html" target="_blank" rel="noopener">What’s Sandbox on iPhone?</a></p>
+</blockquote>
+<p><img src="/img/iOS/ReverseEngineering/iFunBoxApplicationSandBoxDirectory.png" alt="iFunBox Application SandBox Directory"></p>
+<blockquote>
+<p>Figure - 4. Copies dumpdecrypted.dylib to the document directory of sandbox of WeChat application.<br><img src="/img/iOS/ReverseEngineering/iFunBoxApplicationSandBoxDumpDecrypted.png" alt="iFunBox ApplicationSandBox dumpdecrypted.dylib"></p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<p>Please Note: If you don’t know how to find the application out you want, then use of Terminal on your Mac.  You connect to the Jailbroken iPhone by OpenSSH. When you will have connected to the iPhone, use of <code>find</code> command to search the application name and its path will show you directly.</p>
+</blockquote>
+<p><br><br><br></p>
+<h3 id="3-The-stirring-moment-will-has-showcased-underneath-That-unshell-the-application-One-thing-we-all-knew-that-the-application-which-had-been-encrypted-its-binary-file-while-we-submitted-it-to-the-App-Store-We-download-any-one-of-application-to-the-iPhone-from-App-Store-so-that-we-can-analyse-it"><a href="#3-The-stirring-moment-will-has-showcased-underneath-That-unshell-the-application-One-thing-we-all-knew-that-the-application-which-had-been-encrypted-its-binary-file-while-we-submitted-it-to-the-App-Store-We-download-any-one-of-application-to-the-iPhone-from-App-Store-so-that-we-can-analyse-it" class="headerlink" title="3.The stirring moment will has showcased underneath. That unshell the application. One thing we all knew that the application which had been encrypted its binary file while we submitted it to the App Store. We download any one of application to the iPhone from App Store so that we can analyse it."></a>3.The stirring moment will has showcased underneath. That unshell the application. One thing we all knew that the application which had been encrypted its binary file while we submitted it to the App Store. We download any one of application to the iPhone from App Store so that we can analyse it.</h3><p>1.At first, Go to the sandbox of the application use of OpenSSH. You’ll see the <code>dumpdecrypted.dylib</code> displayed here;<br><img src="/img/iOS/ReverseEngineering/JailBrokeniPhoneSandBoxWeChatDocuments.png" alt="JailBrokeniPhoneSandBoxWeChatDocuments"></p>
+<p>2.Then, we are going to dump the encrypted binary of WeChat.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DYLD_INSERT_LIBRARIES=dumpdecrypted.dylib /private/var/mobile/Containers/Bundle/Application/EBB2963F-EB9D-4BE1-9D9C-4A281C0D827E/WeChat.app/WeChat</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/iOS/ReverseEngineering/JailBrokeniPhoneWeChatDumpEncryptedBinary.png" alt="JailBrokeniPhoneWeChatDumpEncryptedBinary"></p>
+<p>3.Finally, we got <code>WeChat.decrypted</code> file which is meant for no encrypted, no secure in the WeChat sandbox Documents directory.<br><img src="/img/iOS/ReverseEngineering/iFunBoxWeChatDumppedByDumpDecryptedTool.png" alt="iFunBoxWeChatDumppedByDumpDecryptedTool"> </p>
+<p><br><br><br></p>
+<h3 id="4-Export-all-header-files-of-WeChat-application-by-class-dump"><a href="#4-Export-all-header-files-of-WeChat-application-by-class-dump" class="headerlink" title="4.Export all header files of WeChat application by class-dump"></a>4.Export all header files of WeChat application by <code>class-dump</code></h3><p>Copies <code>WeChat.decrypted</code> file from the Jailbroken iPhone to your Mac use by iFunBox.</p>
+<p>1.Normally, we use the following command to get all header files, bu it doesn’t work.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump -S -s -H WeChat.decrypted -o Headers/</span><br></pre></td></tr></table></figure></p>
+<p>So, I’ve found a solution for this circumstance. Run following command<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class-dump --arch armv7 -S -s -H WeChat.decrypted -o Headers/</span><br></pre></td></tr></table></figure></p>
+<p>Aha, it works! Really!!<br>See? All header files of WeChat application displays here.<br><img src="/img/iOS/ReverseEngineering/WeChatLoginWithApiAllHeaderFiles.png" alt="WeChatLoginWithApiAllHeaderFiles"></p>
+<p>I opened a class <code>WTLoginApi</code><br><img src="/img/iOS/ReverseEngineering/WeChatLoginWithApiHeaderFileByHopper.png" alt="WeChatLoginWithApiHeaderFileByHopper"></p>
+<p><br><br><br></p>
+<h3 id="5-Lookup-source-code-use-by-Hopper"><a href="#5-Lookup-source-code-use-by-Hopper" class="headerlink" title="5. Lookup source code use by Hopper"></a>5. Lookup source code use by Hopper</h3><p>We have seen all header files of WeChat application, even if it was downloaded from the App Store,but our goal is to find more source out, isn’t it?<br>So, I’m bound to use Hopper to find source code I want.<br>Why Hopper? Actually, I’m prone to use Hopper, instead of IDA. If you’re prone to use IDA, that’s a good option.</p>
+<p>We take class <code>WTLoginApi</code> for example, and its function <code>loginWithPasswd:andPasswd:andSigBitmap:andLoginFlag:retData:</code>. See below.<br><img src="/img/iOS/ReverseEngineering/WeChatLoginWithApiByHopper.png" alt="WeChatLoginWithApiByHopper"></p>
+<p>As a matter of fact, if you want to understand it, you have to know about Assembly Language. Hopper gave us a very clear source code and call track, for learning reverse engineering, try learning AL.</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

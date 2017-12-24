@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>iOS Reverse - (1) The basic tools of use of OpenSSH, iFile, MTerminal and syslogd</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="iOS Reverse - (1) The basic tools of use of OpenSSH, iFile, MTerminal and syslogd"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        iOS Reverse - (1) The basic tools of use of OpenSSH, iFile, MTerminal and syslogd
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-06-04T11:47:05.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-06-04
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/OpenSSH-iFile-MTerminal-syslogd/">OpenSSH, iFile, MTerminal, syslogd</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h1 id="1-OpenSSH"><a href="#1-OpenSSH" class="headerlink" title="1.OpenSSH"></a>1.OpenSSH</h1><p>OpenSSH will install SSH service on iOS (as shown in figure below). Only 2 commands are the most commonly used: ssh is used for remote logging, scp is used for remote file transfer. The usage of ssh is as follows:</p>
+<p><img src="/img/iOS/ReverseEngineering/WX20170604-OpenSSH-1.png" alt="OpenSSH"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user@iOSIP</span><br></pre></td></tr></table></figure>
+<p>For instance:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snakeninnysiMac:~ snakeninny$ ssh mobile@192.168.1.6</span><br></pre></td></tr></table></figure></p>
+<p>The usage of scp is as follows:<br>1.Copy a local file to iOS<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp /path/to/localFile user@iOSIP:/path/to/remoteFile</span><br></pre></td></tr></table></figure></p>
+<p>For instance:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snakeninnysiMac:~ snakeninny$ scp ~/1.png root@192.168.1.6:/var/tmp/</span><br></pre></td></tr></table></figure></p>
+<p>2.Copy a file from iOS to the local system<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp user@iOSIP:/path/to/remoteFile /path/to/localFile</span><br></pre></td></tr></table></figure></p>
+<p>For instance:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snakeninnysiMac:~ snakeninny$ scp root@192.168.1.6:/var/log/syslog ~/iOSlog</span><br></pre></td></tr></table></figure></p>
+<p>These two commands are relatively simple and intuitive. After installing OpenSSH, make sure to change the default login password “alpine”. There’re 2 users on iOS, i.e. root and mobile, we need to change both passwords like this:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FunMaker-5:~ root# passwd root Changing password for root.</span><br><span class="line">New password:</span><br><span class="line">Retype new password: FunMaker-5:~ root# passwd mobile Changing password for mobile. New password:</span><br><span class="line">Retype new password:</span><br></pre></td></tr></table></figure></p>
+<p>If we forget to change the default password, there’re chances that viruses like Ikee login as root via ssh. This leads to very serious security disasters: all data on iOS including SMS, contacts, AppleID passwords and so on is at the risk of leaking, the intruder can take control over your device and do whatever he wants. Therefore, promise me you’ll change the default password after installing OpenSSH, OK?</p>
+<p><br></p>
+<h1 id="2-iFile"><a href="#2-iFile" class="headerlink" title="2.iFile"></a>2.iFile</h1><p>iFile is a very powerful file management App, you can view it as Finder’s parallel on iOS. iFile is capable of all kinds of file operation including browsing, editing, cutting, copying and deb installing, possessing great convenience.<br>iFile is rather user-friendly. Before installing a deb, remember to close Cydia at first, then tap the deb file to be installed and choose “Installer” in the action sheet, as shown in figure below.</p>
+<p><img src="/img/iOS/ReverseEngineering/WX20170604-iFile-1.png" alt="iFile"><br><img src="/img/iOS/ReverseEngineering/WX20170604-iFile-2.png" alt="iFile"></p>
+<p>Due to iFile is chargeable. So I wrote a project which contans the most functionalities, and latter, I will finish it completely gradually, and it is free for anyone on github.<br><a href="https://github.com/iOS-Reverse-Engineering-Dev/iFiler" target="_blank" rel="noopener">https://github.com/iOS-Reverse-Engineering-Dev/iFiler</a></p>
+<p><br></p>
+<h1 id="3-MTerminal"><a href="#3-MTerminal" class="headerlink" title="3.MTerminal"></a>3.MTerminal</h1><p><img src="/img/iOS/ReverseEngineering/WX20170604-MTerminal.png" alt="iFile"></p>
+<p>MTerminal is an open sourced Terminal on iOS with all basic functions available. The usage of MTerminal is no much difference to Terminal, if we put the screen and keyboard size aside. I</p>
+<p>think the most practical scene of MTerminal is to test private methods in Cycript when we’re blanking out on the subway or something.</p>
+<p><br></p>
+<h1 id="4-syslogd-to-var-log-syslog"><a href="#4-syslogd-to-var-log-syslog" class="headerlink" title="4.syslogd to /var/log/syslog"></a>4.syslogd to /var/log/syslog</h1><p><img src="/img/iOS/ReverseEngineering/WX20170604-syslogd-to-1.png" alt="iFile"><br>syslogd is a daemon to record system logs on iOS, and “syslogd to /var/log/syslog” is used to write the logs to a file at “/var/log/syslog”. You need to reboot iOS after you install this tweak to automatically create the file “/var/log/syslog”. This file gets larger as time goes by, you can zero clear it with the following command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FunMaker-5:~ root# cat /dev/null &gt; /var/log/syslog</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br><br><br>Reference : iOS App Reverse Engineering – by snakeninny, hangcom</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

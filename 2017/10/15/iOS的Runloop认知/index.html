@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>iOS的Runloop认知</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="iOS的Runloop认知"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        iOS的Runloop认知
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-10-15T11:35:32.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-10-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-Runloop/">iOS, Runloop</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><code>RunLoop</code>是iOS和OS X开发中非常基础的知识，通过RunLoop可以实现自动释放池，延迟回调，触摸事件，屏幕刷新等功能。</p>
+<p>一般来讲，一个线程一次只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时处理事件但并不退出，通常的代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function loop() &#123;</span><br><span class="line">    initialize();</span><br><span class="line">    do &#123;</span><br><span class="line">        var message = get_next_message();</span><br><span class="line">        process_message(message);</span><br><span class="line">    &#125; while (message != quit);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种模型通常被称作 <code>Event Loop</code>。 <code>Event Loop</code> 在很多系统和框架都有实现，比如Node.js的事件处理，比如Windows程序消息循环，再比如iOS/OS X里的RunLoop.<br>实现这种模型的关键点在于：如何管理事件/消息，如何让线程在没有处理消息时休眠以避免资源占用、在有消息来到时立刻被唤醒。</p>
+<p>所以 <code>RunLoop</code> 实际上就是一个对象，这个对象管理了其需要处理的事件和消息，并提供了一个入口函数来执行上面的 <code>Event Loop</code> 的逻辑。线程执行了这个函数后，就会一直处于这个函数内部 “接收消息 -&gt; 等待 -&gt; 处理” 的循环中，知道这个循环结束（比如传入<code>quit</code>的消息），函数返回。</p>
+<p>在iOS/OS X系统中，提供了两个这样的对象：NSRunLoop和CFRunLoopRef。<br><code>CFRunLoopRef</code>是在CoreFoundation框内的，提供了<code>纯C函数</code>的API，<a href="http://opensource.apple.com/tarballs/CF/" target="_blank" rel="noopener">代码是开源的</a>，所有这些API都是线程安全的。<br><code>NSRunLoop</code>是基于<code>CFRunLoopRef</code>的封装，提供了<code>面向对象</code>的API，但是这些API不是线程安全的。</p>
+<p><code>Swift</code>开源后，苹果又维护了一个跨平台的<code>CoreFoundation</code>版本：<a href="https://github.com/apple/swift-corelibs-foundation/" target="_blank" rel="noopener">https://github.com/apple/swift-corelibs-foundation/</a>  这个版本的源码可能和现有的iOS系统中的实现略有不同，但是更容易编译，因为它已经适配了 <code>Linux/Windows</code></p>
+<p><br></p>
+<h2 id="RunLoop对外的接口"><a href="#RunLoop对外的接口" class="headerlink" title="RunLoop对外的接口"></a>RunLoop对外的接口</h2><p>在<code>CoreFoundation</code>里面关于RunLoop有5个类</p>
+<ul>
+<li>CFRunLoopRef</li>
+<li>CFRunLoopModeRef</li>
+<li>CFRunLoopSourceRef</li>
+<li>CFRunLoopTimerRef</li>
+<li>CFRunLoopObserverRef</li>
+</ul>
+<p>其中 CFRunLoopModeRef 类并没有对外暴露，只是通过 CFRunLoopRef 的接口进行了封装。他们的关系如下:<br><img src="/img/iOS/RunLoop/RunLoop_0.png" alt="" style="width:350px;height:280px;"></p>
+<ul>
+<li>一个RunLoop包含若干个Mode</li>
+<li><code>每个Mode</code>包含若干个<code>Source/Timer/Observer</code></li>
+<li><code>每次</code>调用<code>RunLoop的主函数</code>时，只能<code>指定</code>其中一个<code>Mode</code>，这个<code>Mode</code>被<code>称作CurrentMode</code></li>
+<li>如果需要切换Mode，只能先<code>退出Loop</code>，再<code>重新指定</code>一个<code>Mode</code>进入</li>
+<li>这样做的<code>目的</code>是为了分割开不同组的<code>Source/Timer/Observer</code></li>
+</ul>
+<p><strong> CFRunLoopSourceRef </strong>是事件产生的地方。Source有两个版本：<code>Source0</code>和<code>Source1</code>。</p>
+<ul>
+<li><code>Source0</code> 包含了一个回调（函数指针），不会主动出发事件。使用时，需要先调用<code>CFRunLoopSourceSignal(source)</code> 将这个Source标记为待处理，然后手动调用<code>CFRunLoopWakeUp(runloop)</code>来唤醒<code>RunLoop</code>，让其处理这个事件。</li>
+<li><code>Source1</code> 包含了一个<code>mach_port</code>和一个回调（函数指针），被用于通过内核和其他线程互相发送消息。这种Source能主动唤醒RunLoop的线程。</li>
+</ul>
+<p><strong> CFRunLoopTimerRef </strong> 是基于时间的触发器，它和<code>NSTimer</code>是toll-free bridged（也就是互相可替换）的，可以混用；它包含了一个<code>时间长度</code>和<code>一个回调</code>；当其被加入到RunLoop时，RunLoop会注册对应的时间点，当达到时间点时，RunLoop会被环形以执行那个回调</p>
+<p><strong> CFRunLoopObserverRef </strong> 是观察者，每一个Observer都有一个回调（函数指针），当RunLoop状态发生变化时，观察者就能通过回调接受到这个变化，观测的时间点有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) &#123;</span><br><span class="line">    kCFRunLoopEntry         = (1UL &lt;&lt; 0), // 即将进入Loop</span><br><span class="line">    kCFRunLoopBeforeTimers  = (1UL &lt;&lt; 1), // 即将处理 Timer</span><br><span class="line">    kCFRunLoopBeforeSources = (1UL &lt;&lt; 2), // 即将处理 Source</span><br><span class="line">    kCFRunLoopBeforeWaiting = (1UL &lt;&lt; 5), // 即将进入休眠</span><br><span class="line">    kCFRunLoopAfterWaiting  = (1UL &lt;&lt; 6), // 刚从休眠中唤醒</span><br><span class="line">    kCFRunLoopExit          = (1UL &lt;&lt; 7), // 即将退出Loop</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><br></p>
+<h2 id="RunLoop的Mode"><a href="#RunLoop的Mode" class="headerlink" title="RunLoop的Mode"></a>RunLoop的Mode</h2><p>CFRunLoopMode结构如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoopMode &#123;</span><br><span class="line">    CFStringRef _name;            // Mode Name, 例如 @&quot;kCFRunLoopDefaultMode&quot;</span><br><span class="line">    CFMutableSetRef _sources0;    // Set</span><br><span class="line">    CFMutableSetRef _sources1;    // Set</span><br><span class="line">    CFMutableArrayRef _observers; // Array</span><br><span class="line">    CFMutableArrayRef _timers;    // Array</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>CFRunLoop结构如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct __CFRunLoop &#123;</span><br><span class="line">    CFMutableSetRef _commonModes;     // Set</span><br><span class="line">    CFMutableSetRef _commonModeItems; // Set&lt;Source/Observer/Timer&gt;</span><br><span class="line">    CFRunLoopModeRef _currentMode;    // Current Runloop Mode</span><br><span class="line">    CFMutableSetRef _modes;           // Set</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>苹果公开的Mode有两个，这两个Mode都是被标记为<code>common</code>属性，如下：</p>
+<ul>
+<li>kCFRunLoopDefaultMode(UIDefaultRunLoopMode)    </li>
+<li>UITrackingRunLoopmode                 </li>
+</ul>
+<p>应用场景举例：<br>主线程的RunLoop的<code>UIDefaultRunLoopMode</code>是App平时所处的状态，<code>UITrackingRunLoopmode</code>是追踪<code>ScrollView</code>滑动时的状态。当你创建一个<code>Timer</code>并加入到<code>DefaultMode</code>时，Timer会得到重复回调，但是此时滑动一个TableView时，RunLoop会将Mode切换为TrackingRunLoopMode，这时Timer就不会被回调，并且也不会影响滑动操作。<br>可是有时你需要一个<code>Timer</code>，在两个mode中都能得到回调，办法有两种;</p>
+<ul>
+<li>1.将这个<code>Timer</code>分别<code>加</code>入<code>到两个Mode</code>中去</li>
+<li>2.将<code>Timer</code>加入到顶层的RunLoop的<code>commonMode</code></li>
+</ul>
+<p><br></p>
+<h2 id="RunLoop的内部逻辑"><a href="#RunLoop的内部逻辑" class="headerlink" title="RunLoop的内部逻辑"></a>RunLoop的内部逻辑</h2><p>根据苹果文档里的说明，RunLoop内部的大概逻辑如下：<br><img src="/img/iOS/RunLoop/RunLoop_1.png" alt="RunLoop 内部逻辑"> </p>
+<p>具体看<a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">这里</a></p>
+<p><br></p>
+<h2 id="苹果用RunLoop实现的功能"><a href="#苹果用RunLoop实现的功能" class="headerlink" title="苹果用RunLoop实现的功能"></a>苹果用RunLoop实现的功能</h2><p>首先我们来了解下App启动后的RunLoop的状态，分别向系统注册了5个mode：</p>
+<ul>
+<li>1.kCFRunLoopDefaultMode，App的默认mode，通常主线程在这个mode下运行的</li>
+<li>2.UITrackingRunLoopMode，界面跟踪mode，用于UIScrollView追踪触摸滑动时保证界面不受其他mode影响</li>
+<li>3.UIInitializationRunLoopMode，在App刚启动时第一个进入的Mode，启动完后便不再使用</li>
+<li>4.GSEventReceiveRunLoopMode，接受系统事件的内部mode，通常用不到</li>
+<li>5.kCFRunLoopCommonModes，这是一个占位mode，没有实际作用</li>
+</ul>
+<p><strong> 定时器 </strong><br><code>NSTimer</code>其实就是<code>CFRunLoopTimerRef</code>，他们之间是toll-free bridged（互相替换）。一个<code>NSTimer</code>注册到RunLoop后，Runloop会为其重新的时间点注册好事件。<br>例如：10:00, 10:10, 10:20 这个几个时间点。RunLoop为了节省资源，并不会在非常准确的时间点回调这个Timer。Timer有个属性叫做Tolerance(宽容度)，表示当时间点到达后，容许有多少的误差。如果某一个时间点错过了，例如执行了一个很长时间的任务，则那个时间点的回调会被跳过去，不会延后执行</p>
+<p><code>CADisplayLink</code>是一个和屏幕刷新率一致的定时器（但实际实现原理更为复杂，和<code>NSTimer</code>并不一样）。如果在两次屏幕刷新之间执行了一个任务，那其中就会有一帧会被跳过去（和NSTimer一样），这就造成了界面卡顿的感觉。尤其是在快速滑动tableView时，即时有一帧的卡顿也会让用户有所察觉。Facebook开源了<a href="https://github.com/facebookarchive/AsyncDisplayKit" target="_blank" rel="noopener"><code>AsyncDisplayLink</code></a>（现在改名了叫做<a href="https://github.com/texturegroup/texture/" target="_blank" rel="noopener"><code>Texture</code></a>）就是为了解决界面卡顿的问题，其内部也用到了RunLoop。</p>
+<p><strong> PerformSelector </strong><br>当调用<code>NSObject</code>的<code>performSelector:afterDelay:</code>后，实际上是在其内部创建了一个Timer并且加入到当前的线程的RunLoop中，所以如果当前线程中没有RunLoop，则这个方法会失效</p>
+<p>当调用<code>performSelector:onThread:</code>时，实际上也会创建一个Timer加到对应的线程中去，同样的，如果对应的线程中没有RunLoop，则该方法也会失效</p>
+<p>以上的内容摘自：<a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">https://blog.ibireme.com/2015/05/18/runloop/</a></p>
+<p><br><br><br></p>
+<h2 id="看例子"><a href="#看例子" class="headerlink" title="看例子"></a>看例子</h2><p>第一个例子，让一个线程常驻<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;1.创建线程&quot;);</span><br><span class="line">    self.alwasyThread = [[NSThread alloc] initWithTarget:self selector:@selector(alwaysRun) object:nil];</span><br><span class="line">    NSLog(@&quot;2.启动线程，包括：1）.线程进入就绪状态；2）.线程获得CPU资源后运行状态&quot;);</span><br><span class="line">    [self.alwasyThread start];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)alwaysRun &#123;</span><br><span class="line">    NSLog(@&quot;该线程一直在活跃 %@&quot;, [NSThread currentThread]);</span><br><span class="line">    </span><br><span class="line">    self.runloop = [NSRunLoop currentRunLoop];</span><br><span class="line">    [self.runloop addPort:[NSPort port] forMode:NSDefaultRunLoopMode];</span><br><span class="line">    [self.runloop run];</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;不会执行到这里&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    [self performSelector:@selector(subthreadRun) onThread:self.alwasyThread withObject:nil waitUntilDone:NO];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)subthreadRun &#123;</span><br><span class="line">    NSLog(@&quot;你点击了屏幕 %@&quot;, [NSThread currentThread]);</span><br><span class="line">    </span><br><span class="line">    NSTimer *timer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(timerRun) userInfo:nil repeats:YES];</span><br><span class="line">    [self.runloop addTimer:timer forMode:NSDefaultRunLoopMode];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)timerRun &#123;</span><br><span class="line">    static int i = 0;</span><br><span class="line">    NSLog(@&quot;%d&quot;, i++);</span><br><span class="line">    </span><br><span class="line">    if (i == 5) &#123;</span><br><span class="line">        NSLog(@&quot;3.线程进入阻塞状态，阻塞3秒钟&quot;);</span><br><span class="line">        //    [NSThread sleepForTimeInterval:3.0f];</span><br><span class="line">        [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:3.0]];</span><br><span class="line">        sleep(3);</span><br><span class="line">        </span><br><span class="line">        NSLog(@&quot;4.退出线程，退出线程后，该方法下面的代码不在执行&quot;);</span><br><span class="line">        [NSThread exit];</span><br><span class="line">        </span><br><span class="line">        NSLog(@&quot;该线程挂了&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">2017-10-17 13:29:32.900140+0800 test[30877:1429252] 1.创建线程</span><br><span class="line">2017-10-17 13:29:32.900374+0800 test[30877:1429252] 2.启动线程，包括：1）.线程进入就绪状态；2）.线程获得CPU资源后运行状态</span><br><span class="line">2017-10-17 13:29:32.901087+0800 test[30877:1429358] 该线程一直在活跃 &lt;NSThread: 0x604000461580&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">2017-10-17 13:29:35.233913+0800 test[30877:1429358] 你点击了屏幕 &lt;NSThread: 0x604000461580&gt;&#123;number = 3, name = (null)&#125;</span><br><span class="line">2017-10-17 13:29:36.236729+0800 test[30877:1429358] 0</span><br><span class="line">2017-10-17 13:29:37.235340+0800 test[30877:1429358] 1</span><br><span class="line">2017-10-17 13:29:38.237163+0800 test[30877:1429358] 2</span><br><span class="line">2017-10-17 13:29:39.235978+0800 test[30877:1429358] 3</span><br><span class="line">2017-10-17 13:29:40.240552+0800 test[30877:1429358] 4</span><br><span class="line">2017-10-17 13:29:40.240877+0800 test[30877:1429358] 3.线程进入阻塞状态，阻塞3秒钟</span><br><span class="line">2017-10-17 13:29:43.243757+0800 test[30877:1429358] 4.退出线程，退出线程后，该方法下面的代码不在执行</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到，一个<code>线程的生命周期</code>，从<code>开始</code>到<code>结束</code>，如果我们不点击屏幕的话，那么这个<code>线程</code>就是<code>一直常驻</code>的，当<code>点击</code>完屏幕后，<code>阻塞</code>三秒钟，就<code>退出线程</code>了，线程退出<code>runloop</code>也就<code>挂</code>了</p>
+<p><br><br>下面在来一个例子，监听runloop的状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">    [super viewDidLoad];</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;%@ 1.创建线程&quot;, [NSThread currentThread]);</span><br><span class="line">    self.alwasyThread = [[NSThread alloc] initWithTarget:self selector:@selector(alwaysRun) object:nil];</span><br><span class="line">    NSLog(@&quot;%@ 2.启动线程，包括：1）.线程进入就绪状态；2）.线程获得CPU资源后运行状态&quot;, [NSThread currentThread]);</span><br><span class="line">    [self.alwasyThread start];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)alwaysRun &#123;</span><br><span class="line">    NSLog(@&quot;%@ 该线程一直在活跃&quot;, [NSThread currentThread]);</span><br><span class="line">    </span><br><span class="line">    CFRunLoopObserverRef runLoopObserver = CFRunLoopObserverCreateWithHandler(CFAllocatorGetDefault(), kCFRunLoopAllActivities, true, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) &#123;</span><br><span class="line">        switch (activity) &#123;</span><br><span class="line">            case kCFRunLoopEntry:</span><br><span class="line">                NSLog(@&quot;%@ 即将进入 runloop&quot;, [NSThread currentThread]);</span><br><span class="line">                break;</span><br><span class="line">            case kCFRunLoopBeforeTimers:</span><br><span class="line">                NSLog(@&quot;%@ 即将处理 Timer&quot;, [NSThread currentThread]);</span><br><span class="line">                break;</span><br><span class="line">            case kCFRunLoopBeforeSources:</span><br><span class="line">                NSLog(@&quot;%@ 即将处理 Source&quot;, [NSThread currentThread]);</span><br><span class="line">                break;</span><br><span class="line">            case kCFRunLoopBeforeWaiting:</span><br><span class="line">                NSLog(@&quot;%@ 即将进入休眠&quot;, [NSThread currentThread]);</span><br><span class="line">                break;</span><br><span class="line">            case kCFRunLoopAfterWaiting:</span><br><span class="line">                NSLog(@&quot;%@ 从休眠中唤醒 runloop&quot;, [NSThread currentThread]);</span><br><span class="line">                break;</span><br><span class="line">            case kCFRunLoopExit:</span><br><span class="line">                NSLog(@&quot;%@ 即将退出 runloop &quot;, [NSThread currentThread]);</span><br><span class="line">                break;</span><br><span class="line">            default:</span><br><span class="line">                break;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    CFRunLoopAddObserver(CFRunLoopGetCurrent(), runLoopObserver, kCFRunLoopDefaultMode);</span><br><span class="line">    </span><br><span class="line">    NSRunLoop *runloop = [NSRunLoop currentRunLoop];</span><br><span class="line">    [runloop addPort:[NSPort port] forMode:NSDefaultRunLoopMode];</span><br><span class="line">    [runloop run];</span><br><span class="line">    </span><br><span class="line">    NSLog(@&quot;%@ 不会执行到这里&quot;, [NSThread currentThread]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    [self performSelector:@selector(subthreadRun) onThread:self.alwasyThread withObject:nil waitUntilDone:NO];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)subthreadRun &#123;</span><br><span class="line">    static int i = 0;</span><br><span class="line">    i++;</span><br><span class="line">    NSLog(@&quot;%@ 你点击了%d次屏幕 &quot;, [NSThread currentThread], i);</span><br><span class="line">    </span><br><span class="line">    if (i == 2) &#123;</span><br><span class="line">        NSLog(@&quot;3.线程进入阻塞状态，阻塞3秒钟&quot;);</span><br><span class="line">        //[NSThread sleepForTimeInterval:3.0f];</span><br><span class="line">        //[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:3.0]];</span><br><span class="line">        sleep(3);</span><br><span class="line">        </span><br><span class="line">        NSLog(@&quot;4.退出线程，退出线程后，该方法下面的代码不在执行&quot;);</span><br><span class="line">        [NSThread exit];</span><br><span class="line">        </span><br><span class="line">        NSLog(@&quot;该线程挂了&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">2017-10-17 test[35026:1575126] &lt;NSThread: 0x600000260c40&gt;&#123;number = 1, name = main&#125; 1.创建线程</span><br><span class="line">2017-10-17 test[35026:1575126] &lt;NSThread: 0x600000260c40&gt;&#123;number = 1, name = main&#125; 2.启动线程，包括：1）.线程进入就绪状态；2）.线程获得CPU资源后运行状态</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 该线程一直在活跃</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将进入 runloop</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将处理 Timer</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将处理 Source</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将进入休眠</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 从休眠中唤醒 runloop</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将处理 Timer</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将处理 Source</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 你点击了1次屏幕 </span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将退出 runloop </span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将进入 runloop</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将处理 Timer</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将处理 Source</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将进入休眠</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 从休眠中唤醒 runloop</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将处理 Timer</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 即将处理 Source</span><br><span class="line">2017-10-17 test[35026:1575230] &lt;NSThread: 0x604000461200&gt;&#123;number = 3, name = (null)&#125; 你点击了2次屏幕 </span><br><span class="line">2017-10-17 test[35026:1575230] 3.线程进入阻塞状态，阻塞3秒钟</span><br><span class="line">2017-10-17 test[35026:1575230] 4.退出线程，退出线程后，该方法下面的代码不在执行</span><br></pre></td></tr></table></figure></p>
+<p>通过输出结果得知，runloop在没有任务或事件处理时，就会进入休眠状态，当我从屏幕上点击一下，runloop就马上唤醒了，然后runloop的状态依次如下：<br>进入 <code>即将处理timer</code> -&gt; <code>即将处理 Source</code> -&gt; <code>处理用户事件</code> -&gt; <code>退出runloop</code>，<code>在进入runloop</code> -&gt; <code>即将处理Timer</code> -&gt; <code>即将处理Source</code> -&gt; <code>即将进入休眠</code></p>
+<p><br><br><strong> 退出RunLoop的三种方式 </strong></p>
+<ul>
+<li>1.当线程退出了，runloop就结束了</li>
+<li>2.在运行runloop时，设置一个截止时间，如：<code>[self.runloop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:10]];</code>  10秒后runloop结束了</li>
+<li>3.主动调用<code>CFRunLoopStop(CFRunLoopRef rl)</code></li>
+</ul>
+<p><code>NSPort</code> 是一个抽象类，表示通信通道，它的子类有:</p>
+<ul>
+<li><code>NSMachPort</code> 是本地机器的端口通信，</li>
+<li><code>NSSocketPort</code> 可以是本地机器，也可以远程机器的端口消息通道</li>
+<li><code>NSMessagePort</code> 是一个在通信过程使用的消息类，供NSMachPort和NSSocketPort使用</li>
+</ul>
+<p><br><br><a href="/2017/10/15/GCD的一般认知/">GCD的一般认知</a><br><a href="/2017/10/15/NSOperation的认知/">NSOperation的认知</a><br><a href="/2017/10/15/iOS中的锁/">iOS中的锁</a><br><a href="/2017/10/15/NSThread的认知/">NSThread的认知</a></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

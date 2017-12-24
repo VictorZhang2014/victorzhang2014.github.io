@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic等</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic等"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic等
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-08-01T11:50:58.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-08-01
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS修饰符-weak-assign/">iOS修饰符,weak,assign</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <p><code>weak</code></p>
+<ul>
+<li>只能修饰派生自<code>NSObject</code>类或协议，因为<code>NSObject</code>即是类，也是协议</li>
+<li>在对象的引用计数器为0时，对象的指针<code>会</code>自动<code>指向nil</code></li>
+<li>可以解决循环引用问题</li>
+</ul>
+<p><code>assign</code></p>
+<ul>
+<li>可以修饰基础数据类型，也可以修饰派生自<code>NSObject</code>类的对象</li>
+<li>在对象的引用计数器为0时，对象的指针<code>不会</code>自动<code>指向nil</code></li>
+<li>可以解决循环引用问题</li>
+</ul>
+<p><code>atomic</code></p>
+<ul>
+<li>是Objective-C默认修饰的</li>
+<li>原子性的</li>
+<li>之所以线程安全，是因为只能编译器在生成<code>setter</code>和<code>getter</code>时，方法内部会有一个<code>@synchronized()</code>的同步互斥锁</li>
+<li>线程不安全，是因为在多线程中操作对象时，比如：<code>NSArray</code>的<code>addObject:</code>方法，它是没有锁的，所以为了保证安全，我们必须自己加锁</li>
+<li>速度慢</li>
+</ul>
+<p><code>nonatomic</code></p>
+<ul>
+<li>不是Objective-C默认修饰的，需要手动添加</li>
+<li>非原子性</li>
+<li>线程不安全</li>
+<li>速度快</li>
+</ul>
+<p><code>strong</code></p>
+<ul>
+<li><code>Objective-C</code>对象默认创建时，就是强引用</li>
+<li>修饰<code>Objective-C</code>对象的，创建时为引用计数为1</li>
+<li>不管是修饰可变属性还是不可变属性，只要使用了赋值号，就是增加了一个指针指向同一块内存地址</li>
+</ul>
+<p><code>copy</code></p>
+<ul>
+<li>修饰不可变属性时，是浅拷贝，意思是：只要使用了赋值号，就是增加了一个指针指向同一块内存地址</li>
+<li>修饰可变属性时，是深拷贝，意思是：只要使用了赋值号，就是新开辟了一块内存空间</li>
+</ul>
+<p><code>__block</code></p>
+<ul>
+<li>默认情况下，局部变量只可以被block访问</li>
+<li>但是用它来修饰局部变量，就可以在block代码块里修改局部变量的值，因为这个局部变量被拷贝了一份到block代码块里，如果是指针就是拷贝了一份指针</li>
+</ul>
+<p><code>__weak</code></p>
+<ul>
+<li>就是将OC的对象改变成弱引用指针</li>
+</ul>
+<p><strong>注意</strong><br>一个<code>block代码块</code>是否会造成循环引用要看这个<code>block</code>所属的类是对这个<code>block</code>什么修饰，如果是<code>strong</code>和<code>copy</code>，则这个<code>block代码块</code>一定是强引用，且在外部使用这个block代码块时，使用<code>self</code>，就一定要转换成<code>__weak</code>形式；或者在这个<code>block</code>所属的类里对这个block修饰为<code>assign</code>或者<code>weak</code>，则在外部使用这个<code>block代码块</code>时，<code>self</code>不用转换为<code>__weak</code>形式。</p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

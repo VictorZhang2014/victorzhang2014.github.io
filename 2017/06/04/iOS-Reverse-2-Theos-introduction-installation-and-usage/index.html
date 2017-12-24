@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>iOS Reverse - (2) Theos introduction, installation and usage </title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="iOS Reverse - (2) Theos introduction, installation and usage "/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        iOS Reverse - (2) Theos introduction, installation and usage 
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2017-06-04T12:10:17.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2017-06-04
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/theos-ldid/">theos, ldid</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h1 id="1-Introduction"><a href="#1-Introduction" class="headerlink" title="1.Introduction"></a>1.Introduction</h1><p>Theos is a jailbreak development tool written and shared on GitHub by a friend, Dustin Howett (@DHowett). Compared with other jailbreak development tools, Theos’ greatest feature is simplicity: It’s simple to download, install, compile and publish; the built-in Logos syntax is simple to understand. It greatly reduces our work besides coding.<br>Additionally, iOSOpenDev, which runs as a plugin of Xcode is another frequently used tool in jailbreak development, developers who are familiar with Xcode may feel more interested in this tool, which is more integrated than Theos. But, reverse engineering deals with low-level knowledge a lot, most of the work can’t be done automatically by tools, it’d be better for you to get used to a less integrated environment. Therefore I strongly recommend Theos, when you use it to finish one practice after another, you will definitely gain a deeper understanding of iOS reverse engineering.</p>
+<p><br></p>
+<h1 id="2-Install-and-configure-Theos"><a href="#2-Install-and-configure-Theos" class="headerlink" title="2.Install and configure Theos"></a>2.Install and configure Theos</h1><h2 id="2-1-Install-Xcode-and-Command-Line-Tools"><a href="#2-1-Install-Xcode-and-Command-Line-Tools" class="headerlink" title="2.1 Install Xcode and Command Line Tools"></a>2.1 Install Xcode and Command Line Tools</h2><p>Most iOS developers have already installed Xcode, which contains Command Line Tools. For those who don’t have Xcode yet, please download it from Mac AppStore for free. If two or more Xcodes have been installed already, one Xcode should be specified as “active” by “xcode- select”, Theos will use this Xcode by default. For example, if 3 Xcodes have been installed on your Mac, namely Xcode1.app, Xcode2.app and Xcode3.app, and you want to specify Xcode3 as active, please use the following command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snakeninnys-MacBook:~ snakeninny$ sudo xcode-select -s /Applications/Xcode3.app/Contents/Developer</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-Download-Theos"><a href="#2-2-Download-Theos" class="headerlink" title="2.2 Download Theos"></a>2.2 Download Theos</h2><p>Download Theos from GitHub using the following commands:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">snakeninnysiMac:~ snakeninny$ export THEOS=/opt/theos</span><br><span class="line">snakeninnysiMac:~ snakeninny$ sudo Git clone https://github.com/iOS-Reverse-Engineering-Dev/theos $THEOS Password:</span><br><span class="line">Cloning into &apos;/opt/theos&apos;...</span><br><span class="line">remote: Counting objects: 4116, done.</span><br><span class="line">remote: Total 4116 (delta 0), reused 0 (delta 0)</span><br><span class="line">Receiving objects: 100% (4116/4116), 913.55 KiB | 15.00 KiB/s, done.</span><br><span class="line">Resolving deltas: 100% (2063/2063), done.</span><br><span class="line">Checking connectivity... done</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-3-Configure-ldid"><a href="#2-3-Configure-ldid" class="headerlink" title="2.3 Configure ldid"></a>2.3 Configure ldid</h2><p>ldid is a tool to sign iOS executables; it replaces codesign from Xcode in jailbreak<br>development. Download it from <a href="http://joedj.net/ldid" target="_blank" rel="noopener">http://joedj.net/ldid</a> to “/opt/theos/bin/”, then grant it execute permission using the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snakeninnysiMac:~ snakeninny$ sudo chmod 777 /opt/theos/bin/ldid</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-4-Configure-CydiaSubstrate"><a href="#2-4-Configure-CydiaSubstrate" class="headerlink" title="2.4 Configure CydiaSubstrate"></a>2.4 Configure CydiaSubstrate</h2><p>First run the auto-config script in Theos:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">snakeninnysiMac:~ snakeninny$ sudo /opt/theos/bin/bootstrap.sh substrate Password:</span><br><span class="line">Bootstrapping CydiaSubstrate...</span><br><span class="line">Compiling iPhoneOS CydiaSubstrate stub... default target? failed, what?</span><br><span class="line">Compiling native CydiaSubstrate stub... Generating substrate.h header...</span><br></pre></td></tr></table></figure></p>
+<p>Here we’ll meet a bug that Theos cannot generate a working libsubstrate.dylib, which requires our manual fixes. Piece of cake: first search and install CydiaSubstrate in Cydia, as shown in figure below.</p>
+<p><img src="/img/iOS/ReverseEngineering/WX20170604-cydiasubstrate-1.png" alt="CydiaSubstrate"></p>
+<p>Then copy “/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate” on iOS to somewhere on OSX such as the desktop using iFunBox or scp. Rename it libsubstrate.dylib and copy it to “/opt/theos/lib/libsubstrate.dylib” to replace the invalid file.</p>
+<h2 id="2-5-Configure-dpkg-deb"><a href="#2-5-Configure-dpkg-deb" class="headerlink" title="2.5 Configure dpkg-deb"></a>2.5 Configure dpkg-deb</h2><p>The standard installation package format in jailbreak development is deb, which can be<br>manipulated by dpkg-deb. Theos uses dpkg-deb to pack projects to debs. Download dm.pl from<br><a href="https://raw.githubusercontent.com/DHowett/dm.pl/master/dm.pl" target="_blank" rel="noopener">https://raw.githubusercontent.com/DHowett/dm.pl/master/dm.pl</a>, rename it dpkg-deb and move it to “/opt/theos/bin/”, then grant it execute permission using the following command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">snakeninnysiMac:~ snakeninny$ sudo chmod 777 /opt/theos/bin/dpkg-deb</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-6-Configure-Theos-NIC-templates"><a href="#2-6-Configure-Theos-NIC-templates" class="headerlink" title="2.6 Configure Theos NIC templates"></a>2.6 Configure Theos NIC templates</h2><p>It is convenient for us to create various Theos projects because Theos NIC templates have 5<br>different Theos project templates. You can also get 5 extra templates from <a href="https://github.com/DHowett/theos-nic-templates/archive/master.zip" target="_blank" rel="noopener">https://github.com/DHowett/theos-nic-templates/archive/master.zip</a> and put the 5 extracted .tar files under “/opt/theos/templates/iphone/”. Some default values of NIC can be customized, please refer to <a href="http://iphonedevwiki.net/index.php/NIC#How_to_set_default_values" target="_blank" rel="noopener">http://iphonedevwiki.net/index.php/NIC#How_to_set_default_values</a>.</p>
+<p>There are extra 5 templates here.  <a href="https://github.com/DHowett/theos-nic-templates/archive/master.zip" target="_blank" rel="noopener">https://github.com/DHowett/theos-nic-templates/archive/master.zip</a><br>Copy the extra 5 templates to <code>/opt/theos/templates/iphone/</code></p>
+<p><br></p>
+<h1 id="3-The-use-of-theos"><a href="#3-The-use-of-theos" class="headerlink" title="3. The use of theos"></a>3. The use of theos</h1><h2 id="3-1-Create-Theos-project"><a href="#3-1-Create-Theos-project" class="headerlink" title="3.1 Create Theos project"></a>3.1 Create Theos project</h2><p>Change Theos’ working directory to whatever you want (like mine is “/User/VictorZhang/Documents/iOS/Projects/theos/”), and then enter <code>/opt/theos/bin/nic.pl</code> to start NIC (New Instance Creator), as follows:<br><img src="/img/iOS/ReverseEngineering/theos-1.png" alt="theos"></p>
+<h2 id="3-2-A-simple-theos-project"><a href="#3-2-A-simple-theos-project" class="headerlink" title="3.2 A simple theos project"></a>3.2 A simple theos project</h2><p>That is t will alert and UIAlertView when every launching; Here we select nineth template<br><img src="/img/iOS/ReverseEngineering/thoes-2.png" alt="theos"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1)  Chose “9” to create a tweak project:</span><br><span class="line">&gt;Choose a Template (required): 9</span><br><span class="line">2)  Enter the name of the tweak project: </span><br><span class="line">&gt;Project Name (required): iOSREGreetings</span><br><span class="line">3)  Enter a bundle identifier as the name of the deb package:</span><br><span class="line">Package Name [com.yourcompany.iosreproject]: com.iosre.iosregreetings</span><br><span class="line">4)  Enter the name of the tweak author:</span><br><span class="line">&gt;Author/Maintainer Name [snakeninny]: Victor</span><br><span class="line">5)  Enter the bundle identifier, the bundle identifier deponds on what process/application you want to hook/tweak, here I take SpringBoard for instance, so the bundle identifier as `com.apple.springboard`</span><br><span class="line">&gt;[iphone/tweak] “MobileSubstrate Bundle filter [com.apple.springboard]: com.apple.springboard</span><br></pre></td></tr></table></figure>
+<p>After these 5 simple steps, a folder named iosregreetings is created in the current directory, which contains the tweak project we just created.<br>Then effect 1<br><img src="/img/iOS/ReverseEngineering/theos-3.png" alt="theos"></p>
+<h2 id="3-3-Modify-Makefile-file"><a href="#3-3-Modify-Makefile-file" class="headerlink" title="3.3 Modify Makefile file"></a>3.3 Modify Makefile file</h2><p>The project files, frameworks and libraries are all specified in Makefile, making the whole compile process automatic. The Makefile of iOSREGreetings is shown as follows:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">export THEOS_DEVICE_IP = 10.18.136.168   ## The specifies IP&apos;s device will be installed this project</span><br><span class="line"></span><br><span class="line">export ARCHS = armv7 arm64           ## Specify CPU architectures. Different CPU architectures should be separated by spaces in the above configuration. Note, Apps with arm64 instructions are not compatible with armv7/armv7s dylibs, they have to link dylibs of arm64. In the vast majority of cases, just leave it as “armv7 arm64”.</span><br><span class="line"></span><br><span class="line">export TARGET = iphone:clang:latest:8.0   ## Specify the SDK version</span><br><span class="line"></span><br><span class="line">include theos/makefiles/common.mk     ## This is a fixed writing pattern, don’t make changes.</span><br><span class="line"></span><br><span class="line">TWEAK_NAME = iOSReGreetings          ## The tweak name, i.e. the “Project name” in NIC when we create a Theos project. It corresponds to the “Name” field of the control file, please don’t change it.</span><br><span class="line"></span><br><span class="line">iOSReGreetings_FILES = Tweak.xm      ## Source files of the tweak project, excluding headers; multiple files should be separated by spaces, like: `iOSREProject_FILES = Tweak.xm Hook.xm New.x ObjC.m ObjC++.mm`</span><br><span class="line"></span><br><span class="line">iOSReGreetings_FRAMEWORKS = UIKit    ## Import frameworks. There is nothing to explain. However, as tweak developers, how to import private frameworks attracts us more for sure. It’s not much difference to importing documented frameworks: `iOSREProject_PRIVATE_FRAMEWORKS = AppSupport ChatKit IMCore`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">include $(THEOS_MAKE_PATH)/tweak.mk        ## According to different types of Theos projects, different .mk files will be included. In the beginning stage of iOS reverse engineering, 3 types of projects are commonly created, they are Application, Tweak and Tool, whose corresponding files are application.mk, tweak.mk and tool.mk respectively. It can be changed on demand.</span><br><span class="line"></span><br><span class="line">after-install::</span><br><span class="line">    install.exec &quot;killall -9 SpringBoard&quot;    ## I guess you know what’s the purpose of these two lines of code from the literal meaning, which is to kill SpringBoard after the tweak is installed during development, and to let CydiaSubstrate load the proper dylibs into SpringBoard when it relaunches.</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-4-Modify-Tweak-xm-file"><a href="#3-4-Modify-Tweak-xm-file" class="headerlink" title="3.4 Modify Tweak.xm file"></a>3.4 Modify Tweak.xm file</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%hook SpringBoard</span><br><span class="line">- (void)applicationDidFinishLaunching:(id)application &#123;</span><br><span class="line">   %orig;</span><br><span class="line">   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@&quot;Come to http://bbs.iosre.com for more fun!&quot; message:nil delegate:self cancelButtonTitle:@&quot;OK&quot; otherButtonTitles:nil];</span><br><span class="line">   [alert show];</span><br><span class="line">   [alert release]; &#125;</span><br><span class="line">%end</span><br></pre></td></tr></table></figure>
+<p>Tweak.xm file is written by Logos language. Full Explanation of Logos <a href="http://iphonedevwiki.net/index.php/Logos?spm=5176.100239.blogcont60056.5.JsFRmA" target="_blank" rel="noopener">http://iphonedevwiki.net/index.php/Logos?spm=5176.100239.blogcont60056.5.JsFRmA</a><br>The commonly usage as shown below<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%hook Indicates that what class name you want to hook ,with ending of %end</span><br><span class="line">%log Prints logs to `/var/log/syslogd` </span><br><span class="line">%orig Performs the hooked original method, like OC&apos;s syntax : [super method]</span><br><span class="line">%group Indicates that %group groups many of %hook , with ending of %end</span><br><span class="line">%init Indicates that it is initialized a certain %group, and it works after initialized, and %init has to be called in a %hook</span><br><span class="line">%ctor It is tweak&apos;s constructor，if you do not call it, theos will automatically generate a %ctor and call %init(_ungrouped) implicitly or explicitly, i.e. %ctor &#123; %init(_ungrouped)&#125;</span><br><span class="line">%new Indicates that the directive is to add new method to a class, just like class_addMethod in OC Runtime</span><br><span class="line">%c Indicates that the directive is trying to get a class name of string formatted, just like objc_getClass in OC Runtime。</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-5-Modify-control-file"><a href="#3-5-Modify-control-file" class="headerlink" title="3.5 Modify control file"></a>3.5 Modify control file</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Package: com.victor.iosregreetings</span><br><span class="line">Name: iOSReGreetings</span><br><span class="line">Depends: mobilesubstrate, firmware (&gt;= 8.0)</span><br><span class="line">Version: 1.0</span><br><span class="line">Architecture: iphoneos-arm</span><br><span class="line">Description: This is my first tweak project , very simple!</span><br><span class="line">Maintainer: Victor</span><br><span class="line">Author: Victor</span><br><span class="line">Section: Tweaks</span><br><span class="line">Homepage: http://www.googleplust.party</span><br></pre></td></tr></table></figure>
+<p>The control file contains the basis of infomations of deb package manager, including: Package Identifier, Project Name, Depends, Version, Architecture, Description, Author and Homepage etc.</p>
+<h2 id="3-6-Make-package-and-install"><a href="#3-6-Make-package-and-install" class="headerlink" title="3.6 Make, package and install"></a>3.6 Make, package and install</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd iOSReGreetings/</span><br><span class="line">make package install</span><br></pre></td></tr></table></figure>
+<p><code>make package install</code> is a combination command of  <code>make</code> , <code>make package</code> and <code>make install</code></p>
+<p>While installing , the Terminal will ask for twice SSH password, don’t worry, it’s normal conditions.<br>When installed completely, iPhone will launch automatically.<br>NOTE THAT: Do not unlock your iPhone, just press home button once so that the screen will light, and you’ll see the figure as shown below.<br><img src="/img/iOS/ReverseEngineering/theos-4-1.png" alt="theos"></p>
+<p>And then , unlock your iPhone, open Cydian, you’ll see the iOSREGreetings app as shown in figure below.<br><img src="/img/iOS/ReverseEngineering/theos-5-1.png" alt="theos"></p>
+<h2 id="3-7-clean-command"><a href="#3-7-clean-command" class="headerlink" title="3.7 clean command"></a>3.7 clean command</h2><blockquote>
+<p>make clean     # It will clean the current directory’s packaged files<br>rm <em>.deb       # It will remove the current directory’s </em>.deb packages</p>
+</blockquote>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>

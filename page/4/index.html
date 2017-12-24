@@ -1,0 +1,811 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>page</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      <nav class="navigator"><nav class="navbar navbar-default navbar-fixed-top">
+  <div class="nav-container">
+
+
+  
+  <ul class="nav navbar-nav navbar-left">
+    <li class="navbar-header">
+      <a href="/" class="navbar-brand">Victor Zhang</a>
+    </li>
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <svg class="i-tag" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <circle cx="24" cy="8" r="2"></circle>
+          <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+        </svg>
+      </span></a>
+      <ul class="dropdown-content">
+
+          
+           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Tools/">Tools</a></li>
+
+      </ul>
+    </li>
+  </ul>
+  
+  <div id="site_search" class="">
+  <input type="text" id="local-search-input" name="q" placeholder="search" class="form-control"/>
+</div>
+<div id="local-search-result"></div>
+
+
+  <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <svg class="i-link" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+          <path d="M18 8 C18 8 24 2 27 5 30 8 29 12 24 16 19 20 16 21 14 17 M14 24 C14 24 8 30 5 27 2 24 3 20 8 16 13 12 16 11 18 15"></path>
+        </svg>
+      </a>
+      <ul class="dropdown-content">
+        
+          <li>
+            <a href="https://github.com/VictorZhang2014">
+        Github
+      </a>
+    </li>
+     
+          <li>
+            <a href="https://www.facebook.com/victor.john.92167789">
+        Facebook
+      </a>
+    </li>
+     
+          <li>
+            <a href="https://www.zhihu.com/people/victor-48-5/activities">
+        知乎
+      </a>
+    </li>
+     
+          <li>
+            <a href="http://blog.csdn.net/u013538542">
+        CSDN
+      </a>
+    </li>
+     
+    </ul>
+    </li>
+    <li class="archives"><a href="/archives">
+      <svg class="i-archive" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+        <path d="M4 10 L4 28 28 28 28 10 M2 4 L2 10 30 10 30 4 Z M12 15 L20 15"></path>
+      </svg>
+    </a></li>
+  </ul>
+  </div>
+</nav></nav>
+<ul class="posts">
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/08/01/iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic/">
+            iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic等
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    weak
+
+只能修饰派生自NSObject类或协议，因为NSObject即是类，也是协议
+在对象的引用计数器为0时，对象的指针会自动指向nil
+可以解决循环引用问题
+
+assign
+
+可以修饰基础数据类型，也可以修饰派生自NSObject类
+  
+  <a href="/2017/08/01/iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-08-01T11:50:58.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  08-01
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS修饰符-weak-assign/">iOS修饰符,weak,assign</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/06/15/iOS应用审核-Phased-Release-for-Automatic-Updates-阶段性自动更新发布/">
+            iOS应用审核 - Phased Release for Automatic Updates (阶段性自动更新发布)
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    Phased Release for Automatic Updates (阶段性自动更新发布)官方解释官方地址：https://itunespartner.apple.com/en/apps/faq/Managing%20Your%20A
+  
+  <a href="/2017/06/15/iOS应用审核-Phased-Release-for-Automatic-Updates-阶段性自动更新发布/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-06-15T01:55:56.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  06-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-应用审核-AppReview-Phased-Release-Automatic-Updates/">iOS, 应用审核, AppReview, Phased Release, Automatic Updates</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/06/04/iOS-Reverse-2-Theos-introduction-installation-and-usage/">
+            iOS Reverse - (2) Theos introduction, installation and usage 
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    1.IntroductionTheos is a jailbreak development tool written and shared on GitHub by a friend, Dustin Howett (@DHowett). 
+  
+  <a href="/2017/06/04/iOS-Reverse-2-Theos-introduction-installation-and-usage/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-06-04T12:10:17.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  06-04
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/theos-ldid/">theos, ldid</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/06/04/iOS-Reverse-1-The-basic-tools-of-use-of-OpenSSH-iFile-MTerminal-and-syslogd/">
+            iOS Reverse - (1) The basic tools of use of OpenSSH, iFile, MTerminal and syslogd
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    1.OpenSSHOpenSSH will install SSH service on iOS (as shown in figure below). Only 2 commands are the most commonly used:
+  
+  <a href="/2017/06/04/iOS-Reverse-1-The-basic-tools-of-use-of-OpenSSH-iFile-MTerminal-and-syslogd/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-06-04T11:47:05.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  06-04
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/OpenSSH-iFile-MTerminal-syslogd/">OpenSSH, iFile, MTerminal, syslogd</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/04/15/iOS-App-Dumps-Encrypted-Shell-and-Disassembling/">
+            iOS App Dumps Encrypted Shell and Disassembling
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    OverviewSoftware reverse engineering refers to the process of deducing the implementation and design details of a progra
+  
+  <a href="/2017/04/15/iOS-App-Dumps-Encrypted-Shell-and-Disassembling/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-04-15T11:36:52.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  04-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-Reverse-Engineering-Unshell-Disassembling/">iOS Reverse Engineering, Unshell, Disassembling</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/04/01/iOS-通过URL地址来安装应用/">
+            iOS 通过URL地址来安装应用
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    iOS应用通过URL地址来安装完整下载地址1itms-services://?action=download-manifest&amp;url=https://www.domain.cn/d/up/package/my.applicatio
+  
+  <a href="/2017/04/01/iOS-通过URL地址来安装应用/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-04-01T08:30:54.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  04-01
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-app-installation/">iOS app installation</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/04/01/CA证书的介绍与使用/">
+            CA证书的介绍与使用
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    CA证书
+1.域名型SSL证书（DV SSL）：信任等级普通，只需验证网站的真实性便可颁发证书保护网站；一般是免费的2.企业型SSL证书（OV SSL）：信任等级强，须要验证企业的身份，审核严格，安全性更高；收费的3.增强型SSL证书（EV
+  
+  <a href="/2017/04/01/CA证书的介绍与使用/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-04-01T08:29:23.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  04-01
+</time>
+
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/CA/">CA</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/04/01/Cocoapods的使用/">
+            Cocoapods的使用
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    CocoaPods Command 
+使用Cocoapods安装Cocoapods前以前要更新 Ruby到2.3以上版本，否则各种报错
+异常：如果下载不下来，就拷贝别人电脑，可以下载的那个
+升级Ruby最新版1sudo gem update
+  
+  <a href="/2017/04/01/Cocoapods的使用/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-04-01T08:27:50.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  04-01
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/CocoaPods/">CocoaPods</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/03/31/RSA-Example-in-iOS-C/">
+            RSA Example in iOS/C#
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    RSA CryptographyA set of RSA Cryptographic ways to your project in iOS/C#ZRCryptographyOC
+RSA OverviewRSA is an algorith
+  
+  <a href="/2017/03/31/RSA-Example-in-iOS-C/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-03-31T10:39:55.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  03-31
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/RSA-Cryptography/">RSA, Cryptography</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/01/18/PushNotification-in-C-Objective-c-C/">
+            PushNotification in C#,Objective-c/C
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    PushNotificationA simplest way to push notification on your own server in C# and C/Objective-C.
+APNs OverviewApple Push 
+  
+  <a href="/2017/01/18/PushNotification-in-C-Objective-c-C/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-01-18T09:46:50.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  01-18
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/C-APNs-Objective-C-C/">C#,APNs,Objective-C,C</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+</ul>
+<ul class="pager">
+    <a class="extend prev" rel="prev" href="../3/">Prev</a><a class="page-number" href="../../index.html">1</a><a class="page-number" href="../2/">2</a><a class="page-number" href="../3/">3</a><span class="page-number current">4</span><a class="page-number" href="../5/">5</a><a class="extend next" rel="next" href="../5/">Next</a>
+</ul>
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
