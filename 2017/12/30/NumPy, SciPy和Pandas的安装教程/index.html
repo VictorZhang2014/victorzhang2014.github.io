@@ -7,12 +7,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="google-site-verification" content="" />
   
-  <title>Python的科学计算包 - NumPy</title>
+  <title>NumPy, SciPy和Pandas的安装教程</title>
   <meta name="author" content="Victor Zhang">
   <meta name="description" content="iOS,逆向工程,AI,.NET">
   
   
-  <meta property="og:title" content="Python的科学计算包 - NumPy"/>
+  <meta property="og:title" content="NumPy, SciPy和Pandas的安装教程"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:site_name" content="Simple, but perfect"/>
   <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
@@ -43,7 +43,7 @@
       
   
     <h1 class="page-title center">
-        Python的科学计算包 - NumPy
+        NumPy, SciPy和Pandas的安装教程
     </h1>
   
 
@@ -51,25 +51,16 @@
     </div>
     <div class="meta center">
       
-<time datetime="2017-12-24T14:15:04.000Z">
+<time datetime="2017-12-30T06:46:47.000Z">
 <svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
   &nbsp;
-  2017-12-24
+  2017-12-30
 </time>
 
 
 
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/AI/">AI</a>
-
 
 
 
@@ -80,7 +71,7 @@
       <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
     </svg>
     &nbsp;
-    <a href="/tags/Python-Numpy/">Python, Numpy</a>
+    <a href="/tags/NumPy-SciPy-Pandas/">NumPy, SciPy, Pandas</a>
 
 
     </div>
@@ -88,20 +79,15 @@
     <div class="picture-container">
       
     </div>
-    <p><a href="http://www.numpy.org/" target="_blank" rel="noopener">NumPy</a> (Numerical Python extensions)是一个第三方的Python包，用于科学计算。这个库的前身是1995年就开始开发的一个用于数组运算的库。经过了长时间的发展，基本上成了绝大部分Python科学计算的基础包，当然也包括所有提供Python接口的深度学习框架。)</p>
-<p>NumPy是用Python编写的，用于科学计算的基础包，包含了以下四种特性：</p>
-<ul>
-<li>对于处理N维数组对象非常强大</li>
-<li>复杂（广播）函数 sophisticated (broadcasting) functions</li>
-<li>便于集成C/C++/Fortran代码</li>
-<li>支持线性代数，博里叶变换，随机数</li>
-</ul>
-<p>通过Github直接下载：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 对于NumPy</span><br><span class="line">git clone https://github.com/numpy/numpy.git numpy</span><br><span class="line"></span><br><span class="line"># 对于SciPy</span><br><span class="line">git clone https://github.com/scipy/scipy.git scipy</span><br></pre></td></tr></table></figure></p>
-<h2 id="1-基本类型array"><a href="#1-基本类型array" class="headerlink" title="1.基本类型array"></a>1.基本类型array</h2><p>array，也就是数组，是numpy中最基础的数据结构，最关键的属性是维度和元素类型，在numpy中，可以非常方便地创建各种不同类型的多维数组，并且执行一些基本基本操作，来看例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">a = [1, 2, 3, 4]     	    # 创建一个数组</span><br><span class="line">b = np.array(a)         	# 根据a创建一个array([1, 2, 3, 4])</span><br><span class="line">type(b)                   	# &lt;type &apos;numpy.ndarray&apos;&gt;</span><br><span class="line"></span><br><span class="line">b.shape                   	# (4,)  一维矩阵长度为4</span><br><span class="line">b.argmax()               	# 3     最大索引</span><br><span class="line">b.max()                   	# 4     最大值</span><br><span class="line">b.mean()                  	# 2.5   平均值</span><br></pre></td></tr></table></figure></p>
-<p><br><br><br><br><br></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
-<li><a href="https://zhuanlan.zhihu.com/p/24309547" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/24309547</a></li>
-</ul>
+    <h2 id="importError-No-module-named-numpy"><a href="#importError-No-module-named-numpy" class="headerlink" title="importError: No module named numpy"></a>importError: No module named numpy</h2><p><img src="/img/Python/No_Module_Named_numpy.png" alt="Settings" width="960" height="600"><br>博主一直使用的是PyCharm作为Python的IDE，所以以下介绍的安装步骤也是基于PyCharm来安装NumPy, SciPy, Pandas</p>
+<p><br></p>
+<h2 id="安装NumPy"><a href="#安装NumPy" class="headerlink" title="安装NumPy"></a>安装NumPy</h2><p><img src="/img/Python/choose_default_settings.png" alt="Settings" width="960" height="600"><br><img src="/img/Python/choose_python2.7_as_interpreter.png" alt="Settings" width="960" height="600"><br><img src="/img/Python/numpy_selection_and_installation.png" alt="Settings" width="960" height="600"></p>
+<p><br></p>
+<p>如果是SciPy，则如下<br><img src="/img/Python/scipy_installation.png" alt="Settings" width="960" height="600"></p>
+<p><br></p>
+<p>如果是Pandas，则如下<br><img src="/img/Python/pandas_installation.png" alt="Settings" width="960" height="600"></p>
+<p><br></p>
+<p>最后，你会看到如下列表，则如下<br><img src="/img/Python/installation_list.png" alt="Settings" width="960" height="600"></p>
 
 
   </article>
