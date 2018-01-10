@@ -118,6 +118,100 @@
   
   
     <h1 class="index-title">
+        <a href="/2017/10/18/Protocol-Buffer/">
+            Protocol Buffer
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    目录
+1.介绍
+2.下载与安装
+3.实例说明（Python代码）
+4.实例说明（Objective-C代码）
+5.文件.proto的解释
+
+
+1.介绍Protocol Buffer，简单来说，就是一种数据交换格式，就像JSON和XML作用一样，只不过Protocol Buffer是Google开源的一套二进制流网络传输协议，它独立于语言，独立于平台；而且它的性能、速度等非常优越于JSON和XML。google 提供了多种语言的实现：objective-c, swift,java、c#、c++、Go 和Python等，每一种实现都包含了相应语言的编译器以及库文件。由于它是一种二进制的格式，比使用 xml 进行数据交换快许多。可以把它用于分布式应用之间的数据通信或者异构环境下的数据交换。作为一种效率和兼容性都很优秀的二进制数据传输格式，可以用于诸如网络传输、配置文件、数据存储等诸多领域。
+对于XML来说，Protocol Buffers有太多优点了，尤其是针对序列化结构数据。优点：
+
+更简单
+小到3-10倍
+快到20-100倍
+相当少的歧义
+文档型协议
+T-L-V的数据存储方式 Tag-Length-Value
+
+注意protobuf目前有两个版本proto2和proto3。这两个版本的语法并不是完全兼容的，所以为了避免使用时的麻烦，请仔细阅读proto2和proto3的语法。
+
+2.下载与安装我的环境：macOS Sierra Version 10.12.6
+
+1.下载最新版本的ProtoBuff (我下载的是v3.4.1)。下载完后，解压压缩包。注意：解压后里面的objectivec目录是给iOS和macOS专用
+2.然后依次键入以下命令进行安装，以下的每个命令都可能或占用几分钟时间，请耐心等待下12345678$&gt; cd protobuf-3.4.1/$&gt; ./configure$&gt; make$&gt; make check$&gt; make install// 当输入此步骤时，如果正常输出版本号信息，就表示安装正确了$&gt; protoc --version
+
+
+
+Python的使用命令Python教程编译一个.proto文件，命令如下：123//$SRC_DIR 为源文件目录//$DST_DIR 为目标文件目录protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto
+然后，你就会看到后缀为：_pb2.py的文件在你指定的目录下。
+
+Objective-C的使用命令Objective-C教程编译一个.proto文件，命令如下：123//$SRC_DIR 为源文件目录//$DST_DIR 为目标文件目录protoc --proto_path=$SRC_DIR
+  
+  <a href="/2017/10/18/Protocol-Buffer/">
+    更多
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-18T14:52:27.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-18
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Protocol-Buffers-protobuff/">Protocol Buffers, protobuff</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
         <a href="/2017/10/17/优先级反转/">
             优先级反转
         </a>
@@ -132,10 +226,47 @@
 
 1.操作系统是多任务的
 2.任务之间谁都可以得到执行，是通过任务调度来完成
-3.任务调度有多种
+3.任务调度有多种算法，常见的有：
+罗宾环调度算法：Round-robin scheduling algorithm
+基于优先级的调度算法：Priority-controlled scheduling algorithm
+
+
+4.一般操作系统用的就是优先级调度算法，根据优先级别高低去调度，也就是优先级高的先执行，优先级低的后执行；
+任务调度器，总是先去激活所有任务中优先级别最高的任务，且该任务处于就绪状态，然后让它执行
+任务有多种状态：就绪，挂起，执行等；常见的如：需要某种资源时被别的任务占用了，那么当前任务就不得不挂起，先让被占用资源的任务执行
+
+
+5.任务一般被称为：进程，或者粒度更小的线程
+
+
+详细解释下为什么假设有以下条件
+
+1.任务A （低优先级）
+2.任务B （中优先级）
+3.任务C （高优先级）
+4.资源 
+
+ 步骤 
+
+1.已知任务调度器总是去激活所有任务中优先级最高的，且处于就绪状态的任务，去执行；但是当某个最高优先级的任务A，由于其所需要的某个资源被低优先级任务C所占用，而且还没有释放，那么高优先级任务A就被阻塞了。
+2.按照调度规则：
+此高优先级任务A，必须等到低优先级任务C把自己占用的资源释放后，才能继续运行；
+但是要等到低优先级任务C释放其所占用的资源的话，则很明显，必须要让低优先级任务C 先去执行，然后等低优先级任务C执行完毕并释放资源后，高优先级任务A就能得到的那个资源了；
+但是，问题就是：在高优先级任务A执行的这段时间内，某个中优先级任务B已经处于就绪状态了，所以当高优先级任务A，由于所需要的资源被占用而挂起，然后中优先级任务B，由于比低优先级任务C的优先级高，所以被调度执行，然后中优先级任务B就一直执行，知道结束。
+
+
+3.这种情况就是：一个中等优先级任务B，却比一个高更优先级的任务A 先执行，这就叫做优先级反转
+
+
+问题：本来应该是优先级最高的任务A先执行的，结果却变成了，比高优先级任务A要低一些的中优先级任务B先执行了。优先级反转如名字一样，就是他们的优先级别互换了一下（反转了一下）。
+有的朋友会问了，反转就反转了呗😄，有什么大不了的，程序还不是照样运行吗？
+
+优先级反转的有和危害实话说，当我刚学习计算机的时候，对计算机的概念都真的只是个概念，背后的技术和逻辑学的也是云里云雾的，而慢慢的成长，就会发现以前不理解的知识，现在看起来很重要很重要，而且也容易理解些了。
+对于实时系统，最重要的指标就是：确保任务执行时间是可预测的，即涉及到最后时间点等比如：要确保，某个时刻在执行某个任务，都不能超过某个时间等
+
   
   <a href="/2017/10/17/优先级反转/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -188,10 +319,28 @@
   <div class="excerpt">
   
     概念RunLoop是iOS和OS X开发中非常基础的知识，通过RunLoop可以实现自动释放池，延迟回调，触摸事件，屏幕刷新等功能。
-一般来讲，一个线程一次只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时处理事件
+一般来讲，一个线程一次只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时处理事件但并不退出，通常的代码如下：1234567function loop() &#123;    initialize();    do &#123;        var message = get_next_message();        process_message(message);    &#125; while (message != quit);&#125;
+这种模型通常被称作 Event Loop。 Event Loop 在很多系统和框架都有实现，比如Node.js的事件处理，比如Windows程序消息循环，再比如iOS/OS X里的RunLoop.实现这种模型的关键点在于：如何管理事件/消息，如何让线程在没有处理消息时休眠以避免资源占用、在有消息来到时立刻被唤醒。
+所以 RunLoop 实际上就是一个对象，这个对象管理了其需要处理的事件和消息，并提供了一个入口函数来执行上面的 Event Loop 的逻辑。线程执行了这个函数后，就会一直处于这个函数内部 “接收消息 -&gt; 等待 -&gt; 处理” 的循环中，知道这个循环结束（比如传入quit的消息），函数返回。
+在iOS/OS X系统中，提供了两个这样的对象：NSRunLoop和CFRunLoopRef。CFRunLoopRef是在CoreFoundation框内的，提供了纯C函数的API，代码是开源的，所有这些API都是线程安全的。NSRunLoop是基于CFRunLoopRef的封装，提供了面向对象的API，但是这些API不是线程安全的。
+Swift开源后，苹果又维护了一个跨平台的CoreFoundation版本：https://github.com/apple/swift-corelibs-foundation/  这个版本的源码可能和现有的iOS系统中的实现略有不同，但是更容易编译，因为它已经适配了 Linux/Windows
+
+RunLoop对外的接口在CoreFoundation里面关于RunLoop有5个类
+
+CFRunLoopRef
+CFRunLoopModeRef
+CFRunLoopSourceRef
+CFRunLoopTimerRef
+CFRunLoopObserverRef
+
+其中 CFRunLoopModeRef 类并没有对外暴露，只是通过 CFRunLoopRef 的接口进行了封装。他们的关系如下:
+
+一个RunLoop包含若干个Mode
+每个Mode包含若干个Source/Timer/Observer
+每次调用RunLo
   
   <a href="/2017/10/15/iOS的Runloop认知/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -255,10 +404,19 @@
     简介NSThread多线程编程，超级简单，NSthread是基于pthread_t封装的，所以基本上在使用方面pthread_t和NSThread差不多
 线程的生命周期，五种状态
 
-1.新建（new Thread）,就是实例化了一个线程对象
+1.新建（new Thread）,就是实例化了一个线程对象  在iOS中，self.alwasyThread = [[NSThread alloc] initWithTarget:self selector:@selector(alwaysRun) object:nil];
+2.就绪（runnable），就是线程在就绪队列中等待CPU分配时间片，一般是start方法  在iOS中，[self.alwasyThread start];
+3.运行（running），就是线程已经获得CPU资源并且马上执行任务，一般是run方法  在iOS中，start方法就表示进入就绪状态，并且获得CPU资源后进入运行状态
+4.死亡（dead），就是线程执行完任务，或者被其他线程杀死，这时就不能再进入就绪状态，重新运行。调用stop方法终止线程  在iOS中，[NSThread exit];
+5.阻塞（blocked），就是某种原因导致正在运行的线程暂停自己，让出CPU，那么自己就进入了阻塞状态（suspend），阻塞状态可以调用resume恢复  在iOS中，sleep(3);，[NSThread sleepForTimeInterval:3.0f];，[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:3.0]];
+
+我们分三步说下吧
+1.创建子线程第一种方式12345678- (void)nsthread_test &#123;    NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];    [thread start];&#125;- (void)run &#123;    NSLog(@&quot;NSThread子线程 %@&quot;, [NSThread currentThread]);&#125;
+输出为：12017-10-16 test[25785:1117888] NSThread子线程 &lt;NSThread: 0x604000270200&gt;&#123;number = 3, name = (null)&#125;
+第二种方式，仅限iOS 10及以上版本可用1234NSThread *thread = [[NSThread alloc] initWithBlock:^&#123;    NSLog(@&quot;NSThread子线程 %@&quot;, [NSTh
   
   <a href="/2017/10/15/NSThread的认知/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -322,10 +480,30 @@
     简介在多线程编程中，并发会使一段代码在同一段时间内线程之间互相争抢资源（资源共享）而产生数据的不一致性，为了解决这个问题，就引入了锁。锁的类型有多种，在iOS中，有如下：
 
 1.OSSpinLock    自旋锁
-2.dispatch_se
+2.dispatch_semaphore    GCD信号量实现加锁
+3.pthread_mutex    互斥锁
+4.NSLock  互斥锁
+5.NSCondition    信号锁
+6.pthread_mutex(recursive)  递归互斥锁
+7.NSRecursiveLock  递归锁
+8.NSConditionLock  条件锁
+9.@synchronized  互斥锁
+
+在看本篇文章前，请先了解GCD和NSOperation, 如果你已熟知，请继续往下看。
+我们先来看下iOS中全部的锁，以及它们的效率
+这个简单的性能测试是在iPhone 6, iOS 9上跑的，测试者在这篇文章该结果显示的，横向柱状条最短的为性能最佳和最高；可知，OSSpinLock最佳，但是OSSpinLock被发现bug，Apple工程师透露了这个自旋锁有问题，暂时停用了，查看这里虽然OSSpinLock（自旋锁）有问题，但是我们还是看到了pthread_mutex和dispatch_semaphore性能排行仍是很高，而且苹果在新系统中也已经优化了这两个锁的性能，所以我们在开发时也可以使用它们啦。
+下面来一一介绍它们的使用
+
+1.dispatch_semaphore    GCD信号量实现加锁GCD中提供了一种信号机制，也是为了解决资源抢占问题的，支持信号通知和信号等待。
+
+1.每当发送一个信号时，则信号量加1
+2.每当发送一个等待信号时，则信号量减1
+3.如果信号量为0，则信号会处于等待状态，直到信号量大于0时就开始执行
+
+12345678910111213141516171819202122232425262728293031- (void)example &#123;    //假设一共电影票3张票    self.movieTickets = 3;        //创建信号量    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);        //添加任务1    dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;        [self buyTicketWithCounts:2 taskName:@&quot;任务1&quot; semaphore:semaphore];    &#125;);        //添加任务2    dispatch_async(dispatch_get_global_queu
   
   <a href="/2017/10/15/iOS中的锁/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -388,10 +566,32 @@
   
     【官方文档】
 NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使用2.1 创建任务2.2 创建队列2.3 将任务添加到队列中3.操作依赖4.一些其他方法
-1.NSOp
+1.NSOperation简介NSOperation是Apple提供给开发者的一套多线程解决方案，实际上是基于GCD的一套更高级封装，完全Objective-C代码。简单、易用、代码可读性高。
+NSOperation需要配合NSOperationQueue来实现多线程，因为默认情况下
+
+NSOperation单独使用时是系统同步执行操作，并没有开启新线程的能力，只有配合NSOperationQueue才能实现异步执行
+
+因为NSOperation是基于GCD的，那么使用起来也和GCD差不多，其中，NSOperation相当于GCD中的任务，而NSOperationQueue则相当于GCD中的队列。NSOperation实现多线程的使用步骤分为三步：
+
+1.创建任务：先将需要执行的操作封装到一个NSOperation对象中
+2.创建队列：创建NSOperationQueue对象
+3.将任务加入到队列中，然后将NSOperation对象加入到NSOperationQueue中，之后，系统就会从Queue中读取出来，在新线程中执行操作。
+
+以下我们来看下NSOperation和NSOperationQueue的基本使用
+
+2.NSOperation和NSOperationQueue的基本使用NSOperation是一个抽象类，不能封装任务，我们只有使用它的子类来封装任务。有三种方式来封装任务，如下：
+
+1.使用子类NSInvocationOperation
+2.使用子类NSBlockOperation
+3.自定义一个类派生自NSOperation，定义一些相应的方法
+
+
+2.1 创建任务比如：我们先不使用NSOperationQueue，而是单独使用NSInvocationOperation和NSBlockOperation，分别如下：
+ 2.1.1 NSInvocationOperation 12345678- (void)invocationOp &#123;    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run) object:nil];    [op start];&#125;- (void)run &#123;    NSLog(@&quot;%@&quot;, [NSThread currentThread]);&#125;
+输出结果如下，证明了单独使用NSInvocatio
   
   <a href="/2017/10/15/NSOperation的认知/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -453,10 +653,40 @@ NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使
   <div class="excerpt">
   
     GCD （Grand Central Dispatch）GCD两个核心概念：任务和`队列
-任务任务就是执行操作的意思，也就是block那段代码。执行操作有两种：同步执行和异步执行。同步执行（sync）：阻塞主线程并执行任务，不会开启新线程任
+任务任务就是执行操作的意思，也就是block那段代码。执行操作有两种：同步执行和异步执行。同步执行（sync）：阻塞主线程并执行任务，不会开启新线程任务异步执行（async）：不会阻塞主线程，会开启新线程执行任务，在后台执行
+队列这里的队列就是任务队列，即用来存放任务的队列。队列是一种特殊的线性表，采用先进先出（FIFO）的原则，每次新任务都会被插入到队列尾部，而执行队列中的任务时，会从队列头部开始读取并执行。GCD中有两种队列：串行队列和并行队列1.并行队列（DISPATCH_QUEUE_CONCURRENT）：可以多个任务同时进行，也就会开启多个线程执行任务。交替执行。2.串行队列（DISPATCH_QUEUE_SERIAL）：任务一个接着一个执行，也就是一个任务执行完后，下一个任务就开始。一个接着一个执行。
+队列的创建12345// 串行队列dispatch_queue_t queue= dispatch_queue_create(&quot;my_queue_serial&quot;, DISPATCH_QUEUE_SERIAL);// 并行队列dispatch_queue_t queue= dispatch_queue_create(&quot;my_queue_concurrent&quot;, DISPATCH_QUEUE_CONCURRENT);
+GCD默认提供了全局队列和主队列1.全局队列 dispatch_get_global_queue ，全局队列就是并行队列，供整个应用使用；  需要两个参数，第一个是队列优先级（DISPATCH_QUEUE_PRIORITY_DEFAULT），第二个0即可(官方文档说：For future use)2.主队列 dispatch_get_main_queue ，主队列就是串行队列，在应用启动时，就创建好了，所以我们要用的时候就直接拿来用而不需要创建
+任务和队列的组合1.并行队列 + 同步执行2.并行队列 + 异步执行3.串行队列 + 同步执行4.串行队列 + 异步执行
+还有两个特殊组合1.主队列 + 同步执行（会死锁并崩溃）2.主队列 + 异步执行
+
+
+
+
+并行队列
+串行队列
+主队列
+
+
+
+
+同步（顺序执行）
+阻塞主线程，没有开启新线程，串行执行任务
+阻塞主线程，没有开启新线程，串行执行任务
+阻塞主线程，没有开启新线程，串行执行任务（会死锁导致崩溃）
+
+
+异步（并发执行）
+不阻塞主线程，有开启新线程，并行执行任务
+不阻塞主线程，有开启新线程，并行执行任务
+不阻塞主线程，没有开启新线程，串行执行任务
+
+
+
+看一看几种死锁原因12345678910111213141516171819202122232425262728
   
   <a href="/2017/10/15/GCD的一般认知/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -517,10 +747,17 @@ NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使
 
   <div class="excerpt">
   
-    一、常用架构MVC (Model View Controller) 模型，视图，控制器，模型负责提供数据，视图负责显示，    控制器的作用就是确保模型和视图的同步，一旦M改变，V就应该立即更新。MVC其实就是一个环形的形式    http
+    一、常用架构MVC (Model View Controller) 模型，视图，控制器，模型负责提供数据，视图负责显示，    控制器的作用就是确保模型和视图的同步，一旦M改变，V就应该立即更新。MVC其实就是一个环形的形式    https://baike.baidu.com/item/MVC框架/9241230?fr=aladdin&amp;fromid=85990&amp;fromtitle=MVC
+MVP (Model View Presenter) 模型，视图，是从MVC演变而来，它们相通点就是Controller和Presenter    都是负责处理业务逻辑，但是它们也有很大的区别，就是把Model和View进行了分离，在MVP中，视图并不是直接使用模型，而是通过Presenter来进行的，    也就是说业务在Presenter内部，数据获取和更新在Model内部，如果视图需要更新，就需要通过Presenter;    Presenter与View的交互可以是间接的，可以通过接口来更新view，如果view较为复杂，也可以做一个adapter。    https://baike.baidu.com/item/MVP模式/10961746
+MVVM (Model View View Model) 一般用在用户控件上，该模式是使用的数据绑定基础架构，    MVVM是由MVP演变过来的，所以一些事件和命令相关的东西就放在了MVVM中的VM，其实也就是相当于MVP中的P    https://baike.baidu.com/item/MVVM/96310?fr=aladdin
+ORM (Object Relational Mapping) 对象关系映射就是一种为了解决面向对象语言与关系型数据库而存在的简易数据的映射，因为是基于对象模型的。    如iOS CoreData，.NET Entity Framework
+二、iOS系统的内存分配1.栈区（stack）由编译器自动分配并释放，先进后出2.堆区（heap）由程序员分配和释放，如果程序员不释放，在程序也就是该进程结束时，会由操作系统回收3.全局区（也叫作静态区，static）存放全局变量和静态变量的，未初始化的存在bss段，已初始化的存放在data段4.常量区 存放常量的，程序结束后由系统释放内存空间5.代码区 存放程序函数的二进制代码
+异步绘制我们进行UITableViewCell重用时，可以把cell的高度进行缓存，以便于下次使用时，直接读取而不用重新计算，计算消耗性能。异步队列进行绘制UI，使用CoreGraphics框架，其中CoreText是一个文本处理引擎，我们就用这个，它的坐标系统左下角为0,0点
+离屏渲染：
+1.当设置CALayer的圆角，alpha，阴影，光栅化，抗锯齿，渐变
   
   <a href="/2017/10/15/iOS-常识/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -582,10 +819,12 @@ NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使
   <div class="excerpt">
   
     第一种
-代码如下：1234UIView *redView = [[UIView alloc] init];redView.translatesAutoresizingMaskIntoConstraints = NO;redView.back
+代码如下：1234UIView *redView = [[UIView alloc] init];redView.translatesAutoresizingMaskIntoConstraints = NO;redView.backgroundColor = UIColor.redColor;[self.view addSubview:redView];
+1234567891011//设置高度[redView addConstraint:[NSLayoutConstraint constraintWithItem:redView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40.0]];//设置左边距[self.view addConstraint:[NSLayoutConstraint constraintWithItem:redView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:20.0]];//设定顶边距[self.view addConstraint:[NSLayoutConstraint constraintWithItem:redView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.0 constant:20.0]];//设置右边距[self.view addConstraint:[NSLayoutConstraint constraintWithItem:redView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-20.0]];
+换做使用VFL的话，代码如下：1234567NSDictionary *views = NSDictionaryOfVariableBindings(redView);CGFloat hei
   
   <a href="/2017/10/15/Autolayout代码编写基本使用/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -646,10 +885,12 @@ NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使
 
   <div class="excerpt">
   
-    前几个晚上我在腾讯视频看完《西部世界》，原名《Westworld》,去年上映的。该剧讲述了由一座巨型高科技以西部世界为主题的成人乐园，提供给游客杀戮与性欲的满足，随着接待员有了自主意识和思维，他们开始怀疑这个世界的本质，进而觉醒并反抗人类的
+    前几个晚上我在腾讯视频看完《西部世界》，原名《Westworld》,去年上映的。该剧讲述了由一座巨型高科技以西部世界为主题的成人乐园，提供给游客杀戮与性欲的满足，随着接待员有了自主意识和思维，他们开始怀疑这个世界的本质，进而觉醒并反抗人类的故事。关键是该剧的接待员都是AI机器人，它们的智力、情感、意识等等方面已经基本达到和人类同等，不知道我们的未来的AI机器人是否也能达到这个的境界？😄我希望AI发展越来越棒，以后人们（其实是我）就越来越懒啦😂
+
+第1集 科技乐园造人吸金叛逆意识暗中萌生第2集-老鸨忆起残忍往事黑衣人肆杀接待员第3集 - 自由思维无序出现第4集 - 伯纳德放任自由意识第5集 - 乐园隐藏创始人残留意识第6集 - 已故创建者 故意留程序第7集 - 新任总裁要搞事 福特地位受威胁第8集 - 福特掩盖真相 梅芙擅取权限第9集 - 阿诺德身份浮出水面第10集- 深层记忆悄然觉醒乐园变革拉开帷幕
   
   <a href="/2017/10/14/看完美剧《Westworld》/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -684,70 +925,6 @@ NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使
     </svg>
     &nbsp;
     <a href="/tags/美剧，西部世界-Westworld/">美剧，西部世界, Westworld</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/10/You-should-know-the-easy-to-use-objc-msgSend/">
-            You should know the easy-to-use objc_msgSend
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    Too many arguments to function call, expected 0, have 2When I created an new iOS project, I got this error as shown belo
-  
-  <a href="/2017/10/10/You-should-know-the-easy-to-use-objc-msgSend/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-10T04:15:12.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-10
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/objc-msgSend-runtime/">objc_msgSend, runtime</a>
 
 
   </div>

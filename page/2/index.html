@@ -118,6 +118,80 @@
   
   
     <h1 class="index-title">
+        <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
+            iOS跟踪内存分配和循环引用
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    概述我们在开发iOS应用期间，可能有时候就会遇到循环引用，或者内存分配状态等信息的问题，那么有没有办法可以在应用运行期间检测到了？答案是：当然有了！那就是开源的 FBMemoryProfiler ，由Facebook提供。使用起来也是非常的简单，下面我就讲解下
+FBMemoryProfilerFBMemoryProfiler是一个在应用运行期间也可以浏览内存使用情况，专为iOS开发者设计的，基本包含FBAllocationTracker和FBRetainCycleDetector。
+FBAllocationTracker是收集对象的信息，也支持生成和检测循环引用。
+
+一。FBMemoryProfiler的安装与使用跟踪与现实内存使用情况
+1.1 安装使用Carthage，那么你需要在项目的Cartfile文件里添加上代码如下：1github &quot;facebook/FBMemoryProfiler&quot;
+FBMemoryProfiler需要在非debug（non-debug）模式下编译，所以你需要键入如下命令：1carthage update --configuration Debug
+使用CocoaPods，那么需要你在Podfile文件里添加如下代码：1pod &apos;FBMemoryProfiler&apos;
+然后，在Terminal里cd到项目目录，最后键入pod install这个你完全可以在Debug模式下编译，这是有该编译标签控制的。
+1.2 使用1.在main.m文件里添加如下代码，意味着开启FBAllocationTracker1234567891011#import &lt;UIKit/UIKit.h&gt;#import &quot;AppDelegate.h&quot;#import &lt;FBAllocationTracker/FBAllocationTrackerManager.h&gt;int main(int argc, char * argv[]) &#123;    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];    [[FBAllocationTrackerManager sharedManager] enableGenerations];    @autoreleasepool &#123;        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));    &#125;&#125;
+2.开启内存占用剖析检测功能123456#import &lt;FBMemoryProfiler/FBMe
+  
+  <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
+    更多
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-27T12:27:16.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-27
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-FBMemoryProfiler/">iOS, FBMemoryProfiler</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
         <a href="/2017/10/26/fishhook的基本使用/">
             fishhook的基本使用，fishhook可以勾住系统函数
         </a>
@@ -128,10 +202,12 @@
   <div class="excerpt">
   
     1.概念fishhook是一个非常牛的Mach-O二进制库，原因是因为它可以动态的重新绑定Mach-O符号，专门用于在iOS系统上（模拟器或者真机都可以）。
-这个库的最大功能就是可以干涉系统函数，类似在Mac OS X上使用DYLD_INT
+这个库的最大功能就是可以干涉系统函数，类似在Mac OS X上使用DYLD_INTERPOSE。
+在Facebook，我们惊奇的发现使用fishhook可以勾住libSystem的函数调用，目的了？就是用于debugging（又叫做调试）或者tracing（又叫做追踪）。例如：对带有文件描述符的双重关闭问题进行稽核。原文是（auditing for double-close issues with file descriptors）。
+2.用法使用的方法也是超简单，这里了，我们就拿打开(open())一个文件和关闭(close())一个文件来举例。我们把系统打开文件函数open重写一下（其实是叫做symbols rebinding），也对关闭文件函数close重写一下（它也叫作symbols rebinding）。代码如下：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758#import &lt;dlfcn.h&gt;//导入头文件#import &quot;fishhook.h&quot;//系统open函数的函数指针声明static int (*orig_open)(const char *, int, ...);//系统close函数的函数指针声明static int (*orig_close)(int);//对系统open函数重写（其实是符号重新绑定），但是我感觉就像是重写int my_open(const char *path, int oflag, ...)&#123;    va_list ap = &#123;0&#125;;    mode_t mode = 0;        if ((oflag &amp; O_CREAT) != 0) &#123;        va_start(ap, oflag);        mode = va_arg(ap, int);        va_end(ap);                printf(&quot;1.先调用my_open()，然后在调用系统的open() (&apos;%s&apos;, %d, %d) \n&quot;, path, oflag, mode);        return orig_open(path, oflag, mode);    &#125; else &#123;        printf(&quot;1.先调用my_open(
   
   <a href="/2017/10/26/fishhook的基本使用/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -194,10 +270,45 @@
   
     概述机器学习指的是机器通过统计学算法，对大量的历史数据进行学习从而生成经验模型，利用经验模型指导业务。
 机器学习算法分类：
-有监督学习(Supervised)：针对打过标签的数据去预测新出现的数据。回归和分类本质上是类似的，所以很多的算法既
+有监督学习(Supervised)：针对打过标签的数据去预测新出现的数据。回归和分类本质上是类似的，所以很多的算法既可以用作分类，也可以用作回归。
+回归(Regress)，如果预测的内容是数值类型，就称为回归；
+线性回归(Linear Regression)，
+
+
+分类(Classification)，如果预测的内容是类别或者是离散的，就称为分类
+支持向量机 SVM，
+随机森林
+神经网络
+Gradient Boosting Tree
+决策树
+逻辑回归，虽然名字叫做回归，但它是分类算法
+朴素贝叶斯
+KNN
+
+
+
+
+无监督学习(Unsupervised)：没有打过标签的数据就是无监督学习
+降维(Dimensionality Reduction) 
+就是把高维度的数据变成低维度，降维方法有PCA, LDA, SVD等
+
+
+聚类(Clustering)，就是把所有具有相同特质的数据归并在一起
+K均值(K-Means)，一种聚类算法
+基于密度的聚类算法 DBSCAN(Density-Based Spatial Clustering of Applications with Noise)
+
+
+
+
+半监督学习：标签传播聚类
+有一部分数据打过标签，对这一部分数据进行学习
+
+
+
+Caffe简单介绍http://caffe.berkeleyvision.org
   
   <a href="/2017/10/24/MachineLearning基础/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -259,10 +370,70 @@
   <div class="excerpt">
   
     Convert trained models created with third-party machine learning tools to the Core ML model format.
-OverviewIf your mode
+OverviewIf your model is created and trained using a supported third-party machine learning tool, you can use Core ML Tools to convert it to the Core ML model format. There is Table as shown below, that lists the supported models and third-party tools. 
+
+NoteCore ML Tools is a Python package(coremltools), hosted at the Python Package Index(PyPI).
+The table shows Models and third-party tools supported by Core ML Tools
+
+
+
+
+Model Type
+Supported Models
+Supported Tools
+
+
+
+
+—————————-
+——————————————————————–
+———————————-
+
+
+Neural networks
+Feedforward, convolutional, recurrent
+Caffe v1, Keras 1.2.2+
+
+
+—————————-
+——————————————————————–
+———————————-
+
+
+Tree ensembles
+Random forests, boosted trees, decision trees
+scikit-learn 0.18, XGBoost 0.6
+
+
+—————————-
+——————————————————————–
+———————————-
+
+
+Support vector machines
+Scalar regression, multiclass classification
+scikit-learn 0.18, LIBSVM 3.22
+
+
+—————————-
+——————————————————————–
+———————————-
+
+
+Generalized linear models
+Linear regression, logistic regression
+scikit-learn 0.18
+
+
+—————————-
+——————————————————————–
+———————————-
+
+
+Feature engineeri
   
   <a href="/2017/10/23/Converting-Trained-Models-to-Core-ML/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -324,10 +495,21 @@ OverviewIf your mode
   <div class="excerpt">
   
     If you don’t know the basic use of Core ML, see this page , on the contrary, keep going our tutorial.
-Use Vision with Co
+Use Vision with Core ML to perform image classification.
+OverviewWith the Core ML framework, you can use a trained machine learning model to classify input data. The Vision framework works with Core ML to apply classification models to images, and to preprocess those images to make machine learning tasks easier and more reliable.
+This tutorial I’m going to show you the open source MobileNet model, which identifies an image using 1000 classification categories as seen in the example screenshots below.
+
+Figure - Official Test Case Download Sample Code
+
+
+Figure - My Test Case
+
+Now, we’ve seen it’s completely identified in official test case, but in my test case, half of them are failed to be identified. So I can sum this example code up,the trained model is unmatured. 
+But anyway, this is a good and easy step for us to going.
+Start to my performanceCore ML automatically generates a Swift class which is MobileNet, that provides easy access to your ML model. To set up a Vision request using the model, create an instance of that class and use its model property to create a VNCoreMLReques
   
   <a href="/2017/10/23/Classifying-Images-with-Vision-and-Core-ML/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -388,10 +570,16 @@ Use Vision with Co
 
   <div class="excerpt">
   
-    Core MLThis tutorial is based on Core ML which can be only running on iOS 11.Core ML allows you to integrate machine lea
+    Core MLThis tutorial is based on Core ML which can be only running on iOS 11.Core ML allows you to integrate machine learning models into your app.I’ll show you Three Steps on getting started on CoreML basic use.
+
+
+OverviewWith Core ML, you can integrate trained machine learning models into your app. As shown below.
+So what is Trained Model?In fact, a Trained Model is the result of applying a machine learning algorithm to a set of training data. The model makes predictions based on new input data. For example, a model that’s been trained on a region’s historical house prices may be able to predict a house’s price when given the number of bedrooms and bathrooms.
+Core ML is the foundation for domain-specific frameworks and funcitonality. Core ML supports Vision for image analysis, Foundation for natural language processing (for example, the NSLinguisticTagger class), and GameplayKit for evaluating learned decision trees. Core ML itself builds on top of low-level primitives like Accelerate and BNNS, as well as Metal Performance Shaders.
+Core ML is optimized for on-device performance, which minimizes memory footprint and power consumption. Running strictly on the device ensures the pri
   
   <a href="/2017/10/23/Getting-Started-on-CoreML-by-Three-Steps/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -455,7 +643,7 @@ Use Vision with Co
     
   
   <a href="/2017/10/22/The-Specification-of-React-Native/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -510,10 +698,29 @@ Use Vision with Co
     简介正确的认知自己的优点和缺点不仅仅是有助于你的职业（面试中必问），更重要的是生活。我之所以这么说，是因为每个人都有优点和缺点，人本身就不完美，但是我们会一致努力的让自己变得更好。
 优点
 喜欢学习和总结
-对新鲜事物（我喜欢科技方面、技术方面
+对新鲜事物（我喜欢科技方面、技术方面）有追求
+业余时间，会通过在线课程或者资料来提升自己的职业能力和未来的发展方向；
+除此之外，也会学习一些生活方面的知识，比如：怎么运动来达到比较好的效果？作为一名程序员，每天趴在电脑面前，在业余时间或者周末有空的话，需要放松自己和适当锻炼。还有就是可以向父母学习学习做菜，这是比较重要的（会做饭菜的人（不管是男孩还是女孩，将来的生活一定很和谐，且幸福）
+
+
+
+缺点作为一名程序员，大部分人会认为：古板，木讷，不善于表达；起初我也是这么认为自己的，但是，大家忘记了，程序员的自学能力很好，也很强；遇到问题一般自己会查资料，然后总结总结，最后解决问题。对于程序员的这种刻板印象也是同样的道理，所以我就看了一些文章、论坛和书籍，现在总结起来那些说的还是挺对了，比如：
+
+对计算机的沟通很顺畅，对人际关系却表现的很不好，这只能说明程序员需要知道一些说话的技巧和策略，经过学习这些说话的技巧之后，一样可以达到与那位学心理学的同学的级别，甚至更好
+对于逻辑思维的问题，可以认为程序员对代码的逻辑的理解肯定是相当不错的，但是与人交往时，有时候却发现对方不是听不懂，就是听不明白，其实有些时候，只是逻辑思考的不同，所以了，我买了一本书《简单的逻辑学》  我看完之后，总结有那么几点，但是都是大白话，没有术语：
+1.说话时，考虑你说话的对象的理解程度和接受能力，使用合适词语来表达你的意思，尽量让对方能听懂和能接收。比如：在学习英语上，很多人学习英语时，和别人用英语交流时，尽说一些让人听不懂的概念或者词语，说明这个人只想证明自己的高大尚，与真正的交流毫无用处（我也犯过这样的问题，直到有一次我跟老外聊天时，他说：你的英语非常好，但是我是老外也听不懂呀😄）
+2.关注细节，考虑到你说话的对象想从你这里得到什么样的答案，然后结合你自身的情况来表达
+3.就是推理，任何事物都是有逻辑性或者规则的，只要经过细心推理，都是有规律的
+4.找到实物的真实性
+
+
+说话时，以前比较直接，可能话语会伤害到某人，但是以后经过学些一些技巧后，与人说话时，带点幽默感，可以起到非常大的作用，比如：缓解气氛，缩小人与人之间的距离。
+
+最后，来说个 你认为你感到最失败的经验是什么以及对你的影响这个怎么说了，其实我觉得吧，就是当年在学校时，没把英语好好学，而导致后来在工作中需要花费很多额外的时间去补上😄
+好了，以上就是我个人的部分经历，共勉。
   
   <a href="/2017/10/21/你最大的优点和缺点是什么？/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -577,10 +784,44 @@ Use Vision with Co
     很多时候，随着业务越来越好，系统所牵涉到的数据数量也是越来越多、越来越大，这时，许多系统的瓶颈就在数据的存储上了，所以我们就不得不考虑对数据库进行优化了。
 从服务器的角度来讲，伸缩（scale）就是一种方式，它分为两种方法：
 
-1.向上伸缩
+1.向上伸缩（scale up），它的意思是通过使用更好的硬件来提高系统的性能参数。
+2.向外伸缩（scale out），它的意思是通过额外的硬件（如：服务器）来达到同样的效果。
+
+读写分离读写分离的意思是，一个主数据库（master）负责写数据，一个从服务器（slave）的数据库负责读数据；master负责将写操作的数据同步到各个节点，读写分离来提供系统性能的有点：
+
+物理服务器增加，机器处理能力提升，那硬件换性能
+主从只负责各自的写和读，极大程度缓解了X锁和S锁争用
+
+它们之间最大的问题就是同步，因为当一条数据写到主服务器后，从服务器如何同步？这几个主流数据库都是良好支持主从同步的：
+
+MySQL Replication
+MongoDB Master Slave Replication
+Oracle Replication
+SQL Server Replication
+
+数据分片（data sharding）是将整体数据分开存放，如：服务器端，可以是将数据存放在多台服务器之间；客户端，可以是将数据库/数据表分开存放，以满足大数据量的需要。但是值得注意的是：本来是一张表或一个数据库的数据被分开存放了，那么对于select/insert/update/delete应该如何处理了？
+策略如下：
+1.根据取模，例如：先要对计算的key进行哈希计算，然后再对分开的表的数量或者设备进行取模运行，得到的结果是几，那么这条记录就放在编号为几的数据分区中
+2.根据时间范围，例如：前50万条数据放在第一个分区中，第二个50万条数据放在第二个分区，依次类推
+3.基于索引表：例如：新建立一个索引表，然后根据ID先去一个表内找到它所在的分区，然后再去目标分区进行查找
+
+数据分区虽然好处多多，尤其是对系统的性能（performance）和伸缩性(scalability)，但是同时也带来是开发的复杂度。
+
+那SQLite如何优化了？FMDB是基于SQLite封装的。早期的FMDB是不支持并发的，但是后来的版本中，FMDB已经解决了在并发问题。SQLite共识：
+
+四种锁：
+共享锁（shared lock）
+预留锁（reserved lock）
+未决锁（pending lock）
+排他锁（exclusive lock）
+
+
+SQLite读操作（如：select），可以并发的读取数据库，如果有一个读存在，那么就不允许写
+SQLite写操作（如：insert/update/delete），
+1.它首先会申请一个预留锁（reserved lock），在启用预留锁后，如
   
   <a href="/2017/10/20/你不得不知的SQLite/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -641,10 +882,49 @@ Use Vision with Co
 
   <div class="excerpt">
   
-    移除CSDN各种广告 - Safari浏览器专用插件故事背景：受够了CSDN的各种垃圾广告，还满天飞。。。每次查资料时，总是郁闷的看到了左下角，右下角的广告，忍无可忍之日，今天，我就专门写了个工具，其实是Safari插件，干掉 CSDN.c
+    移除CSDN各种广告 - Safari浏览器专用插件故事背景：受够了CSDN的各种垃圾广告，还满天飞。。。每次查资料时，总是郁闷的看到了左下角，右下角的广告，忍无可忍之日，今天，我就专门写了个工具，其实是Safari插件，干掉 CSDN.com 和 CSDN.net上的各种页面的广告。如果你也和我一样烦透了CSDN的广告，那就装上我写的这个插件吧。超级简单的哦~~~由于我把这个小插件放到了Firebase的仓库，所以下载时，需要你的网络可以连接Google，如果你的网络不能连接google，请给我发邮件或者本站的右边栏的联系方式联系我，我会给你直接发送插件
+方案1
+1.该下载要求你的网络可以连接上google， 下载插件
+
+2.下载完后，解压该下载文件，然后建议是把这个解压完的整个文件夹拷贝到你的 ~/Documents目录
+
+3.打开Safari -&gt; Developer -&gt; Show Extension Builder -&gt; 左下角 Add Extension -&gt; 添加 ~/Documents/EliminateCSDNAds.safariextension  -&gt;   点击右上角 install按钮
+
+4.然后打开Safari的Preferences -&gt; Extensions ，你就可以看到刚才安装的文件了
+
+5.快去打开 www.csdn.net 试试吧，广告都没了。。。O(∩_∩)O哈哈~
+
+
+ 注意： 
+
+1.如果你在第三步时，找不到Developer菜单项的话，记得如下图开启
+
+2.如果你在第三步时，找不到添加插件的按钮，如下图
+
+
+ 如果你有更好的意见，欢迎 mailto: victorzhangq@gmail.com ，我会尽快处理 
+
+方案2
+1.下载此文件需要你的网络能连接google 立马下载”移除CSDN广告”的Safari插件
+
+2.下载完后需要解压
+
+3.解压完后，双击SafariExtensionsPro.app文件，然后打开Safari，在左上角选择Preferences，然后选择Extensions，然后你就会看到插件移除CSDN广告。
+
+4.勾选上移除CSDN广告后，你会在浏览器中间偏左看到如图所示，它表示插件已经生效
+
+5.最后你就可以去访问www.csdn.net时，你就再也看不到各种悬浮广告，解决了你的心头之恨吧！！😄
+
+
+注意
+
+如果在第三步时，没有看到如图所示的插件，那么可以尝试关闭Safari浏览器，在打开，一般第二次或者第三次打开就能显示出来了
+
+如果你有更好的建议，或者说，你还想屏蔽哪些网站的广告，请邮件我，我会抽空添加的😄
+DIY一个插件
   
   <a href="/2017/10/19/强行并持久的移除CSDN各种广告/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -679,78 +959,6 @@ Use Vision with Co
     </svg>
     &nbsp;
     <a href="/tags/移除-CSDN-广告/">移除, CSDN, 广告</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/18/Protocol-Buffer/">
-            Protocol Buffer
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    目录
-1.介绍
-2.下载与安装
-3.实例说明（Python代码）
-4.实例说明（Objective-C代码）
-5.文件.proto的解释
-
-
-1.介绍Protocol Buffer，简单来说，就是一种数据交换格式，就像JSON和XML作用一
-  
-  <a href="/2017/10/18/Protocol-Buffer/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-18T14:52:27.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-18
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/Protocol-Buffers-protobuff/">Protocol Buffers, protobuff</a>
 
 
   </div>

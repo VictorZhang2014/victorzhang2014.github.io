@@ -118,6 +118,84 @@
   
   
     <h1 class="index-title">
+        <a href="/2018/01/09/Python的科学计算包-Pandas/">
+            Python的科学计算包- Pandas
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    PandasPandas是Python Data Analysis Library或Pandas是基于NumPy的一种工具，该工具是为了解决数据分析任务而创建的。Pandas纳入了大量的库和一些标准的数据模型，提供了高效地操作大型数据集所需的工具。Pandas提供了大量能使我们快速便捷地处理数据的函数和方法。你很快就会发现，它是Python成为强大而高效的数据分析环境的重要因素之一。百度百科
+Pandas有两个主要的数据结构
+1.Series
+数组与标签
+可以通过标签选取数据
+定长的有序字典
+
+
+2.Dataframe
+表格型数据结构
+行索引、列索引
+
+
+
+Series的基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179# coding: utf-8import numpy as npfrom pandas import Seriesobj = Series([4, 7, -5, 3])print obj&apos;&apos;&apos;第一列是索引，第二列是值0    41    72   -53    3dtype: int64&apos;&apos;&apos;# 获取所有的值print obj.values&apos;&apos;&apos;[ 4  7 -5  3]&apos;&apos;&apos;# 获取所有的索引print obj.index&apos;&apos;&apos;RangeIndex(start=0, stop=4, step=1)&apos;&apos;&apos;obj2 = Series([4, 7, -5, 3], index=[&apos;d&apos;, &apos;b&apos;, &apos;a&apos;, &apos;c&apos;])print obj2&apos;&apos;&apos;第一列是索引，第
+  
+  <a href="/2018/01/09/Python的科学计算包-Pandas/">
+    更多
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2018-01-09T15:18:53.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  01-09
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Python-Pandas/">Python, Pandas</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
         <a href="/2018/01/05/学习世界语/">
             学习世界语
         </a>
@@ -127,10 +205,19 @@
 
   <div class="excerpt">
   
-    1.世界语 Esperanto世界语（Esperanto）是波兰籍犹太人柴门霍夫博士（Ludwig Lazarus Zamenhof）于1887年创立的一种语言，旨在消除国际交往中的语言障碍，令全世界各个种族肤色的人民都能在同一个人类大家庭
+    1.世界语 Esperanto世界语（Esperanto）是波兰籍犹太人柴门霍夫博士（Ludwig Lazarus Zamenhof）于1887年创立的一种语言，旨在消除国际交往中的语言障碍，令全世界各个种族肤色的人民都能在同一个人类大家庭里像兄弟姐妹一样和睦共处。世界语已经成为了目前国际上使用最为广泛的国际辅助语，全球150多个国家和地区都有世界语组织和世界语者。早在1954年，联合国教科文组织就正式把国际世界语协会列为教科文组织B级咨询关系单位，确定了国际世界语协会在联合国和教科文组织的正式地位。联合国协会世界联合会对世界语也采取了积极的态度。
+以世界语作为官方语言的宗教团体有：雍仲本波佛教（Yongzhong Bonpo）、韩国圆佛教（Ŭonbulismo）、日本大本教（Oomoto）等，巴哈伊教（Bahai）支持采用世界语作为国际辅助语。以世界语作为官方语言的国际性组织还有圣马力诺国际科学院、国际文化艺术联合会、国际雍仲本教联合会等等。中国国际广播电台的世界语广播站，在各国世界语广播中名列前茅，一直受到国际世界语界的关注。世界语的语法严谨、语音优美、逻辑性强、表现力丰富，很多世界经典名著都有世界语的翻译版本，例如《圣经》，《古兰经》和中国四大名著等。
+百度百科的介绍：https://baike.baidu.com/item/世界语/563425?fr=aladdin
+2.学习世界语百度搜了下，这边知乎回答说的很好，对于初学者而言，以下是非常棒的！ https://www.zhihu.com/question/30205056
+世界语的介绍，为什么要学习世界语？学会世界语有什么用？全球有多少人说世界语？上面的链接有介绍和说明，这里就不在赘述了
+3.世界语的输入法我们都知道世界语是波兰籍犹太人柴门霍夫博士创建的，一门中立的语言，不属于任何国家，也不属于任何人，而且这门语言创立时，计算机还没有被发明出来，到了19世纪时期，计算机才被发明出来，但是默认确实美式键盘，美式键盘有26个英文字母支持的很好，可对于世界语有6个字母有帽子ĉ,ĝ,ĥ,ĵ,ŝ,ŭ，怎么输入了？聪明大师们就相处了解决办法
+ 先添加键盘 
+ 看下世界语有哪些字母？ 
+ 如何输入了？ 世界语字母表中可以看到带帽字母有ĉ, ĝ, ĥ, ĵ, ŝ, ŭ，打这些字母的时候，先同时按住“option“+”6“，松开手，再输入c,g,h,j,s即可出现帽子，另外，u上面的帽子是反过来的，需要用另外的密码，先同时按住”option”+”b”，松开手，再输入u即可出现帽子。option + 6 + c = ĉoption + 6 + g = ĝoption + 6 + h = ĥoption + 6 + j = ĵoption + 6 + s = ŝoption + b + u = ŭ
+对于iPhone的小
   
   <a href="/2018/01/05/学习世界语/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -195,10 +282,14 @@
 
 安装NumPy
 
-如果
+如果是SciPy，则如下
+
+如果是Pandas，则如下
+
+最后，你会看到如下列表，则如下
   
   <a href="/2017/12/30/NumPy, SciPy和Pandas的安装教程/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -250,10 +341,21 @@
 
   <div class="excerpt">
   
-    NumPy (Numerical Python extensions)是一个第三方的Python包，用于科学计算。这个库的前身是1995年就开始开发的一个用于数组运算的库。经过了长时间的发展，基本上成了绝大部分Python科学计算的基础包，
+    NumPy (Numerical Python extensions)是一个第三方的Python包，用于科学计算。这个库的前身是1995年就开始开发的一个用于数组运算的库。经过了长时间的发展，基本上成了绝大部分Python科学计算的基础包，当然也包括所有提供Python接口的深度学习框架。)
+NumPy是用Python编写的，用于科学计算的基础包，包含了以下四种特性：
+
+对于处理N维数组对象非常强大
+复杂（广播）函数 sophisticated (broadcasting) functions
+便于集成C/C++/Fortran代码
+支持线性代数，博里叶变换，随机数
+
+通过Github直接下载源码：12345# 对于NumPygit clone https://github.com/numpy/numpy.git numpy# 对于SciPygit clone https://github.com/scipy/scipy.git scipy
+下载安装NumPy, SciPy, Pandas
+
+1.基本类型arrayarray，也就是数组，是numpy中最基础的数据结构，最关键的属性是维度和元素类型，在numpy中，可以非常方便地创建各种不同类型的多维数组，并且执行一些基本基本操作，来看例子：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970# coding: utf8import numpy as npa = [1, 2, 3, 4]     	    # 创建一个Python数组b = np.array(a)         	# 根据a创建一个array([1, 2, 3, 4])type(b)                   	# &lt;type &apos;numpy.ndarray&apos;&gt;b.shape                   	# (4,)  一维矩阵长度为4b.argmax()               	# 3     最大索引b.max()                   	# 4     最大值b.mean()                  	# 2.5   平均值c = [[1,2],[3,4]]    # 二维Python数组d = np.array(c)      # 二维NumPy数组print d.shape        # (2, 2)print d.size         # 4print d.max(axis=0)  # [3 4]print d.max(axis=1) 
   
   <a href="/2017/12/24/Python的科学计算包-Numpy/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -314,10 +416,13 @@
 
   <div class="excerpt">
   
-    1. Python简介Python是一门解释型的高级编程语言，特点是简单明确。Python作者是荷兰人Guido van Rossum，1982年他获得数学和计算机硕士学位后，在荷兰数学与计算科学研究所（Centrum Wiskunde &
+    1. Python简介Python是一门解释型的高级编程语言，特点是简单明确。Python作者是荷兰人Guido van Rossum，1982年他获得数学和计算机硕士学位后，在荷兰数学与计算科学研究所（Centrum Wiskunde &amp; Informatica, CWI）谋了份差事。在CWI期间，Guido参与到了一门叫做ABC的语言开发工作中。ABC是一门教学语言，所以拥有简单，可读性好，语法更接近自然语言等特点。在那个C语言一统天下的年代，ABC就是一股简单的清流，毕竟是门教学语言，最后没有流行起来，不过这段经历影响了Guido。1989年的圣诞假期，闲得蛋疼的Guido决定设计一门简单易用的新语言，要介于C和Shell之间，同时吸取ABC语法中的优点。Guido用自己喜欢的一部喜剧电视剧来命名这门语言：《Monty Python’s Flying Circus》。
+1991年，第一版基于C实现的Python编译器诞生，因为简单，拓展性好，Python很快就在Guido的同事中大受欢迎，不久Python的核心开发人员就从Guido一人变成了一个小团队。后来随着互联网时代的到来，开源及社区合作的方式蓬勃发展，Python也借此上了发展的快车道。因为Python非常容易拓展，在不同领域的开发者贡献下，许多受欢迎的功能和特征被开发出来，渐渐形成了各种各样的库，其中一部分被加入到Python的标准库中，这让本来就不需要过多思考底层细节的Python变得更加强大好用。在不过多考虑执行效率的前提下，使用Python进行开发的周期相比传统的C/C++甚至Java等语言都大大缩短，代码量也大幅降低，所以出bug的可能性也小了很多。因此有了语言专家Bruce Eckel的那句名言：Life is short, you need Python. 后来这句话的中文版“人生苦短，我用Python”被Guido印在了T恤上。发展至今，Python渐渐成了最流行的语言之一，在编程语言排行榜TOBIE中常年占据前5的位置。另外随着Python的用户群越来越壮大，慢慢在本身特点上发展出了自己的哲学，叫做Python的禅（The Zen of Python）。遵循Python哲学的做法叫做很Python（Pythonic），具体参见：
+The Zen of Python
+Python拥有很好的扩充性，可以非常轻松地用其他语言编写模块供调用，用Python编写的模块也可以通过各种方式轻松被其他语言调用。所以一种常见的Python使用方式是，底层复杂且对效率要求高的模块用C/C++等语言实现，顶层调用的API用Python封装，这样可以通过简单的语法实现顶层逻辑，故而Python又被称为“胶水语言”。这种特性的好处是，无需花费很多时间在编程实现上，更多的时间可以专注于思考问题的逻
   
   <a href="/2017/12/24/Python快速教程/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -384,10 +489,21 @@
 2.UITableView         重点：滑动同步
 3.UICollectionView    重点：布局
 
-二、实现代码本文以UICollec
+二、实现代码本文以UICollectionView作为讲解，要做成瀑布流的效果，其实很简单；基本分为三个步骤
+
+1.创建一个基本的UICollectionView，但是cell的大小不一致
+2.自定义一个类派生自UICollectionViewFlowLayout
+3.在自定义的的flowLayout类里，实现：
+3.1 获取UICollectionView的所有cell
+3.2 对所有的cell重新计算frame
+3.3 将重新计算的frame赋值给cell
+
+
+
+代码1，创建UICollectionView1234567891011121314151617181920212223242526272829303132333435363738394041424344454647- (void)viewDidLoad &#123;    [super viewDidLoad];        WaterFallFlowLayout *flowLayout = [[WaterFallFlowLayout alloc] init];    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];    self.collectionView.backgroundColor = [UIColor yellowColor];    self.collectionView.delegate = self;    self.collectionView.dataSource = self;    //注册单元格    [self.collectionView registerClass:[WaterFallCollectionViewCell class] forCellWithReuseIdentifier:identifier];    [self.view addSubview:self.collectionView];&#125;#pragma mark - UICollectionView dataSource- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section&#123;    return self.imgArr.count;&#125;
   
   <a href="/2017/11/11/iOS瀑布流/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -455,10 +571,54 @@
 3.查询学位
 4.学位证书编号
 
-前言本来一直不关心自己的学历和学位的问题，你懂的！~ 都是从大学考出来的，可是了？入职前，都需要背景调查，不得不了解下我的学历和学位的相关信息了。。。以前入职都没
+前言本来一直不关心自己的学历和学位的问题，你懂的！~ 都是从大学考出来的，可是了？入职前，都需要背景调查，不得不了解下我的学历和学位的相关信息了。。。以前入职都没有遇到过背调的，最近正好好奇这个证书编号，所以就看了看相关资料，总结也就下面两点其实也有很多人，应该说很多大学毕业生，或者已工作的人士，也不知道具体在哪里查询学历和学位的真假，以及证书编号的规则。。。正好，我在这里准备了一下，大部分的相关知识。。。
+已知者/高手，请略过。。。一个乌鸦飞过去。。。
+
+1.查询学历
+1.中国的官方学历查询网站：http://www.chsi.com.cn
+2.选择菜单栏的学历查询
+3.现在有两个选择 本人查询 和 零散查询 ，
+3.1 对于前者可以查询个人的学籍和学历信息等，还有分数，以及考研时的分数认证
+3.2 对于后者就是简单的学历查询
+3.3 当然还有一个企业用户查询，这个是针对企业的，可以批量查询
+
+
+4.这里就选择零散查询，需要输入学历证书编号、学历上的姓名、图片验证码，点击查询
+5.输入手机号码 –&gt;  免费获取验证码   –&gt;  键入验证码 –&gt;  查询
+6.下图即是你的学历信息了
+7.倘若你的证书编号和姓名不匹配，或者信息都是假的时候，会出现如下图
+
+
+2.毕业证书编号百度百科说：从2001年起，我国开始对高等教育学历证书实行电子注册制度。毕业证编号也叫电子注册号，一般来说，只要在网上能通过姓名、毕业证编号查到毕业证信息，就能证明存在其学历。不同的高校对于该毕业证书编号的称谓不同，有的叫做学校编号、学历证书编号、学历证编号、毕业证书号码、毕业证号码等等，只要是2001年以后毕业的，都可以在毕业证书上找到一个17位或者18位的数字，这个数字就是证书编号。
+我们就拿这个证书编号作为讲解，该证书编号是从上图摘下来的100801200405001235
+
+10080 ，前5位，是学校或者教育机构的国标代码，点击这里查询中国所有的大学代码
+1 ，第六位，是办学类型代码，值分别是：
+1是普通高等教育；
+5是成人高等教育；
+6是高等教育自学考试和高等教育学历文凭考试；
+7是网络教育
+
+
+2004， 第7位到第10位是毕业年份
+05，第十一位到第十二位，是培养层次代码，值分别是：
+01是博士研究生
+02是硕士研究生
+04是第二学士学位
+05是本科
+06是专科（含高职）
+
+
+001235，第十三位到第十七位，是学校对毕业证书编排的序号。其中2002年以后的编号共18位。
+
+
+3.查询学位
+1.中国的官方学位查询网站：http://www.chinadegrees.com.cn
+2.选择学位获得者查询，如果你没有账号，则需要注册，反之，直接登录就行
+3.点击 注册  –&gt; 
   
   <a href="/2017/11/09/你不得不知的学历和学位的知识/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -521,10 +681,14 @@
   
     1.简介在这篇文章，我将会教你如何使用CAGradientLayer的API去创建一个非常炫酷的渐变效果，而且还可以是动画过渡效果。比如现有的App，像：陌陌，Instagram，Snapchat等，都有一样的效果，非常好看，酷比~~
 
-2
+2.渐变之 CAGradientLayerCAGradientLayer是派生自CALayer，它允许我们绘制渐变效果；原理是它可以接收几种颜色作为输入源，然后混合这几种颜色到一起，并且渲染可持续的渐变颜色。
+2.1 基本使用下面的代码会在两个颜色之间创建一个斜角渐变，渐变的方向是通过startPoint和endPoint的属性来控制。123456789let gradient = CAGradientLayer()gradient.frame = self.view.boundsgradient.colors = [    UIColor(red: 48/255, green: 62/255, blue: 103/255, alpha: 1).cgColor,    UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor]gradient.startPoint = CGPoint(x:0, y:0)gradient.endPoint = CGPoint(x:1, y:1)self.view.layer.addSublayer(gradient)
+如图所示：
+
+3.渐变动画由于所有的CALayer的属性都是可动画形式的，所以我们可以创建一个CABasicAnimation实例，然后添加到CAGraidentLayer上，并且对CABasicAnimation的颜色属性设置相应的颜色，也就是从一种颜色到另一种颜色。例如：123456789let gradientChangeAnimation = CABasicAnimation(keyPath: &quot;colors&quot;)gradientChangeAnimation.duration = 5.0gradientChangeAnimation.toValue = [    UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor,    UIColor(red: 196/255, green: 70/255, blue: 107/255, alpha: 1).cgColor    ]gradientChangeAnimation.fillMode = kCAFillModeForwardsgradientChangeAnimation.isRemovedOnCompletion = falsegradie
   
   <a href="/2017/11/08/Swift颜色渐变-动画更新-过渡/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -585,10 +749,11 @@
 
   <div class="excerpt">
   
-    iOS日志记录当前文件的堆栈、类名、函数名、行号及文件路径等信息1234567NSArray *array = [NSThread callStackSymbols];NSLog(@&quot;堆栈信息：        %@&quot;, 
+    iOS日志记录当前文件的堆栈、类名、函数名、行号及文件路径等信息1234567NSArray *array = [NSThread callStackSymbols];NSLog(@&quot;堆栈信息：        %@&quot;, array);NSLog(@&quot;当前类名：         %@&quot;, NSStringFromClass([self class]));NSLog(@&quot;当前函数名：       %s&quot;, __func__);NSLog(@&quot;当前函数和参数：    %s&quot;, __PRETTY_FUNCTION__);NSLog(@&quot;当前函数的行号：    %d&quot;, __LINE__);NSLog(@&quot;当前文件路径：      %s&quot;, __FILE__);
+输出结果为：1234567891011121314152017-10-30 18:58:31.740513+0800 TestProject[8383:291415] 堆栈信息：        (	0   TestProperties                      0x000000010aa633da -[ViewController viewDidLoad] + 74	1   UIKit                               0x000000010e3e254d -[UIViewController loadViewIfRequired] + 1235	2   UIKit                               0x000000010e3e299a -[UIViewController view] + 27	3   UIKit                               0x000000010e2b0ae3 -[UIWindow addRootViewControllerViewIfPossible] + 122	4   UIKit                               0x000000010e2b11eb -[UIWindow _setHidden:forced:] + 294	5   UIKit                               0x000000010e2c4098 -[UIWindow makeKeyAndVisible] + 42	6   UIKit                               0x000000010e236521 -[UIApplication _callInitializationDelegatesForMainScene:tra
   
   <a href="/2017/10/30/iOS日志记录当前文件的堆栈、函数名、行号及文件路径等信息/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -650,10 +815,22 @@
   <div class="excerpt">
   
     一、JSPatch个人开发者开源的JSPatch，做热更新时，从服务器拉去js脚本。理论上可以修改和新建所有的模块，但是不建议这样做。建议 用来做紧急的小需求和 修复严重的线上bug。
-二、lua脚本阿里开源的wax，热更新时，从服务器拉去
+二、lua脚本阿里开源的wax，热更新时，从服务器拉去lua脚本。游戏开发经常用到。也可以用于iOS应用的热更新/修复。
+三、Weex阿里开源的weex跨平台，一套代码，iOS、Android都可以运行。用前端语法实现原生效果。比React Native更好用。weex基于vue.js，ReactNative使用React。ReactNative安装配置麻烦。 weex安装cli之后就可以使用。
+react模板JSX有一定的学习成本，vue和常用的web开发类似，模板是普通的html，数据绑定用mustache风格，样式直接使用css。
+淘宝干的漂亮，中国在编码的实力越来越牛叉了。威武！！！ 
+四、React NativeFacebook开源的React Native不像Weex能一套代码多端运行，需要自己分别做修改。
+React Native 可以动态添加业务模块，但无法做到修改原生OC代码。
+JSPatch、lua 配合React Native可以让一个原生APP时刻处于可扩展可修改的状态。
+五、Hybrid像PhoneGap之类的框架, 基本概念和web差不多, 通过更新js/html来实现动态化，没有原生的效果流畅。
+六、动态库可以做demo用，真实使用的时候会被苹果禁止。
+因为 打包发到AppStore的ipa安装包 里的每个动态库 都有唯一的编码，iOS系统会进行验证，所以动态通过网络获取 新的动态库 也用不了。
+七、rollout.iorollout紧急修复线上bug。后端有相关的管理页面。因为是国外的网站，然后呢，要翻墙才能使用。
+八、DynamicCocoa滴滴iOS的一个框架，准备在2017年初开源，与JSPatch比更加智能化，用OC在XCode中写完代码，用工具可以自动生成可以更新的js文件。到现为止也用不了。
+我猜微信和QQ都自己研发了一套热更新的代码，知道原理了，其实自己搞一套也不是很难。
   
   <a href="/2017/10/29/iOS热更新-八种实现方式/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -688,70 +865,6 @@
     </svg>
     &nbsp;
     <a href="/tags/iOS-HotPatch/">iOS, HotPatch</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
-            iOS跟踪内存分配和循环引用
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    概述我们在开发iOS应用期间，可能有时候就会遇到循环引用，或者内存分配状态等信息的问题，那么有没有办法可以在应用运行期间检测到了？答案是：当然有了！那就是开源的 FBMemoryProfiler ，由Facebook提供。使用起来也是非常的
-  
-  <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-27T12:27:16.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-27
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/iOS-FBMemoryProfiler/">iOS, FBMemoryProfiler</a>
 
 
   </div>

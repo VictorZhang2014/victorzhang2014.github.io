@@ -118,6 +118,153 @@
   
   
     <h1 class="index-title">
+        <a href="/2017/04/01/CA证书的介绍与使用/">
+            CA证书的介绍与使用
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    CA证书
+1.域名型SSL证书（DV SSL）：信任等级普通，只需验证网站的真实性便可颁发证书保护网站；一般是免费的2.企业型SSL证书（OV SSL）：信任等级强，须要验证企业的身份，审核严格，安全性更高；收费的3.增强型SSL证书（EV SSL）：信任等级最高，一般用于银行证券等金融机构，审核严格，安全性最高，同时可以激活绿色网址栏。收费的，比OV证书贵一些4.自签名证书(SelfSigned Cert) : 创建的工具有很多。如Mac中的钥匙串可以创建，IIS的服务器证书可以创建
+
+https://help.aliyun.com/knowledge_detail/42216.html公钥（Public Key）与私钥（Private Key）是通过一种算法得到的一个密钥对（即一个公钥和一个私钥），公钥是密钥对中公开的部分，私钥则是非公开的部分。公钥通常用于加密会话密钥、验证数字签名，或加密可以用相应的私钥解密的数据。通过这种算法得到的密钥对能保证在世界范围内是唯一的。使用这个密钥对的时候，如果用其中一个密钥加密一段数据，必须用另一个密钥解密。比如用公钥加密数据就必须用私钥解密，如果用私钥加密也必须用公钥解密，否则解密将不会成功。
+x509是数字证书的规范，P7和P12是两种封装形式。比如说同样的电影，有的是avi格式，有的是mpg。SSL/TLS/HTTPS的区别SSL (Secure Socket Layer) 安全套接层  目前有三个版本1.0, 2.0, 3.0TLS (Transport Layer Security) 传输层安全协议   是SSL的标准化后的产物，目前有1.0, 1.1, 1.2三个版本HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer) 也就是HTTP 加上 SSL/TLS
+用于网站HTTPS化的SSL数字证书，当前主要分为DV SSL、OV SSL、EV SSL三种类型的证书。symantec证书检测https://cryptoreport.websecurity.symantec.com/checker/views/certCheck.jsp
+当你的网站配置了https后，如果在IE浏览器提示证书配置错误，chrome浏览器提示不安全的连接，那就是因为IIS默认没有开启TLS，所以我们需要手动开启SSL/TLS，具体步骤如下链接https://social.technet.microsoft.com/Forums/forefront/en-US/ec033ff6-091d-441d-8ad3-7ea411100009/ssl-with-256bit-strength这篇链接中最重要的步骤就是In order to get IIS7 to do 256 
+  
+  <a href="/2017/04/01/CA证书的介绍与使用/">
+    更多
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-04-01T08:29:23.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  04-01
+</time>
+
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/CA/">CA</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/04/01/Cocoapods的使用/">
+            Cocoapods的使用
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    CocoaPods Command 
+使用Cocoapods安装Cocoapods前以前要更新 Ruby到2.3以上版本，否则各种报错
+异常：如果下载不下来，就拷贝别人电脑，可以下载的那个
+升级Ruby最新版1sudo gem update —system
+查看当前从哪里下载的cocopods1gem sources -l
+1gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
+移除下载地址1gem sources —remove https://rubygems.org/
+设置下载地址1gem sources —add https://ruby.taobao.org/
+添加你找到的可用的镜像源1gem sources -a http://rubygems-china.oss.aliyuncs.com
+安装cocoapods1sudo gem install cocoapods
+会提示输入密码1pod setup
+
+1.定位到项目目录  1cd
+2.初始化Pod  1pod init
+3.编辑该文件   1vi Podfile
+
+   内容是   12345678910111213   platform :ios, &apos;7.0&apos;   use_frameworks! //添加了这句就必须使用iOS8.0target ‘WeiMeiBrowser’ do   pod &apos;SDWebImage&apos;, &apos;~&gt; 3.7.1&apos;    pod &apos;Toast&apos;, &apos;~&gt; 2.4&apos;    pod &apos;SVProgressHUD&apos;, &apos;~&gt; 1.1.2&apos;   pod &apos;M80AttributedLabel&apos;, &apos;~&gt; 1.3.1&apos;   pod &apos;FMDB&apos;, &apos;~&gt; 2.5&apos;   pod &apos;Reachability&apos;, &apos;~&gt; 3.1.1&apos;   pod &apos;CocoaLumberjack&apos;, &apos;~&gt; 2.0.0-rc2&apos;end
+   :wq保存退出
+
+4.安装    12345pod installPod install —verbose —no-repo-updatePod update —verbose —no-repo-update
+
+以下是发布开源框架到Cocoapods中心服务器
+1.在目录下执行1pod spec create myname.pod
+  
+  <a href="/2017/04/01/Cocoapods的使用/">
+    更多
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-04-01T08:27:50.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  04-01
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/CocoaPods/">CocoaPods</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
         <a href="/2017/03/31/RSA-Example-in-iOS-C/">
             RSA Example in iOS/C#
         </a>
@@ -128,10 +275,15 @@
   <div class="excerpt">
   
     RSA CryptographyA set of RSA Cryptographic ways to your project in iOS/C#ZRCryptographyOC
-RSA OverviewRSA is an algorith
+RSA OverviewRSA is an algorithm used by modern computers to encrypt and decrypt messages. It is an asymetric cryptographic algorithm. Asymetric means that there are two different keys. This is also called public key cryptography, because one of them can be given to everyone. The other key must be kept private. It is based on the fact that finding the factors of an integer is hard(the factoring problem). RSA stands for Ron Rivest, Adi Shamir and Leonard Adleman, who first publicly described it in 1978. A user of RSA creates and then publishes the product of two large prime numbers, along with an auxiliary value, as their public key. The prime factors must be kept secret. Anyone can use the public key to encrypt a message, but with currently published methods, if the public key is large enough, only someone with knowledge of the prime factors can feasibly decode the message.
+See more infomation)
+Please Note
+The public key to encrypt messages, after encrypted, it must be encoded by base 64.The private key to decrypt messages, before decrypting, it must be decoded by base 64.
+
+How do I create a pu
   
   <a href="/2017/03/31/RSA-Example-in-iOS-C/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -193,10 +345,17 @@ RSA OverviewRSA is an algorith
   <div class="excerpt">
   
     PushNotificationA simplest way to push notification on your own server in C# and C/Objective-C.
-APNs OverviewApple Push 
+APNs OverviewApple Push Notification service (APNs) is the centerpiece of the remote notifications feature. It is a robust and highly efficient service for propagating information to iOS (and, indirectly, WatchOS), tvOS, and macOS devices. On initial launch, your app establishes an accredited and encrypted IP connection with APNs from the user’s device. Over time, APNs delivers notifications using this persistent connection. If a notification arrives when your app is not running. the device receives the notification and handles its delivery to your app at an appropriate time.
+In addition to APNs and your app, another piece is required for the delivery of remote notifications. You must configure your own server to originate those notifications. Your server, known as the provider, has the following responsibilities:
+
+It receives device tokens and relevant data from your app.
+It determines when remote notifications need to be sent to a device.
+It communicates the notification data to APNs, which then handles the delivery of the notifications to that device.
+
+For each remote notification, yo
   
   <a href="/2017/01/18/PushNotification-in-C-Objective-c-C/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -260,10 +419,16 @@ APNs OverviewApple Push
     此页的视频资源都在YouTube上，只有当你的网络可以连接google时便可打开视频列表 - 我添加了字幕4.主题是：How to learn English idioms related to colours
 
 
-3.主题是：Confus
+3.主题是：Confusing English Words (worn vs warn) • Learn the difference between these two confusing words 
+
+
+2.主题是：7 Phrasal Verbs you need to know to persuade someone • Phrasal Verbs for English Fluency! 
+
+
+1.主题是：10 Common British English Slang Expressions &amp; Phrases
   
   <a href="/2016/10/23/English/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -317,10 +482,15 @@ APNs OverviewApple Push
   
     使用环境Xcode 8.0 正式版cocoapods 1.0.1
 运行命令1&gt; pod spec lint ZRQRCodeViewController.podspec
-提交本人的ZRQRCodeViewController到coco
+提交本人的ZRQRCodeViewController到cocoapods中心时，报错ERROR | [iOS] unknown: Encountered an unknown error  xxxxxxxxx
+123&gt; 原因：&gt; 1.XCode 8.0环境下，要求cocoapods 1.1.0&gt; 2.XCode 8.0必须下载iPhone Simulator 9.3的模拟器
+如果不安装这两个，会发生一些意想不到问题，建议安装和更新，虽然模拟器很慢，本人也是安装了好几天才把iPhone Simulator 9.3安装上，香菇蓝瘦~~~
+读者请阅读这里 https://github.com/CocoaPods/CocoaPods/issues/5702
+解决方案：1.更新cocoapods的版本到1.1.01234567891011&gt; //查看当前从哪里下载的cocopods&gt; gem sources -l&gt;&gt; //如果不是https://ruby.taobao.org/，就设置下载地址&gt; gem sources —add https://ruby.taobao.org/&gt;&gt; //安装cocoapods&gt; sudo gem install cocoapods&gt; //安装完了之后&gt; pod setup
+2.下载iPhone Simulator 9.3 ，这个就不用说了吧，直接去xcode 8.0的Preferences里找到Components菜单项，找到9.3的模拟器下载就行
   
   <a href="/2016/10/20/ERROR-iOS-unknown-Encountered-an-unknown-error/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -382,10 +552,29 @@ APNs OverviewApple Push
   <div class="excerpt">
   
     看到这篇文件的读者，表明您已经创建过了自己的博客网站通过hexo, 现在要解决的问题就是，如果在多台电脑管理（创建，修改，发布）hexo网站
-问题：如果在A电脑创建了hexo网站，并且已经发布到了github上，也在该电脑创建了多份博客，此
+问题：如果在A电脑创建了hexo网站，并且已经发布到了github上，也在该电脑创建了多份博客，此时换成B电脑，如果保持A电脑的修改，并且新加文章，或者修改A电脑发布的文章解答：思路：那本博主的站点为例，
+     1.我创建了victorzhang2014.github.io的github的public repository
+     2.创建一个名为&quot;hexo&quot;的分支
+     3.&quot;master&quot;主分支用作存储发布Hexo网站的分支，
+       &quot;hexo&quot;分支用作存储hexo源文件的分支
+     4.多台电脑管理情况如下
+       4.1 各电脑都要安装nodejs, hexo，
+       4.2 各电脑指定一个目录，用来存放hexo所有源文件，并且需要`hexo init`初始化到当前目录
+       4.3 在该目录添加git库，remote地址指向github的分支&quot;hexo&quot;
+       4.4 把
+            .DS_Store
+            Thumbs.db
+            db.json
+            *.log
+            node_modules/
+            这些目录或者文件添加到.gitignore
+       4.5 然后提交到&quot;hexo&quot;分支
+           `git push origin hexo`
+
+           此时，其他电脑就可以下载试用了
   
   <a href="/2016/10/04/使用一个Github的Repository管理hexo网站源文件和发布文件/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -440,10 +629,24 @@ APNs OverviewApple Push
     使用Hexo搭建个人博客网站，类似这种文章在网上能找到很多，在这里我就不再一一赘述了，以下是个人搭建博客站点的经验所得，以分享。
 Hexo官方文档：https://hexo.io/
 Let’s get started!
-需要安装git和no
+需要安装git和nodejs
+安装nvm，Node版本管理器1brew install nvm
+安装nodejs1nvm install 4.5.0
+注意：如果以上遇到nvm和nodejs的命令安装不成功的话，请使用各自官网的MAC OS X的Installer1.新建一个github的repository，名称必须后缀为.github.io   例如：  victorzhang2014.github.io 名称必须和自己的github账户名相同
+2.安装hexo必要的组件  全局安装，加-g参数  1234sudo npm install hexo-cli -gsudo npm install hexo --save   # 或者 sudo npm install -g hexosudo npm install hexo-deployer-git -save    # hexo发布时使用的命令sudo npm install hexo-server --save         # hexo调试时的本地server
+3.新建一个hexo文件夹  1hexo init victorzhang
+hexo会在victorzhang目录下新建hexo所需要的文件
+   依次执行以下命令   123npm install hexo-renderer-ejs --savenpm install hexo-renderer-stylus --savenpm install hexo-renderer-marked --save
+   主题的切换，hexo默认的主题的landscape, 也可以不需要下载jacman主题风格   主题网站：  https://hexo.io/themes/   找一个喜欢的，先clone到themes目录下，然后在_config.yml文件改下theme: 你指定的主题名称   1git clone https://github.com/duanhjlt/jacman.git themes/jacman
+   在_config.yml的配置文件中修改配置如下   1theme: jacman
+4.启动服务，可以在本地预览了   1hexo server
+5.新建文件   先停止本地运行的server    1hexo new “hello world“
+  会生成一个文件，然后编辑文件
+6.生成静态文件   1hexo  generate
+7.配置_config.yml文件   拖到最后，例如下面：   注意：冒号后面一定
   
   <a href="/2016/10/03/使用Hexo搭建个人博客网站/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
