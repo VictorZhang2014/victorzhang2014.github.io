@@ -55,7 +55,7 @@
       <ul class="dropdown-content">
 
           
-           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li><li><a href="/categories/Tools/">Tools</a></li>
+           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Tools/">Tools</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li>
 
       </ul>
     </li>
@@ -118,6 +118,83 @@
   
   
     <h1 class="index-title">
+        <a href="/2017/10/29/iOS热更新-八种实现方式/">
+            iOS热更新 - 八种实现方式
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    一、JSPatch个人开发者开源的JSPatch，做热更新时，从服务器拉去js脚本。理论上可以修改和新建所有的模块，但是不建议这样做。建议 用来做紧急的小需求和 修复严重的线上bug。
+二、lua脚本阿里开源的wax，热更新时，从服务器拉去lua脚本。游戏开发经常用到。也可以用于iOS应用的热更新/修复。
+三、Weex阿里开源的weex跨平台，一套代码，iOS、Android都可以运行。用前端语法实现原生效果。比React Native更好用。weex基于vue.js，ReactNative使用React。ReactNative安装配置麻烦。 weex安装cli之后就可以使用。
+react模板JSX有一定的学习成本，vue和常用的web开发类似，模板是普通的html，数据绑定用mustache风格，样式直接使用css。
+淘宝干的漂亮，中国在编码的实力越来越牛叉了。威武！！！ 
+四、React NativeFacebook开源的React Native不像Weex能一套代码多端运行，需要自己分别做修改。
+React Native 可以动态添加业务模块，但无法做到修改原生OC代码。
+JSPatch、lua 配合React Native可以让一个原生APP时刻处于可扩展可修改的状态。
+五、Hybrid像PhoneGap之类的框架, 基本概念和web差不多, 通过更新js/html来实现动态化，没有原生的效果流畅。
+六、动态库可以做demo用，真实使用的时候会被苹果禁止。
+因为 打包发到AppStore的ipa安装包 里的每个动态库 都有唯一的编码，iOS系统会进行验证，所以动态通过网络获取 新的动态库 也用不了。
+七、rollout.iorollout紧急修复线上bug。后端有相关的管理页面。因为是国外的网站，然后呢，要翻墙才能使用。
+八、DynamicCocoa滴滴iOS的一个框架，准备在2017年初开源，与JSPatch比更加智能化，用OC在XCode中写完代码，用工具可以自动生成可以更新的js文件。到现为止也用不了。
+我猜微信和QQ都自己研发了一套热更新的代码，知道原理了，其实自己搞一套也不是很难。
+  
+  <a href="/2017/10/29/iOS热更新-八种实现方式/">
+    更多
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-29T04:02:22.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-29
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-HotPatch/">iOS, HotPatch</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
         <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
             iOS跟踪内存分配和循环引用
         </a>
@@ -140,7 +217,7 @@ FBMemoryProfiler需要在非debug（non-debug）模式下编译，所以你需�
 2.开启内存占用剖析检测功能123456#import &lt;FBMemoryProfiler/FBMe
   
   <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -207,7 +284,7 @@ FBMemoryProfiler需要在非debug（non-debug）模式下编译，所以你需�
 2.用法使用的方法也是超简单，这里了，我们就拿打开(open())一个文件和关闭(close())一个文件来举例。我们把系统打开文件函数open重写一下（其实是叫做symbols rebinding），也对关闭文件函数close重写一下（它也叫作symbols rebinding）。代码如下：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758#import &lt;dlfcn.h&gt;//导入头文件#import &quot;fishhook.h&quot;//系统open函数的函数指针声明static int (*orig_open)(const char *, int, ...);//系统close函数的函数指针声明static int (*orig_close)(int);//对系统open函数重写（其实是符号重新绑定），但是我感觉就像是重写int my_open(const char *path, int oflag, ...)&#123;    va_list ap = &#123;0&#125;;    mode_t mode = 0;        if ((oflag &amp; O_CREAT) != 0) &#123;        va_start(ap, oflag);        mode = va_arg(ap, int);        va_end(ap);                printf(&quot;1.先调用my_open()，然后在调用系统的open() (&apos;%s&apos;, %d, %d) \n&quot;, path, oflag, mode);        return orig_open(path, oflag, mode);    &#125; else &#123;        printf(&quot;1.先调用my_open(
   
   <a href="/2017/10/26/fishhook的基本使用/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -308,7 +385,7 @@ K均值(K-Means)，一种聚类算法
 Caffe简单介绍http://caffe.berkeleyvision.org
   
   <a href="/2017/10/24/MachineLearning基础/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -433,7 +510,7 @@ scikit-learn 0.18
 Feature engineeri
   
   <a href="/2017/10/23/Converting-Trained-Models-to-Core-ML/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -509,7 +586,7 @@ But anyway, this is a good and easy step for us to going.
 Start to my performanceCore ML automatically generates a Swift class which is MobileNet, that provides easy access to your ML model. To set up a Vision request using the model, create an instance of that class and use its model property to create a VNCoreMLReques
   
   <a href="/2017/10/23/Classifying-Images-with-Vision-and-Core-ML/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -579,7 +656,7 @@ Core ML is the foundation for domain-specific frameworks and funcitonality. Core
 Core ML is optimized for on-device performance, which minimizes memory footprint and power consumption. Running strictly on the device ensures the pri
   
   <a href="/2017/10/23/Getting-Started-on-CoreML-by-Three-Steps/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -643,7 +720,7 @@ Core ML is optimized for on-device performance, which minimizes memory footprint
     
   
   <a href="/2017/10/22/The-Specification-of-React-Native/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -720,7 +797,7 @@ Core ML is optimized for on-device performance, which minimizes memory footprint
 好了，以上就是我个人的部分经历，共勉。
   
   <a href="/2017/10/21/你最大的优点和缺点是什么？/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -821,7 +898,7 @@ SQLite写操作（如：insert/update/delete），
 1.它首先会申请一个预留锁（reserved lock），在启用预留锁后，如
   
   <a href="/2017/10/20/你不得不知的SQLite/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -856,109 +933,6 @@ SQLite写操作（如：insert/update/delete），
     </svg>
     &nbsp;
     <a href="/tags/SQLite-优化/">SQLite, 优化</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/19/强行并持久的移除CSDN各种广告/">
-            强行并持久的移除CSDN各种广告
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    移除CSDN各种广告 - Safari浏览器专用插件故事背景：受够了CSDN的各种垃圾广告，还满天飞。。。每次查资料时，总是郁闷的看到了左下角，右下角的广告，忍无可忍之日，今天，我就专门写了个工具，其实是Safari插件，干掉 CSDN.com 和 CSDN.net上的各种页面的广告。如果你也和我一样烦透了CSDN的广告，那就装上我写的这个插件吧。超级简单的哦~~~由于我把这个小插件放到了Firebase的仓库，所以下载时，需要你的网络可以连接Google，如果你的网络不能连接google，请给我发邮件或者本站的右边栏的联系方式联系我，我会给你直接发送插件
-方案1
-1.该下载要求你的网络可以连接上google， 下载插件
-
-2.下载完后，解压该下载文件，然后建议是把这个解压完的整个文件夹拷贝到你的 ~/Documents目录
-
-3.打开Safari -&gt; Developer -&gt; Show Extension Builder -&gt; 左下角 Add Extension -&gt; 添加 ~/Documents/EliminateCSDNAds.safariextension  -&gt;   点击右上角 install按钮
-
-4.然后打开Safari的Preferences -&gt; Extensions ，你就可以看到刚才安装的文件了
-
-5.快去打开 www.csdn.net 试试吧，广告都没了。。。O(∩_∩)O哈哈~
-
-
- 注意： 
-
-1.如果你在第三步时，找不到Developer菜单项的话，记得如下图开启
-
-2.如果你在第三步时，找不到添加插件的按钮，如下图
-
-
- 如果你有更好的意见，欢迎 mailto: victorzhangq@gmail.com ，我会尽快处理 
-
-方案2
-1.下载此文件需要你的网络能连接google 立马下载”移除CSDN广告”的Safari插件
-
-2.下载完后需要解压
-
-3.解压完后，双击SafariExtensionsPro.app文件，然后打开Safari，在左上角选择Preferences，然后选择Extensions，然后你就会看到插件移除CSDN广告。
-
-4.勾选上移除CSDN广告后，你会在浏览器中间偏左看到如图所示，它表示插件已经生效
-
-5.最后你就可以去访问www.csdn.net时，你就再也看不到各种悬浮广告，解决了你的心头之恨吧！！😄
-
-
-注意
-
-如果在第三步时，没有看到如图所示的插件，那么可以尝试关闭Safari浏览器，在打开，一般第二次或者第三次打开就能显示出来了
-
-如果你有更好的建议，或者说，你还想屏蔽哪些网站的广告，请邮件我，我会抽空添加的😄
-DIY一个插件
-  
-  <a href="/2017/10/19/强行并持久的移除CSDN各种广告/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-18T19:52:17.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-19
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/Tools/">Tools</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/移除-CSDN-广告/">移除, CSDN, 广告</a>
 
 
   </div>

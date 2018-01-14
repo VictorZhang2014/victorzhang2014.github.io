@@ -55,7 +55,7 @@
       <ul class="dropdown-content">
 
           
-           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li><li><a href="/categories/Tools/">Tools</a></li>
+           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Tools/">Tools</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li>
 
       </ul>
     </li>
@@ -118,6 +118,88 @@
   
   
     <h1 class="index-title">
+        <a href="/2018/01/13/Python-数据处理/">
+            Python - 数据处理
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    数据整理与预处理
+数据清洗
+
+删除重复记录
+缺失值处理
+数据插补 - 拉格朗日插值法、牛顿插值法
+异常值处理
+
+
+合并数据集
+
+数据转换
+重塑和轴向旋转
+字符串操作
+示例
+
+拉格朗日 插值法该算法在SciPy里拉格朗日插值法和牛顿插值法得到的结果是一样的，只不过他们的过程不一样，在Python的科学计算库中，我们只能使用拉格朗日插值法，因为没有牛顿插值法
+因为本节课需要使用到matplotlib，所以，如果读者遇到像我这个提示一样的错误1RuntimeError: Python is not installed as a framework. The Mac OS X backend will not be able to function correctly if Python is not installed as a framework.
+那么解决方法在：https://stackoverflow.com/questions/21784641/installation-issue-with-matplotlib-python
+  
+  <a href="/2018/01/13/Python-数据处理/">
+    更多
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2018-01-13T14:18:46.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  01-13
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Python-SciPy-数据处理/">Python, SciPy, 数据处理</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
         <a href="/2018/01/09/Python的科学计算包-Pandas/">
             Python的科学计算包- Pandas
         </a>
@@ -128,6 +210,22 @@
   <div class="excerpt">
   
     PandasPandas是Python Data Analysis Library或Pandas是基于NumPy的一种工具，该工具是为了解决数据分析任务而创建的。Pandas纳入了大量的库和一些标准的数据模型，提供了高效地操作大型数据集所需的工具。Pandas提供了大量能使我们快速便捷地处理数据的函数和方法。你很快就会发现，它是Python成为强大而高效的数据分析环境的重要因素之一。百度百科
+本篇教程使用的所有资源文件下载地址：
+
+ex1.csv
+ex2.csv
+ex3.csv
+ex3.txt
+ex4.csv
+ex5.csv
+ex6.csv
+ex7.csv
+csv_mindex.csv
+frame_pickle
+out.csv
+test_file.csv
+tseries.csv
+
 Pandas有两个主要的数据结构
 1.Series
 数组与标签
@@ -141,10 +239,10 @@ Pandas有两个主要的数据结构
 
 
 
-Series的基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179# coding: utf-8import numpy as npfrom pandas import Seriesobj = Series([4, 7, -5, 3])print obj&apos;&apos;&apos;第一列是索引，第二列是值0    41    72   -53    3dtype: int64&apos;&apos;&apos;# 获取所有的值print obj.values&apos;&apos;&apos;[ 4  7 -5  3]&apos;&apos;&apos;# 获取所有的索引print obj.index&apos;&apos;&apos;RangeIndex(start=0, stop=4, step=1)&apos;&apos;&apos;obj2 = Series([4, 7, -5, 3], index=[&apos;d&apos;, &apos;b&apos;, &apos;a&apos;, &apos;c&apos;])print obj2&apos;&apos;&apos;第一列是索引，第
+Series的基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179# coding: utf-8import numpy as npfrom pandas import Seriesobj = Series([4, 7, -5, 3])print obj&apos;&apos;&apos;第一列是索引，第二列是值0    41    72   -53    3dtype: int64&apos;&apos;&apos;# 获取所有的值print obj.values&apos;&apos;&apos;[ 4  7 -5  3]&apos;&apos;&apos;# 获取所有的索引print obj.index&apos;&apos;&apos;RangeIndex(start=0, stop=4, step=1)&ap
   
   <a href="/2018/01/09/Python的科学计算包-Pandas/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -217,7 +315,7 @@ Series的基本使用12345678910111213141516171819202122232425262728293031323334
 对于iPhone的小
   
   <a href="/2018/01/05/学习世界语/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -289,7 +387,7 @@ Series的基本使用12345678910111213141516171819202122232425262728293031323334
 最后，你会看到如下列表，则如下
   
   <a href="/2017/12/30/NumPy, SciPy和Pandas的安装教程/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -355,7 +453,7 @@ NumPy是用Python编写的，用于科学计算的基础包，包含了以下四
 1.基本类型arrayarray，也就是数组，是numpy中最基础的数据结构，最关键的属性是维度和元素类型，在numpy中，可以非常方便地创建各种不同类型的多维数组，并且执行一些基本基本操作，来看例子：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970# coding: utf8import numpy as npa = [1, 2, 3, 4]     	    # 创建一个Python数组b = np.array(a)         	# 根据a创建一个array([1, 2, 3, 4])type(b)                   	# &lt;type &apos;numpy.ndarray&apos;&gt;b.shape                   	# (4,)  一维矩阵长度为4b.argmax()               	# 3     最大索引b.max()                   	# 4     最大值b.mean()                  	# 2.5   平均值c = [[1,2],[3,4]]    # 二维Python数组d = np.array(c)      # 二维NumPy数组print d.shape        # (2, 2)print d.size         # 4print d.max(axis=0)  # [3 4]print d.max(axis=1) 
   
   <a href="/2017/12/24/Python的科学计算包-Numpy/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -422,7 +520,7 @@ The Zen of Python
 Python拥有很好的扩充性，可以非常轻松地用其他语言编写模块供调用，用Python编写的模块也可以通过各种方式轻松被其他语言调用。所以一种常见的Python使用方式是，底层复杂且对效率要求高的模块用C/C++等语言实现，顶层调用的API用Python封装，这样可以通过简单的语法实现顶层逻辑，故而Python又被称为“胶水语言”。这种特性的好处是，无需花费很多时间在编程实现上，更多的时间可以专注于思考问题的逻
   
   <a href="/2017/12/24/Python快速教程/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -503,7 +601,7 @@ Python拥有很好的扩充性，可以非常轻松地用其他语言编写模�
 代码1，创建UICollectionView1234567891011121314151617181920212223242526272829303132333435363738394041424344454647- (void)viewDidLoad &#123;    [super viewDidLoad];        WaterFallFlowLayout *flowLayout = [[WaterFallFlowLayout alloc] init];    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];    self.collectionView.backgroundColor = [UIColor yellowColor];    self.collectionView.delegate = self;    self.collectionView.dataSource = self;    //注册单元格    [self.collectionView registerClass:[WaterFallCollectionViewCell class] forCellWithReuseIdentifier:identifier];    [self.view addSubview:self.collectionView];&#125;#pragma mark - UICollectionView dataSource- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section&#123;    return self.imgArr.count;&#125;
   
   <a href="/2017/11/11/iOS瀑布流/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -618,7 +716,7 @@ Python拥有很好的扩充性，可以非常轻松地用其他语言编写模�
 3.点击 注册  –&gt; 
   
   <a href="/2017/11/09/你不得不知的学历和学位的知识/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -688,7 +786,7 @@ Python拥有很好的扩充性，可以非常轻松地用其他语言编写模�
 3.渐变动画由于所有的CALayer的属性都是可动画形式的，所以我们可以创建一个CABasicAnimation实例，然后添加到CAGraidentLayer上，并且对CABasicAnimation的颜色属性设置相应的颜色，也就是从一种颜色到另一种颜色。例如：123456789let gradientChangeAnimation = CABasicAnimation(keyPath: &quot;colors&quot;)gradientChangeAnimation.duration = 5.0gradientChangeAnimation.toValue = [    UIColor(red: 244/255, green: 88/255, blue: 53/255, alpha: 1).cgColor,    UIColor(red: 196/255, green: 70/255, blue: 107/255, alpha: 1).cgColor    ]gradientChangeAnimation.fillMode = kCAFillModeForwardsgradientChangeAnimation.isRemovedOnCompletion = falsegradie
   
   <a href="/2017/11/08/Swift颜色渐变-动画更新-过渡/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -753,7 +851,7 @@ Python拥有很好的扩充性，可以非常轻松地用其他语言编写模�
 输出结果为：1234567891011121314152017-10-30 18:58:31.740513+0800 TestProject[8383:291415] 堆栈信息：        (	0   TestProperties                      0x000000010aa633da -[ViewController viewDidLoad] + 74	1   UIKit                               0x000000010e3e254d -[UIViewController loadViewIfRequired] + 1235	2   UIKit                               0x000000010e3e299a -[UIViewController view] + 27	3   UIKit                               0x000000010e2b0ae3 -[UIWindow addRootViewControllerViewIfPossible] + 122	4   UIKit                               0x000000010e2b11eb -[UIWindow _setHidden:forced:] + 294	5   UIKit                               0x000000010e2c4098 -[UIWindow makeKeyAndVisible] + 42	6   UIKit                               0x000000010e236521 -[UIApplication _callInitializationDelegatesForMainScene:tra
   
   <a href="/2017/10/30/iOS日志记录当前文件的堆栈、函数名、行号及文件路径等信息/">
-    more
+    更多
   </a>
   </div>
   <div class="index-meta">
@@ -788,83 +886,6 @@ Python拥有很好的扩充性，可以非常轻松地用其他语言编写模�
     </svg>
     &nbsp;
     <a href="/tags/iOS-日志/">iOS, 日志</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/29/iOS热更新-八种实现方式/">
-            iOS热更新 - 八种实现方式
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    一、JSPatch个人开发者开源的JSPatch，做热更新时，从服务器拉去js脚本。理论上可以修改和新建所有的模块，但是不建议这样做。建议 用来做紧急的小需求和 修复严重的线上bug。
-二、lua脚本阿里开源的wax，热更新时，从服务器拉去lua脚本。游戏开发经常用到。也可以用于iOS应用的热更新/修复。
-三、Weex阿里开源的weex跨平台，一套代码，iOS、Android都可以运行。用前端语法实现原生效果。比React Native更好用。weex基于vue.js，ReactNative使用React。ReactNative安装配置麻烦。 weex安装cli之后就可以使用。
-react模板JSX有一定的学习成本，vue和常用的web开发类似，模板是普通的html，数据绑定用mustache风格，样式直接使用css。
-淘宝干的漂亮，中国在编码的实力越来越牛叉了。威武！！！ 
-四、React NativeFacebook开源的React Native不像Weex能一套代码多端运行，需要自己分别做修改。
-React Native 可以动态添加业务模块，但无法做到修改原生OC代码。
-JSPatch、lua 配合React Native可以让一个原生APP时刻处于可扩展可修改的状态。
-五、Hybrid像PhoneGap之类的框架, 基本概念和web差不多, 通过更新js/html来实现动态化，没有原生的效果流畅。
-六、动态库可以做demo用，真实使用的时候会被苹果禁止。
-因为 打包发到AppStore的ipa安装包 里的每个动态库 都有唯一的编码，iOS系统会进行验证，所以动态通过网络获取 新的动态库 也用不了。
-七、rollout.iorollout紧急修复线上bug。后端有相关的管理页面。因为是国外的网站，然后呢，要翻墙才能使用。
-八、DynamicCocoa滴滴iOS的一个框架，准备在2017年初开源，与JSPatch比更加智能化，用OC在XCode中写完代码，用工具可以自动生成可以更新的js文件。到现为止也用不了。
-我猜微信和QQ都自己研发了一套热更新的代码，知道原理了，其实自己搞一套也不是很难。
-  
-  <a href="/2017/10/29/iOS热更新-八种实现方式/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-29T04:02:22.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-29
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/iOS-HotPatch/">iOS, HotPatch</a>
 
 
   </div>
