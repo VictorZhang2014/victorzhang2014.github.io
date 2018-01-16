@@ -143,7 +143,7 @@ JSPatch、lua 配合React Native可以让一个原生APP时刻处于可扩展可
 我猜微信和QQ都自己研发了一套热更新的代码，知道原理了，其实自己搞一套也不是很难。
   
   <a href="/2017/10/29/iOS热更新-八种实现方式/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -217,7 +217,7 @@ FBMemoryProfiler需要在非debug（non-debug）模式下编译，所以你需�
 2.开启内存占用剖析检测功能123456#import &lt;FBMemoryProfiler/FBMe
   
   <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -284,7 +284,7 @@ FBMemoryProfiler需要在非debug（non-debug）模式下编译，所以你需�
 2.用法使用的方法也是超简单，这里了，我们就拿打开(open())一个文件和关闭(close())一个文件来举例。我们把系统打开文件函数open重写一下（其实是叫做symbols rebinding），也对关闭文件函数close重写一下（它也叫作symbols rebinding）。代码如下：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758#import &lt;dlfcn.h&gt;//导入头文件#import &quot;fishhook.h&quot;//系统open函数的函数指针声明static int (*orig_open)(const char *, int, ...);//系统close函数的函数指针声明static int (*orig_close)(int);//对系统open函数重写（其实是符号重新绑定），但是我感觉就像是重写int my_open(const char *path, int oflag, ...)&#123;    va_list ap = &#123;0&#125;;    mode_t mode = 0;        if ((oflag &amp; O_CREAT) != 0) &#123;        va_start(ap, oflag);        mode = va_arg(ap, int);        va_end(ap);                printf(&quot;1.先调用my_open()，然后在调用系统的open() (&apos;%s&apos;, %d, %d) \n&quot;, path, oflag, mode);        return orig_open(path, oflag, mode);    &#125; else &#123;        printf(&quot;1.先调用my_open(
   
   <a href="/2017/10/26/fishhook的基本使用/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -385,7 +385,7 @@ K均值(K-Means)，一种聚类算法
 Caffe简单介绍http://caffe.berkeleyvision.org
   
   <a href="/2017/10/24/MachineLearning基础/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -510,7 +510,7 @@ scikit-learn 0.18
 Feature engineeri
   
   <a href="/2017/10/23/Converting-Trained-Models-to-Core-ML/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -586,7 +586,7 @@ But anyway, this is a good and easy step for us to going.
 Start to my performanceCore ML automatically generates a Swift class which is MobileNet, that provides easy access to your ML model. To set up a Vision request using the model, create an instance of that class and use its model property to create a VNCoreMLReques
   
   <a href="/2017/10/23/Classifying-Images-with-Vision-and-Core-ML/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -656,7 +656,7 @@ Core ML is the foundation for domain-specific frameworks and funcitonality. Core
 Core ML is optimized for on-device performance, which minimizes memory footprint and power consumption. Running strictly on the device ensures the pri
   
   <a href="/2017/10/23/Getting-Started-on-CoreML-by-Three-Steps/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -720,7 +720,7 @@ Core ML is optimized for on-device performance, which minimizes memory footprint
     
   
   <a href="/2017/10/22/The-Specification-of-React-Native/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -797,7 +797,7 @@ Core ML is optimized for on-device performance, which minimizes memory footprint
 好了，以上就是我个人的部分经历，共勉。
   
   <a href="/2017/10/21/你最大的优点和缺点是什么？/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
@@ -898,7 +898,7 @@ SQLite写操作（如：insert/update/delete），
 1.它首先会申请一个预留锁（reserved lock），在启用预留锁后，如
   
   <a href="/2017/10/20/你不得不知的SQLite/">
-    更多
+    more
   </a>
   </div>
   <div class="index-meta">
