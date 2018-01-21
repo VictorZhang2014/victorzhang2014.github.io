@@ -55,7 +55,7 @@
       <ul class="dropdown-content">
 
           
-           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li><li><a href="/categories/Tools/">Tools</a></li>
+           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Tools/">Tools</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li>
 
       </ul>
     </li>
@@ -118,7 +118,244 @@
   
   
     <h1 class="index-title">
-        <a href="/2018/01/13/Python-数据处理/">
+        <a href="/2018/01/20/Python的科学计算包-Matplotlib/">
+            Python的科学计算包-Matplotlib
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    先来看个简单的例子1234import matplotlib.pyplot as pltplt.plot([1, 2, 3, 2, 3, 2, 2, 1])plt.show()
+
+1234import matplotlib.pyplot as pltplt.plot([4, 3, 2, 1], [1, 2, 3, 4])plt.show()
+
+123456789import matplotlib.pyplot as pltx = [1, 2, 3, 4]y = [5, 4, 3, 2]# 二维平面分成2x3plt.subplot(2, 3, 1)plt.plot(x, y)plt.show()
+
+12345678import matplotlib.pyplot as pltx = [1, 2, 3, 4]y = [5, 4, 3, 2]plt.subplot(232)plt.bar(x, y)plt.show()
+
+12345678import matplotlib.pyplot as pltx = [1, 2, 3, 4]y = [5, 4, 3, 2]plt.subplot(233)plt.barh(x, y)plt.show()
+
+12345678import matplotlib.pyplot as pltx = [1, 2, 3, 4]y = [5, 4, 3, 2]plt.subplot(234)plt.bar(x, y)plt.show()
+
+12345678import matplotlib.pyplot as pltx = [1, 2, 3, 4]y = [5, 4, 3, 2]y1 = [7, 8, 5, 3]plt.bar(x, y1, bottom=y, color=&apos;r&apos;)plt.show()
+
+1234567import matplotlib.pyplot as pltx = [1, 2, 3, 4]plt.subplot(235)plt.boxplot(x)plt.show()
+
+1234567import matplotlib.pyplot as pltx = [1, 2, 3, 4]plt.subplot(236)plt.scatter(x, y)plt.show()
+
+123456789101112131415161718192021222324252627282930313233343536373839404142import matplotlib.pyplot as pltx = [1, 2, 3, 4]y = [5, 4, 3, 2]# 二维平面分成 2行3列，此图在第一个位置plt.subplot(2, 3, 1)# 斜线plt.plot(x, y)# 二维平面分成 2行3列，此图在第二个位置p
+  
+  <a href="/2018/01/20/Python的科学计算包-Matplotlib/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2018-01-20T11:32:58.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  01-20
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Matplotlib/">Matplotlib</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2018/01/20/MNIST/">
+            MNIST
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    Softmax Regression(Softmax回归)我们知道MNIST的每一张图片都表示一个数字，从0到9。我们希望得到给定图片代表每个数字的概率。比如说，我们的模型可能推测一张包含9的图片代表数字9的概率是80%，但是判断它是8的概率是5%（因为8和9都有上半部分的小圆），然后给与它代表其他数字的概率更小的值。
+这是一个使用softmax回归（softmax regression）模型的经典案例。softmax模型可以用来给不同的对象分配概率。即使在之后，我们训练更加精细的模型时，最后一步也需要用softmax来分配概率。
+  
+  <a href="/2018/01/20/MNIST/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2018-01-20T08:23:16.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  01-20
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/MNIST/">MNIST</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2018/01/18/矩阵乘积/">
+            矩阵乘积
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    基本概念
+标量（Scalars）, 表示零维张量，它是一个单独的，独立的数值
+
+向量（Vectors）, 表示一维张量，它是一维数组，可以是横向数组(rows vectors)，也可以纵向数组（columns vectors）
+
+矩阵（Matrics）, 表示二维张量，它是一个二维数组，用行数和列数表示它的大小
+
+张量（Tensor）, 任何大于二维的对象，就是张量
+
+
+矩阵乘法
+1.左侧矩阵的列数必须等于右侧矩阵的行数
+2.结果矩阵始终与左侧矩阵有相同的行数，与右侧矩阵有相同的列数
+3.顺序很重要：乘法A  B不等于乘法B  A
+4.左侧矩阵中的数据应排列为行，而右侧矩阵中的数据应排列为列
+
+以下两个视频来自Youtube，所以需要你的网络可以连接上google矩阵乘积视频地址1：
+
+
+矩阵乘积视频地址2：
+
+
+
+记住这四点，在你构建神经网络时，就能搞清楚如何正确排列矩阵乘法了
+矩阵乘积函数matmul和dot，这两个函数计算的结果实一样的，但是它们还是有差别的，请查阅文档。1234567891011121314151617181920212223242526272829303132# 比如：第一个矩阵a = np.array([[1,2,3,4],[5,6,7,8]])a# 显示以下结果：# array([[1, 2, 3, 4],#        [5, 6, 7, 8]])a.shape# 显示以下结果：# (2, 4)# 第二个矩阵b = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12]])b# 显示以下结果：# array([[ 1,  2,  3],#        [ 4,  5,  6],#        [ 7,  8,  9],#        [10, 11, 12]])b.shape# 显示以下结果：# (4, 3)# 矩阵乘积c = np.matmul(a, b)c# 显示以下结果：# array([[ 70,  80,  90],#        [158, 184, 210]])c.shape# 显示以下结果：# (2, 3)
+如果你的矩阵具有不兼容的形状，则会出现以下错误：123np.matmul(b, a)# 显示以下错误：# ValueError: shapes (4,3) and (2,4) not aligned: 3 (dim 1) != 2 (dim 0)
+重点是，矩阵乘积的结果是如何计算得来的了？过程如图：
+  
+  <a href="/2018/01/18/矩阵乘积/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2018-01-18T13:54:20.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  01-18
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/AI-矩阵乘积/">AI, 矩阵乘积</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2018/01/13/Python数据处理-NumPy-Pandas/">
             Python - 数据处理
         </a>
     </h1>
@@ -143,12 +380,23 @@
 字符串操作
 示例
 
+本篇教程使用的所有资源文件下载地址：
+
+catering_sale.xls
+electricity_data.xls
+foods-2011-10-03.json
+macrodata.csv
+movies.dat
+normalization_data.xls
+olivier.txt
+principal_component.xls
+
 拉格朗日 插值法该算法在SciPy里拉格朗日插值法和牛顿插值法得到的结果是一样的，只不过他们的过程不一样，在Python的科学计算库中，我们只能使用拉格朗日插值法，因为没有牛顿插值法
 因为本节课需要使用到matplotlib，所以，如果读者遇到像我这个提示一样的错误1RuntimeError: Python is not installed as a framework. The Mac OS X backend will not be able to function correctly if Python is not installed as a framework.
 那么解决方法在：https://stackoverflow.com/questions/21784641/installation-issue-with-matplotlib-python
-1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253# coding: utf-8from __future__ import divisionimport numpy as npimport osimport matplotlib.pyplot as pltfrom scipy.interpolate import lagrange  # 导入拉格朗日插值法np.random.seed(12345)plt.rc(&apos;figure&apos;, figsize=(10, 6))import pandas as pdnp.set_printoptions(precision=4, threshold=500)pd.options.display.max_rows = 100## 缺失值处理 -- 拉格朗日插值法inputfile = &apos;data_screening_files/catering_sale.xls&apos; # 销量数据outputfile = &apos;data_screening_files/sales.xls&apos;  # 输出数据路径data = pd.read_excel(inputfile)print data&apos;&apos;&apos;            日期      销量0   2015-03-01    51.01   2015-02-28  2618.22   2015-02-27  2608.43   2015-02-
+1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253# coding: utf-8from __future__ import divisionimport numpy as npimport osimport matplotlib.pyplot as pltfrom scipy.interpolate import lagrange  # 导入拉格朗日插值法np.random.seed(12345)plt.rc(&apos;figure&apos;, figsize=(10, 6))import pandas as pdnp.set_printoptions(precision=4, threshold=500)pd.options.display.max_rows = 100## 缺失值处理 -- 拉格朗日插值法inputfile = &apos;data_screening_files/catering_sale.xls&apos; # 销量数据outputfile = &apos;data_screening_files/sales.xls&apos;  #
   
-  <a href="/2018/01/13/Python-数据处理/">
+  <a href="/2018/01/13/Python数据处理-NumPy-Pandas/">
     more
   </a>
   </div>
@@ -431,7 +679,7 @@ Series的基本使用12345678910111213141516171819202122232425262728293031323334
   
   
     <h1 class="index-title">
-        <a href="/2017/12/24/Python的科学计算包-Numpy/">
+        <a href="/2017/12/24/Python的科学计算包-NumPy/">
             Python的科学计算包 - NumPy
         </a>
     </h1>
@@ -453,7 +701,7 @@ NumPy是用Python编写的，用于科学计算的基础包，包含了以下四
 
 1.基本类型arrayarray，也就是数组，是numpy中最基础的数据结构，最关键的属性是维度和元素类型，在numpy中，可以非常方便地创建各种不同类型的多维数组，并且执行一些基本基本操作，来看例子：12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970# coding: utf8import numpy as npa = [1, 2, 3, 4]     	    # 创建一个Python数组b = np.array(a)         	# 根据a创建一个array([1, 2, 3, 4])type(b)                   	# &lt;type &apos;numpy.ndarray&apos;&gt;b.shape                   	# (4,)  一维矩阵长度为4b.argmax()               	# 3     最大索引b.max()                   	# 4     最大值b.mean()                  	# 2.5   平均值c = [[1,2],[3,4]]    # 二维Python数组d = np.array(c)      # 二维NumPy数组print d.shape        # (2, 2)print d.size         # 4print d.max(axis=0)  # [3 4]print d.max(axis=1) 
   
-  <a href="/2017/12/24/Python的科学计算包-Numpy/">
+  <a href="/2017/12/24/Python的科学计算包-NumPy/">
     more
   </a>
   </div>
@@ -898,9 +1146,160 @@ Python拥有很好的扩充性，可以非常轻松地用其他语言编写模�
 
 
   
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/29/iOS热更新-八种实现方式/">
+            iOS热更新 - 八种实现方式
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    一、JSPatch个人开发者开源的JSPatch，做热更新时，从服务器拉去js脚本。理论上可以修改和新建所有的模块，但是不建议这样做。建议 用来做紧急的小需求和 修复严重的线上bug。
+二、lua脚本阿里开源的wax，热更新时，从服务器拉去lua脚本。游戏开发经常用到。也可以用于iOS应用的热更新/修复。
+三、Weex阿里开源的weex跨平台，一套代码，iOS、Android都可以运行。用前端语法实现原生效果。比React Native更好用。weex基于vue.js，ReactNative使用React。ReactNative安装配置麻烦。 weex安装cli之后就可以使用。
+react模板JSX有一定的学习成本，vue和常用的web开发类似，模板是普通的html，数据绑定用mustache风格，样式直接使用css。
+淘宝干的漂亮，中国在编码的实力越来越牛叉了。威武！！！ 
+四、React NativeFacebook开源的React Native不像Weex能一套代码多端运行，需要自己分别做修改。
+React Native 可以动态添加业务模块，但无法做到修改原生OC代码。
+JSPatch、lua 配合React Native可以让一个原生APP时刻处于可扩展可修改的状态。
+五、Hybrid像PhoneGap之类的框架, 基本概念和web差不多, 通过更新js/html来实现动态化，没有原生的效果流畅。
+六、动态库可以做demo用，真实使用的时候会被苹果禁止。
+因为 打包发到AppStore的ipa安装包 里的每个动态库 都有唯一的编码，iOS系统会进行验证，所以动态通过网络获取 新的动态库 也用不了。
+七、rollout.iorollout紧急修复线上bug。后端有相关的管理页面。因为是国外的网站，然后呢，要翻墙才能使用。
+八、DynamicCocoa滴滴iOS的一个框架，准备在2017年初开源，与JSPatch比更加智能化，用OC在XCode中写完代码，用工具可以自动生成可以更新的js文件。到现为止也用不了。
+我猜微信和QQ都自己研发了一套热更新的代码，知道原理了，其实自己搞一套也不是很难。
+  
+  <a href="/2017/10/29/iOS热更新-八种实现方式/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-29T04:02:22.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-29
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-HotPatch/">iOS, HotPatch</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
+            iOS跟踪内存分配和循环引用
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    概述我们在开发iOS应用期间，可能有时候就会遇到循环引用，或者内存分配状态等信息的问题，那么有没有办法可以在应用运行期间检测到了？答案是：当然有了！那就是开源的 FBMemoryProfiler ，由Facebook提供。使用起来也是非常的简单，下面我就讲解下
+FBMemoryProfilerFBMemoryProfiler是一个在应用运行期间也可以浏览内存使用情况，专为iOS开发者设计的，基本包含FBAllocationTracker和FBRetainCycleDetector。
+FBAllocationTracker是收集对象的信息，也支持生成和检测循环引用。
+
+一。FBMemoryProfiler的安装与使用跟踪与现实内存使用情况
+1.1 安装使用Carthage，那么你需要在项目的Cartfile文件里添加上代码如下：1github &quot;facebook/FBMemoryProfiler&quot;
+FBMemoryProfiler需要在非debug（non-debug）模式下编译，所以你需要键入如下命令：1carthage update --configuration Debug
+使用CocoaPods，那么需要你在Podfile文件里添加如下代码：1pod &apos;FBMemoryProfiler&apos;
+然后，在Terminal里cd到项目目录，最后键入pod install这个你完全可以在Debug模式下编译，这是有该编译标签控制的。
+1.2 使用1.在main.m文件里添加如下代码，意味着开启FBAllocationTracker1234567891011#import &lt;UIKit/UIKit.h&gt;#import &quot;AppDelegate.h&quot;#import &lt;FBAllocationTracker/FBAllocationTrackerManager.h&gt;int main(int argc, char * argv[]) &#123;    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];    [[FBAllocationTrackerManager sharedManager] enableGenerations];    @autoreleasepool &#123;        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));    &#125;&#125;
+2.开启内存占用剖析检测功能123456#import &lt;FBMemoryProfiler/FBMe
+  
+  <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-27T12:27:16.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-27
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-FBMemoryProfiler/">iOS, FBMemoryProfiler</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
 </ul>
 <ul class="pager">
-    <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="page/5/">5</a><a class="extend next" rel="next" href="page/2/">Next</a>
+    <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="page-number" href="page/3/">3</a><a class="page-number" href="page/4/">4</a><a class="extend next" rel="next" href="page/2/">Next</a>
 </ul>
 
 

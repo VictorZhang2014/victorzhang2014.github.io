@@ -55,7 +55,7 @@
       <ul class="dropdown-content">
 
           
-           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li><li><a href="/categories/Tools/">Tools</a></li>
+           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Tools/">Tools</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li>
 
       </ul>
     </li>
@@ -111,157 +111,6 @@
   </div>
 </nav></nav>
 <ul class="posts">
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/29/iOS热更新-八种实现方式/">
-            iOS热更新 - 八种实现方式
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    一、JSPatch个人开发者开源的JSPatch，做热更新时，从服务器拉去js脚本。理论上可以修改和新建所有的模块，但是不建议这样做。建议 用来做紧急的小需求和 修复严重的线上bug。
-二、lua脚本阿里开源的wax，热更新时，从服务器拉去lua脚本。游戏开发经常用到。也可以用于iOS应用的热更新/修复。
-三、Weex阿里开源的weex跨平台，一套代码，iOS、Android都可以运行。用前端语法实现原生效果。比React Native更好用。weex基于vue.js，ReactNative使用React。ReactNative安装配置麻烦。 weex安装cli之后就可以使用。
-react模板JSX有一定的学习成本，vue和常用的web开发类似，模板是普通的html，数据绑定用mustache风格，样式直接使用css。
-淘宝干的漂亮，中国在编码的实力越来越牛叉了。威武！！！ 
-四、React NativeFacebook开源的React Native不像Weex能一套代码多端运行，需要自己分别做修改。
-React Native 可以动态添加业务模块，但无法做到修改原生OC代码。
-JSPatch、lua 配合React Native可以让一个原生APP时刻处于可扩展可修改的状态。
-五、Hybrid像PhoneGap之类的框架, 基本概念和web差不多, 通过更新js/html来实现动态化，没有原生的效果流畅。
-六、动态库可以做demo用，真实使用的时候会被苹果禁止。
-因为 打包发到AppStore的ipa安装包 里的每个动态库 都有唯一的编码，iOS系统会进行验证，所以动态通过网络获取 新的动态库 也用不了。
-七、rollout.iorollout紧急修复线上bug。后端有相关的管理页面。因为是国外的网站，然后呢，要翻墙才能使用。
-八、DynamicCocoa滴滴iOS的一个框架，准备在2017年初开源，与JSPatch比更加智能化，用OC在XCode中写完代码，用工具可以自动生成可以更新的js文件。到现为止也用不了。
-我猜微信和QQ都自己研发了一套热更新的代码，知道原理了，其实自己搞一套也不是很难。
-  
-  <a href="/2017/10/29/iOS热更新-八种实现方式/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-29T04:02:22.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-29
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/iOS-HotPatch/">iOS, HotPatch</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
-            iOS跟踪内存分配和循环引用
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    概述我们在开发iOS应用期间，可能有时候就会遇到循环引用，或者内存分配状态等信息的问题，那么有没有办法可以在应用运行期间检测到了？答案是：当然有了！那就是开源的 FBMemoryProfiler ，由Facebook提供。使用起来也是非常的简单，下面我就讲解下
-FBMemoryProfilerFBMemoryProfiler是一个在应用运行期间也可以浏览内存使用情况，专为iOS开发者设计的，基本包含FBAllocationTracker和FBRetainCycleDetector。
-FBAllocationTracker是收集对象的信息，也支持生成和检测循环引用。
-
-一。FBMemoryProfiler的安装与使用跟踪与现实内存使用情况
-1.1 安装使用Carthage，那么你需要在项目的Cartfile文件里添加上代码如下：1github &quot;facebook/FBMemoryProfiler&quot;
-FBMemoryProfiler需要在非debug（non-debug）模式下编译，所以你需要键入如下命令：1carthage update --configuration Debug
-使用CocoaPods，那么需要你在Podfile文件里添加如下代码：1pod &apos;FBMemoryProfiler&apos;
-然后，在Terminal里cd到项目目录，最后键入pod install这个你完全可以在Debug模式下编译，这是有该编译标签控制的。
-1.2 使用1.在main.m文件里添加如下代码，意味着开启FBAllocationTracker1234567891011#import &lt;UIKit/UIKit.h&gt;#import &quot;AppDelegate.h&quot;#import &lt;FBAllocationTracker/FBAllocationTrackerManager.h&gt;int main(int argc, char * argv[]) &#123;    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];    [[FBAllocationTrackerManager sharedManager] enableGenerations];    @autoreleasepool &#123;        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));    &#125;&#125;
-2.开启内存占用剖析检测功能123456#import &lt;FBMemoryProfiler/FBMe
-  
-  <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-27T12:27:16.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-27
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/iOS-FBMemoryProfiler/">iOS, FBMemoryProfiler</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
   
     
 <div>
@@ -944,9 +793,637 @@ SQLite写操作（如：insert/update/delete），
 
 
   
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/19/强行并持久的移除CSDN各种广告/">
+            强行并持久的移除CSDN各种广告
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    移除CSDN各种广告 - Safari浏览器专用插件故事背景：受够了CSDN的各种垃圾广告，还满天飞。。。每次查资料时，总是郁闷的看到了左下角，右下角的广告，忍无可忍之日，今天，我就专门写了个工具，其实是Safari插件，干掉 CSDN.com 和 CSDN.net上的各种页面的广告。如果你也和我一样烦透了CSDN的广告，那就装上我写的这个插件吧。超级简单的哦~~~由于我把这个小插件放到了Firebase的仓库，所以下载时，需要你的网络可以连接Google，如果你的网络不能连接google，请给我发邮件或者本站的右边栏的联系方式联系我，我会给你直接发送插件
+方案1
+1.该下载要求你的网络可以连接上google， 下载插件
+
+2.下载完后，解压该下载文件，然后建议是把这个解压完的整个文件夹拷贝到你的 ~/Documents目录
+
+3.打开Safari -&gt; Developer -&gt; Show Extension Builder -&gt; 左下角 Add Extension -&gt; 添加 ~/Documents/EliminateCSDNAds.safariextension  -&gt;   点击右上角 install按钮
+
+4.然后打开Safari的Preferences -&gt; Extensions ，你就可以看到刚才安装的文件了
+
+5.快去打开 www.csdn.net 试试吧，广告都没了。。。O(∩_∩)O哈哈~
+
+
+ 注意： 
+
+1.如果你在第三步时，找不到Developer菜单项的话，记得如下图开启
+
+2.如果你在第三步时，找不到添加插件的按钮，如下图
+
+
+ 如果你有更好的意见，欢迎 mailto: victorzhangq@gmail.com ，我会尽快处理 
+
+方案2
+1.下载此文件需要你的网络能连接google 立马下载”移除CSDN广告”的Safari插件
+
+2.下载完后需要解压
+
+3.解压完后，双击SafariExtensionsPro.app文件，然后打开Safari，在左上角选择Preferences，然后选择Extensions，然后你就会看到插件移除CSDN广告。
+
+4.勾选上移除CSDN广告后，你会在浏览器中间偏左看到如图所示，它表示插件已经生效
+
+5.最后你就可以去访问www.csdn.net时，你就再也看不到各种悬浮广告，解决了你的心头之恨吧！！😄
+
+
+注意
+
+如果在第三步时，没有看到如图所示的插件，那么可以尝试关闭Safari浏览器，在打开，一般第二次或者第三次打开就能显示出来了
+
+如果你有更好的建议，或者说，你还想屏蔽哪些网站的广告，请邮件我，我会抽空添加的😄
+DIY一个插件
+  
+  <a href="/2017/10/19/强行并持久的移除CSDN各种广告/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-18T19:52:17.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-19
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/Tools/">Tools</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/移除-CSDN-广告/">移除, CSDN, 广告</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/18/Protocol-Buffer/">
+            Protocol Buffer
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    目录
+1.介绍
+2.下载与安装
+3.实例说明（Python代码）
+4.实例说明（Objective-C代码）
+5.文件.proto的解释
+
+
+1.介绍Protocol Buffer，简单来说，就是一种数据交换格式，就像JSON和XML作用一样，只不过Protocol Buffer是Google开源的一套二进制流网络传输协议，它独立于语言，独立于平台；而且它的性能、速度等非常优越于JSON和XML。google 提供了多种语言的实现：objective-c, swift,java、c#、c++、Go 和Python等，每一种实现都包含了相应语言的编译器以及库文件。由于它是一种二进制的格式，比使用 xml 进行数据交换快许多。可以把它用于分布式应用之间的数据通信或者异构环境下的数据交换。作为一种效率和兼容性都很优秀的二进制数据传输格式，可以用于诸如网络传输、配置文件、数据存储等诸多领域。
+对于XML来说，Protocol Buffers有太多优点了，尤其是针对序列化结构数据。优点：
+
+更简单
+小到3-10倍
+快到20-100倍
+相当少的歧义
+文档型协议
+T-L-V的数据存储方式 Tag-Length-Value
+
+注意protobuf目前有两个版本proto2和proto3。这两个版本的语法并不是完全兼容的，所以为了避免使用时的麻烦，请仔细阅读proto2和proto3的语法。
+
+2.下载与安装我的环境：macOS Sierra Version 10.12.6
+
+1.下载最新版本的ProtoBuff (我下载的是v3.4.1)。下载完后，解压压缩包。注意：解压后里面的objectivec目录是给iOS和macOS专用
+2.然后依次键入以下命令进行安装，以下的每个命令都可能或占用几分钟时间，请耐心等待下12345678$&gt; cd protobuf-3.4.1/$&gt; ./configure$&gt; make$&gt; make check$&gt; make install// 当输入此步骤时，如果正常输出版本号信息，就表示安装正确了$&gt; protoc --version
+
+
+
+Python的使用命令Python教程编译一个.proto文件，命令如下：123//$SRC_DIR 为源文件目录//$DST_DIR 为目标文件目录protoc -I=$SRC_DIR --python_out=$DST_DIR $SRC_DIR/addressbook.proto
+然后，你就会看到后缀为：_pb2.py的文件在你指定的目录下。
+
+Objective-C的使用命令Objective-C教程编译一个.proto文件，命令如下：123//$SRC_DIR 为源文件目录//$DST_DIR 为目标文件目录protoc --proto_path=$SRC_DIR
+  
+  <a href="/2017/10/18/Protocol-Buffer/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-18T14:52:27.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-18
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/Protocol-Buffers-protobuff/">Protocol Buffers, protobuff</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/17/优先级反转/">
+            优先级反转
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    简介优先级反转 英文名叫做 Priority Inversion，一句话概括它的意思：低优先级任务要比高优先级任务先执行。
+先明白一些背景知识
+
+1.操作系统是多任务的
+2.任务之间谁都可以得到执行，是通过任务调度来完成
+3.任务调度有多种算法，常见的有：
+罗宾环调度算法：Round-robin scheduling algorithm
+基于优先级的调度算法：Priority-controlled scheduling algorithm
+
+
+4.一般操作系统用的就是优先级调度算法，根据优先级别高低去调度，也就是优先级高的先执行，优先级低的后执行；
+任务调度器，总是先去激活所有任务中优先级别最高的任务，且该任务处于就绪状态，然后让它执行
+任务有多种状态：就绪，挂起，执行等；常见的如：需要某种资源时被别的任务占用了，那么当前任务就不得不挂起，先让被占用资源的任务执行
+
+
+5.任务一般被称为：进程，或者粒度更小的线程
+
+
+详细解释下为什么假设有以下条件
+
+1.任务A （低优先级）
+2.任务B （中优先级）
+3.任务C （高优先级）
+4.资源 
+
+ 步骤 
+
+1.已知任务调度器总是去激活所有任务中优先级最高的，且处于就绪状态的任务，去执行；但是当某个最高优先级的任务A，由于其所需要的某个资源被低优先级任务C所占用，而且还没有释放，那么高优先级任务A就被阻塞了。
+2.按照调度规则：
+此高优先级任务A，必须等到低优先级任务C把自己占用的资源释放后，才能继续运行；
+但是要等到低优先级任务C释放其所占用的资源的话，则很明显，必须要让低优先级任务C 先去执行，然后等低优先级任务C执行完毕并释放资源后，高优先级任务A就能得到的那个资源了；
+但是，问题就是：在高优先级任务A执行的这段时间内，某个中优先级任务B已经处于就绪状态了，所以当高优先级任务A，由于所需要的资源被占用而挂起，然后中优先级任务B，由于比低优先级任务C的优先级高，所以被调度执行，然后中优先级任务B就一直执行，知道结束。
+
+
+3.这种情况就是：一个中等优先级任务B，却比一个高更优先级的任务A 先执行，这就叫做优先级反转
+
+
+问题：本来应该是优先级最高的任务A先执行的，结果却变成了，比高优先级任务A要低一些的中优先级任务B先执行了。优先级反转如名字一样，就是他们的优先级别互换了一下（反转了一下）。
+有的朋友会问了，反转就反转了呗😄，有什么大不了的，程序还不是照样运行吗？
+
+优先级反转的有和危害实话说，当我刚学习计算机的时候，对计算机的概念都真的只是个概念，背后的技术和逻辑学的也是云里云雾的，而慢慢的成长，就会发现以前不理解的知识，现在看起来很重要很重要，而且也容易理解些了。
+对于实时系统，最重要的指标就是：确保任务执行时间是可预测的，即涉及到最后时间点等比如：要确保，某个时刻在执行某个任务，都不能超过某个时间等
+
+  
+  <a href="/2017/10/17/优先级反转/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-17T10:59:23.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-17
+</time>
+
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/优先级反转-Priority-Inversion/">优先级反转, Priority Inversion</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/15/iOS的Runloop认知/">
+            iOS的Runloop认知
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    概念RunLoop是iOS和OS X开发中非常基础的知识，通过RunLoop可以实现自动释放池，延迟回调，触摸事件，屏幕刷新等功能。
+一般来讲，一个线程一次只能执行一个任务，执行完成后线程就会退出。如果我们需要一个机制，让线程能随时处理事件但并不退出，通常的代码如下：1234567function loop() &#123;    initialize();    do &#123;        var message = get_next_message();        process_message(message);    &#125; while (message != quit);&#125;
+这种模型通常被称作 Event Loop。 Event Loop 在很多系统和框架都有实现，比如Node.js的事件处理，比如Windows程序消息循环，再比如iOS/OS X里的RunLoop.实现这种模型的关键点在于：如何管理事件/消息，如何让线程在没有处理消息时休眠以避免资源占用、在有消息来到时立刻被唤醒。
+所以 RunLoop 实际上就是一个对象，这个对象管理了其需要处理的事件和消息，并提供了一个入口函数来执行上面的 Event Loop 的逻辑。线程执行了这个函数后，就会一直处于这个函数内部 “接收消息 -&gt; 等待 -&gt; 处理” 的循环中，知道这个循环结束（比如传入quit的消息），函数返回。
+在iOS/OS X系统中，提供了两个这样的对象：NSRunLoop和CFRunLoopRef。CFRunLoopRef是在CoreFoundation框内的，提供了纯C函数的API，代码是开源的，所有这些API都是线程安全的。NSRunLoop是基于CFRunLoopRef的封装，提供了面向对象的API，但是这些API不是线程安全的。
+Swift开源后，苹果又维护了一个跨平台的CoreFoundation版本：https://github.com/apple/swift-corelibs-foundation/  这个版本的源码可能和现有的iOS系统中的实现略有不同，但是更容易编译，因为它已经适配了 Linux/Windows
+
+RunLoop对外的接口在CoreFoundation里面关于RunLoop有5个类
+
+CFRunLoopRef
+CFRunLoopModeRef
+CFRunLoopSourceRef
+CFRunLoopTimerRef
+CFRunLoopObserverRef
+
+其中 CFRunLoopModeRef 类并没有对外暴露，只是通过 CFRunLoopRef 的接口进行了封装。他们的关系如下:
+
+一个RunLoop包含若干个Mode
+每个Mode包含若干个Source/Timer/Observer
+每次调用RunLo
+  
+  <a href="/2017/10/15/iOS的Runloop认知/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-15T11:35:32.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-Runloop/">iOS, Runloop</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/15/NSThread的认知/">
+            NSThread的认知
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    简介NSThread多线程编程，超级简单，NSthread是基于pthread_t封装的，所以基本上在使用方面pthread_t和NSThread差不多
+线程的生命周期，五种状态
+
+1.新建（new Thread）,就是实例化了一个线程对象  在iOS中，self.alwasyThread = [[NSThread alloc] initWithTarget:self selector:@selector(alwaysRun) object:nil];
+2.就绪（runnable），就是线程在就绪队列中等待CPU分配时间片，一般是start方法  在iOS中，[self.alwasyThread start];
+3.运行（running），就是线程已经获得CPU资源并且马上执行任务，一般是run方法  在iOS中，start方法就表示进入就绪状态，并且获得CPU资源后进入运行状态
+4.死亡（dead），就是线程执行完任务，或者被其他线程杀死，这时就不能再进入就绪状态，重新运行。调用stop方法终止线程  在iOS中，[NSThread exit];
+5.阻塞（blocked），就是某种原因导致正在运行的线程暂停自己，让出CPU，那么自己就进入了阻塞状态（suspend），阻塞状态可以调用resume恢复  在iOS中，sleep(3);，[NSThread sleepForTimeInterval:3.0f];，[NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:3.0]];
+
+我们分三步说下吧
+1.创建子线程第一种方式12345678- (void)nsthread_test &#123;    NSThread *thread = [[NSThread alloc] initWithTarget:self selector:@selector(run) object:nil];    [thread start];&#125;- (void)run &#123;    NSLog(@&quot;NSThread子线程 %@&quot;, [NSThread currentThread]);&#125;
+输出为：12017-10-16 test[25785:1117888] NSThread子线程 &lt;NSThread: 0x604000270200&gt;&#123;number = 3, name = (null)&#125;
+第二种方式，仅限iOS 10及以上版本可用1234NSThread *thread = [[NSThread alloc] initWithBlock:^&#123;    NSLog(@&quot;NSThread子线程 %@&quot;, [NSTh
+  
+  <a href="/2017/10/15/NSThread的认知/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-15T10:36:14.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-NSThread/">iOS, NSThread</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/15/iOS中的锁/">
+            iOS中的锁
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    简介在多线程编程中，并发会使一段代码在同一段时间内线程之间互相争抢资源（资源共享）而产生数据的不一致性，为了解决这个问题，就引入了锁。锁的类型有多种，在iOS中，有如下：
+
+1.OSSpinLock    自旋锁
+2.dispatch_semaphore    GCD信号量实现加锁
+3.pthread_mutex    互斥锁
+4.NSLock  互斥锁
+5.NSCondition    信号锁
+6.pthread_mutex(recursive)  递归互斥锁
+7.NSRecursiveLock  递归锁
+8.NSConditionLock  条件锁
+9.@synchronized  互斥锁
+
+在看本篇文章前，请先了解GCD和NSOperation, 如果你已熟知，请继续往下看。
+我们先来看下iOS中全部的锁，以及它们的效率
+这个简单的性能测试是在iPhone 6, iOS 9上跑的，测试者在这篇文章该结果显示的，横向柱状条最短的为性能最佳和最高；可知，OSSpinLock最佳，但是OSSpinLock被发现bug，Apple工程师透露了这个自旋锁有问题，暂时停用了，查看这里虽然OSSpinLock（自旋锁）有问题，但是我们还是看到了pthread_mutex和dispatch_semaphore性能排行仍是很高，而且苹果在新系统中也已经优化了这两个锁的性能，所以我们在开发时也可以使用它们啦。
+下面来一一介绍它们的使用
+
+1.dispatch_semaphore    GCD信号量实现加锁GCD中提供了一种信号机制，也是为了解决资源抢占问题的，支持信号通知和信号等待。
+
+1.每当发送一个信号时，则信号量加1
+2.每当发送一个等待信号时，则信号量减1
+3.如果信号量为0，则信号会处于等待状态，直到信号量大于0时就开始执行
+
+12345678910111213141516171819202122232425262728293031- (void)example &#123;    //假设一共电影票3张票    self.movieTickets = 3;        //创建信号量    dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);        //添加任务1    dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;        [self buyTicketWithCounts:2 taskName:@&quot;任务1&quot; semaphore:semaphore];    &#125;);        //添加任务2    dispatch_async(dispatch_get_global_queu
+  
+  <a href="/2017/10/15/iOS中的锁/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-15T09:30:34.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/NSLock-NSCondition-NSRecursiveLock-NSConditionLock-pthread-mutex-dispatch-semaphore/">NSLock, NSCondition, NSRecursiveLock, NSConditionLock, pthread_mutex, dispatch_semaphore</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/15/NSOperation的认知/">
+            NSOperation的认知
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    【官方文档】
+NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使用2.1 创建任务2.2 创建队列2.3 将任务添加到队列中3.操作依赖4.一些其他方法
+1.NSOperation简介NSOperation是Apple提供给开发者的一套多线程解决方案，实际上是基于GCD的一套更高级封装，完全Objective-C代码。简单、易用、代码可读性高。
+NSOperation需要配合NSOperationQueue来实现多线程，因为默认情况下
+
+NSOperation单独使用时是系统同步执行操作，并没有开启新线程的能力，只有配合NSOperationQueue才能实现异步执行
+
+因为NSOperation是基于GCD的，那么使用起来也和GCD差不多，其中，NSOperation相当于GCD中的任务，而NSOperationQueue则相当于GCD中的队列。NSOperation实现多线程的使用步骤分为三步：
+
+1.创建任务：先将需要执行的操作封装到一个NSOperation对象中
+2.创建队列：创建NSOperationQueue对象
+3.将任务加入到队列中，然后将NSOperation对象加入到NSOperationQueue中，之后，系统就会从Queue中读取出来，在新线程中执行操作。
+
+以下我们来看下NSOperation和NSOperationQueue的基本使用
+
+2.NSOperation和NSOperationQueue的基本使用NSOperation是一个抽象类，不能封装任务，我们只有使用它的子类来封装任务。有三种方式来封装任务，如下：
+
+1.使用子类NSInvocationOperation
+2.使用子类NSBlockOperation
+3.自定义一个类派生自NSOperation，定义一些相应的方法
+
+
+2.1 创建任务比如：我们先不使用NSOperationQueue，而是单独使用NSInvocationOperation和NSBlockOperation，分别如下：
+ 2.1.1 NSInvocationOperation 12345678- (void)invocationOp &#123;    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run) object:nil];    [op start];&#125;- (void)run &#123;    NSLog(@&quot;%@&quot;, [NSThread currentThread]);&#125;
+输出结果如下，证明了单独使用NSInvocatio
+  
+  <a href="/2017/10/15/NSOperation的认知/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-15T09:28:29.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-NSOperation/">iOS, NSOperation</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
 </ul>
 <ul class="pager">
-    <a class="extend prev" rel="prev" href="../../index.html">Prev</a><a class="page-number" href="../../index.html">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="page-number" href="../4/">4</a><a class="page-number" href="../5/">5</a><a class="extend next" rel="next" href="../3/">Next</a>
+    <a class="extend prev" rel="prev" href="../../index.html">Prev</a><a class="page-number" href="../../index.html">1</a><span class="page-number current">2</span><a class="page-number" href="../3/">3</a><a class="page-number" href="../4/">4</a><a class="extend next" rel="next" href="../3/">Next</a>
 </ul>
 
 

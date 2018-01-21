@@ -55,7 +55,7 @@
       <ul class="dropdown-content">
 
           
-           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li><li><a href="/categories/Tools/">Tools</a></li>
+           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Tools/">Tools</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li>
 
       </ul>
     </li>
@@ -118,8 +118,8 @@
   
   
     <h1 class="index-title">
-        <a href="/2017/10/14/看完美剧《Westworld》/">
-            看完美剧《Westworld》
+        <a href="/2017/04/01/Cocoapods的使用/">
+            Cocoapods的使用
         </a>
     </h1>
   
@@ -127,94 +127,42 @@
 
   <div class="excerpt">
   
-    前几个晚上我在腾讯视频看完《西部世界》，原名《Westworld》,去年上映的。该剧讲述了由一座巨型高科技以西部世界为主题的成人乐园，提供给游客杀戮与性欲的满足，随着接待员有了自主意识和思维，他们开始怀疑这个世界的本质，进而觉醒并反抗人类的故事。关键是该剧的接待员都是AI机器人，它们的智力、情感、意识等等方面已经基本达到和人类同等，不知道我们的未来的AI机器人是否也能达到这个的境界？😄我希望AI发展越来越棒，以后人们（其实是我）就越来越懒啦😂
+    CocoaPods Command 
+使用Cocoapods安装Cocoapods前以前要更新 Ruby到2.3以上版本，否则各种报错
+异常：如果下载不下来，就拷贝别人电脑，可以下载的那个
+升级Ruby最新版1sudo gem update —system
+查看当前从哪里下载的cocopods1gem sources -l
+1gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/
+移除下载地址1gem sources —remove https://rubygems.org/
+设置下载地址1gem sources —add https://ruby.taobao.org/
+添加你找到的可用的镜像源1gem sources -a http://rubygems-china.oss.aliyuncs.com
+安装cocoapods1sudo gem install cocoapods
+会提示输入密码1pod setup
 
-第1集 科技乐园造人吸金叛逆意识暗中萌生第2集-老鸨忆起残忍往事黑衣人肆杀接待员第3集 - 自由思维无序出现第4集 - 伯纳德放任自由意识第5集 - 乐园隐藏创始人残留意识第6集 - 已故创建者 故意留程序第7集 - 新任总裁要搞事 福特地位受威胁第8集 - 福特掩盖真相 梅芙擅取权限第9集 - 阿诺德身份浮出水面第10集- 深层记忆悄然觉醒乐园变革拉开帷幕
+1.定位到项目目录  1cd
+2.初始化Pod  1pod init
+3.编辑该文件   1vi Podfile
+
+   内容是   12345678910111213   platform :ios, &apos;7.0&apos;   use_frameworks! //添加了这句就必须使用iOS8.0target ‘WeiMeiBrowser’ do   pod &apos;SDWebImage&apos;, &apos;~&gt; 3.7.1&apos;    pod &apos;Toast&apos;, &apos;~&gt; 2.4&apos;    pod &apos;SVProgressHUD&apos;, &apos;~&gt; 1.1.2&apos;   pod &apos;M80AttributedLabel&apos;, &apos;~&gt; 1.3.1&apos;   pod &apos;FMDB&apos;, &apos;~&gt; 2.5&apos;   pod &apos;Reachability&apos;, &apos;~&gt; 3.1.1&apos;   pod &apos;CocoaLumberjack&apos;, &apos;~&gt; 2.0.0-rc2&apos;end
+   :wq保存退出
+
+4.安装    12345pod installPod install —verbose —no-repo-updatePod update —verbose —no-repo-update
+
+以下是发布开源框架到Cocoapods中心服务器
+1.在目录下执行1pod spec create myname.pod
   
-  <a href="/2017/10/14/看完美剧《Westworld》/">
+  <a href="/2017/04/01/Cocoapods的使用/">
     more
   </a>
   </div>
   <div class="index-meta">
     
-<time datetime="2017-10-14T06:59:16.000Z" itemprop="datePublished">
+<time datetime="2017-04-01T08:27:50.000Z" itemprop="datePublished">
 <svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
   &nbsp;
-  10-14
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/Life/">Life</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/美剧，西部世界-Westworld/">美剧，西部世界, Westworld</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/10/iOS事件响应链/">
-            iOS事件响应链
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    iOS事件是如何响应的？iOS获取到了用户的“点击”这一行为后，把这个事件封装成UITouch和UIEvent形式的实例，然后找到当前运行的程序，并逐级寻找能够响应这个事件的对象，直到没有响应者响应。这个过程就叫做事件的响应链。
-
-
-UITouch是触摸对象
-UIEvent是事件对象
-
-12345//根据坐标返回响应点击的对象- (nullable UIView *)hitTest:(CGPoint)point withEvent:(nullable UIEvent *)event;   // recursively calls -pointInside:withEvent:. point is in the receiver&apos;s coordinate system//根据坐标返回事件是否发生在本视图内- (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event;   // default returns YES if point is in bounds
-引用
-http://www.cocoachina.com/ios/20160113/14896.html
-  
-  <a href="/2017/10/10/iOS事件响应链/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-10T04:34:50.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-10
+  04-01
 </time>
 
 
@@ -238,7 +186,7 @@ http://www.cocoachina.com/ios/20160113/14896.html
       <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
     </svg>
     &nbsp;
-    <a href="/tags/事件响应链/">事件响应链</a>
+    <a href="/tags/CocoaPods/">CocoaPods</a>
 
 
   </div>
@@ -256,8 +204,8 @@ http://www.cocoachina.com/ios/20160113/14896.html
   
   
     <h1 class="index-title">
-        <a href="/2017/10/10/You-should-know-the-easy-to-use-objc-msgSend/">
-            You should know the easy-to-use objc_msgSend
+        <a href="/2017/03/31/RSA-Example-in-iOS-C/">
+            RSA Example in iOS/C#
         </a>
     </h1>
   
@@ -265,25 +213,26 @@ http://www.cocoachina.com/ios/20160113/14896.html
 
   <div class="excerpt">
   
-    Too many arguments to function call, expected 0, have 2When I created an new iOS project, I got this error as shown below.
-But why I got this error? It’s easy to know because of Enabling Strict Checking of objc_msgSend Calls in default mode.
+    RSA CryptographyA set of RSA Cryptographic ways to your project in iOS/C#ZRCryptographyOC
+RSA OverviewRSA is an algorithm used by modern computers to encrypt and decrypt messages. It is an asymetric cryptographic algorithm. Asymetric means that there are two different keys. This is also called public key cryptography, because one of them can be given to everyone. The other key must be kept private. It is based on the fact that finding the factors of an integer is hard(the factoring problem). RSA stands for Ron Rivest, Adi Shamir and Leonard Adleman, who first publicly described it in 1978. A user of RSA creates and then publishes the product of two large prime numbers, along with an auxiliary value, as their public key. The prime factors must be kept secret. Anyone can use the public key to encrypt a message, but with currently published methods, if the public key is large enough, only someone with knowledge of the prime factors can feasibly decode the message.
+See more infomation)
+Please Note
+The public key to encrypt messages, after encrypted, it must be encoded by base 64.The private key to decrypt messages, before decrypting, it must be decoded by base 64.
 
-To solve itSelect your project -&gt; select your target  -&gt;  Build Settings  -&gt; Search by keyword “objc_msgSend”, only one item be shown  -&gt;  toggle it to NO
-
-To make use of objc_msgSend for message forwarding12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970#import &quot;ViewController.h&quot;#import &lt;objc/message.h&gt;@interface ViewController ()@end@implementation ViewController//1.无参无返回值- (void)run1 &#123;    NSLog(@&quot;1.无参无返回值&quot;);&#125;//2.有参无返回值- (void)run2:(NSArray *)parameters &#123;    NSLog(@&quot;2.有参无返回值 name=%@ age=%d&quot;, parameters[0], [parameters[1] intValue]);&#125;//3.无参有返回值- (NSString *)run3 &#123;    return @&quot;无参有返回值&quot;;&#125;//4.有参有返回值- (int)run4:(NSString *)name age:(int)age height:(float)height &#123;    NSLog(@&quot;4.有参有返回值 name=%@, age=%d, height=%lf&quot;, name, age, height);    return age + height;&#125;- (vo
+How do I create a pu
   
-  <a href="/2017/10/10/You-should-know-the-easy-to-use-objc-msgSend/">
+  <a href="/2017/03/31/RSA-Example-in-iOS-C/">
     more
   </a>
   </div>
   <div class="index-meta">
     
-<time datetime="2017-10-10T04:15:12.000Z" itemprop="datePublished">
+<time datetime="2017-03-31T10:39:55.000Z" itemprop="datePublished">
 <svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
   &nbsp;
-  10-10
+  03-31
 </time>
 
 
@@ -307,7 +256,7 @@ To make use of objc_msgSend for message forwarding123456789101112131415161718192
       <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
     </svg>
     &nbsp;
-    <a href="/tags/objc-msgSend-runtime/">objc_msgSend, runtime</a>
+    <a href="/tags/RSA-Cryptography/">RSA, Cryptography</a>
 
 
   </div>
@@ -325,8 +274,8 @@ To make use of objc_msgSend for message forwarding123456789101112131415161718192
   
   
     <h1 class="index-title">
-        <a href="/2017/10/02/如何提高雅思-托福听力？/">
-            如何提高雅思/托福听力？
+        <a href="/2017/01/18/PushNotification-in-C-Objective-c-C/">
+            PushNotification in C#,Objective-c/C
         </a>
     </h1>
   
@@ -334,200 +283,28 @@ To make use of objc_msgSend for message forwarding123456789101112131415161718192
 
   <div class="excerpt">
   
-    2017.11.04==========================================================================最近比较忙，陆陆续续的做听力，效果还是比较好的，最近我在YouTube上给一些英国的或者美国的短视频添加中文或者英文字幕，我觉得，其实这就是一种现实的锻炼吧；一般专门挑选10分钟以内的视频做翻译，因为，如果你那几十分钟的视频做翻译，真的很花时间，所以，每天给那种只有3-5分钟的视频做个翻译，添加个字幕，也不会太占用你的时间。
-现在5分钟的视频，我一般需要一个小时翻译完，希望后面的再接再厉，缩短时间
-2017.10.14==========================================================================经过几天的听写，效果还是不错的，很多时候连一些简短的介词和连读也熟悉了，narrator和speakers的说话发音特别清晰。。。接下来，我是依次尝试给托业的听力也做做听写
-2017.10.05 第三天练习==========================================================================我开发完了，叫做雅思精听，现在在上传到App Store过程中，需要一周时间；另外这是主页：https://ielts-listening-20171005.firebaseapp.com/   需要连接VPN才能访问
-2017.10.03 第一天练习==========================================================================今天上午练习听写，从IELTS 12的Section 1开始的，但是每次想回退几秒，重听一下时，传统的雅思app的听力播放器很坑，不好点，或者不好用。于是下定决定，自己开发一个吧
-2017.10.02 找训练方法==========================================================================
-1.我遇到的问题我最近发现我的英语听力没有质的突破，也就是基本没怎么提高，还是和一个月以前差不多。虽然我每天都在听英语新闻，听雅思或者托福的听力，还有其他英语素材，但是没太大效果啊？？？
-在百度上找了找资料，大部分人说需要1.精听，可是精听的具体细节究竟是什么了？要用哪些2.听力资料了？每天大约花费3.多长时间?
-2.选择精听听力资料雅思/托福听力考试是非常注重细节记录的，不管是选择题还是填空题都需要对文章细节内容有一个良好的把握。如果光有单词基础，却无法把它们有机结合起来，自然是做不好题目的。而做精听练习恰好能弥补考生对听力原文的细节把握
+    PushNotificationA simplest way to push notification on your own server in C# and C/Objective-C.
+APNs OverviewApple Push Notification service (APNs) is the centerpiece of the remote notifications feature. It is a robust and highly efficient service for propagating information to iOS (and, indirectly, WatchOS), tvOS, and macOS devices. On initial launch, your app establishes an accredited and encrypted IP connection with APNs from the user’s device. Over time, APNs delivers notifications using this persistent connection. If a notification arrives when your app is not running. the device receives the notification and handles its delivery to your app at an appropriate time.
+In addition to APNs and your app, another piece is required for the delivery of remote notifications. You must configure your own server to originate those notifications. Your server, known as the provider, has the following responsibilities:
+
+It receives device tokens and relevant data from your app.
+It determines when remote notifications need to be sent to a device.
+It communicates the notification data to APNs, which then handles the delivery of the notifications to that device.
+
+For each remote notification, yo
   
-  <a href="/2017/10/02/如何提高雅思-托福听力？/">
+  <a href="/2017/01/18/PushNotification-in-C-Objective-c-C/">
     more
   </a>
   </div>
   <div class="index-meta">
     
-<time datetime="2017-10-02T04:27:20.000Z" itemprop="datePublished">
+<time datetime="2017-01-18T09:46:50.000Z" itemprop="datePublished">
 <svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
   &nbsp;
-  10-02
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/Life/">Life</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/托福-雅思-精听-英语-TOEFL-IELTS-Intensive-Listening-English/">托福, 雅思, 精听, 英语, TOEFL, IELTS, Intensive Listening, English</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/09/19/Safari-Extension-Development/">
-            Safari Extension Development
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    Making your own Safari ExtensionCase 1https://developer.apple.com/library/content/documentation/Tools/Conceptual/SafariExtensionGuide/UsingExtensionBuilder/UsingExtensionBuilder.html
-
-Case 2Introductionhttps://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/SafariAppExtension_PG/
-Creating and Running Your First Safari App Extensionhttps://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/SafariAppExtension_PG/CreatingandTestingYourFirstSafariAppExtension.html
-Injecting a Script into a Pagehttps://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/SafariAppExtension_PG/AddingScriptContent.html#//apple_ref/doc/uid/TP40017319-CH7-SW1
-Adding a Toolbar Itemhttps://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/SafariAppExtension_PG/AddingaToolbar.html#//apple_ref/doc/uid/TP40017319-CH9-SW1
-Access and Permissionshttps://developer.apple.com/library/content/documentation/NetworkingInternetWeb/Conceptual/SafariAppExtension_PG/DeterminingWhichPagesanExtensionCanAccess.html#//apple_ref/doc/uid/TP40017319-CH10-SW1
-  
-  <a href="/2017/09/19/Safari-Extension-Development/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-09-18T23:39:06.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  09-19
-</time>
-
-
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/Safari-Extension-插件开发/">Safari, Extension, 插件开发</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/08/01/iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic/">
-            iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic等
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    weak
-
-只能修饰派生自NSObject类或协议，因为NSObject即是类，也是协议
-在对象的引用计数器为0时，对象的指针会自动指向nil
-可以解决循环引用问题
-
-assign
-
-可以修饰基础数据类型，也可以修饰派生自NSObject类的对象
-在对象的引用计数器为0时，对象的指针不会自动指向nil
-可以解决循环引用问题
-
-atomic
-
-是Objective-C默认修饰的
-原子性的
-之所以线程安全，是因为只能编译器在生成setter和getter时，方法内部会有一个@synchronized()的同步互斥锁
-线程不安全，是因为在多线程中操作对象时，比如：NSArray的addObject:方法，它是没有锁的，所以为了保证安全，我们必须自己加锁
-速度慢
-
-nonatomic
-
-不是Objective-C默认修饰的，需要手动添加
-非原子性
-线程不安全
-速度快
-
-strong
-
-Objective-C对象默认创建时，就是强引用
-修饰Objective-C对象的，创建时为引用计数为1
-不管是修饰可变属性还是不可变属性，只要使用了赋值号，就是增加了一个指针指向同一块内存地址
-
-copy
-
-修饰不可变属性时，是浅拷贝，意思是：只要使用了赋值号，就是增加了一个指针指向同一块内存地址
-修饰可变属性时，是深拷贝，意思是：只要使用了赋值号，就是新开辟了一块内存空间
-
-__block
-
-默认情况下，局部变量只可以被block访问
-但是用它来修饰局部变量，就可以在block代码块里修改局部变量的值，因为这个局部变量被拷贝了一份到block代码块里，如果是指针就是拷贝了一份指针
-
-__weak
-
-就是将OC的对象改变成弱引用指针
-
-注意一个block代码块是否会造成循环引用要看这个block所属的类是对这个block什么修饰，如果是strong和copy，则这个block代码块一定是强引用，且在外部使用这个block代码块时，使用self，就一定要转换成__weak形式；或者在这个block所属的类里对这个block修饰为assign或者weak，则在外部使用这个block代码块时，self不用转换为__weak形式。
-  
-  <a href="/2017/08/01/iOS的属性关键字修饰符解释weak、assign、atomic和nonatomic/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-08-01T11:50:58.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  08-01
+  01-18
 </time>
 
 
@@ -551,7 +328,7 @@ __weak
       <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
     </svg>
     &nbsp;
-    <a href="/tags/iOS修饰符-weak-assign/">iOS修饰符,weak,assign</a>
+    <a href="/tags/C-APNs-Objective-C-C/">C#,APNs,Objective-C,C</a>
 
 
   </div>
@@ -569,8 +346,8 @@ __weak
   
   
     <h1 class="index-title">
-        <a href="/2017/06/15/iOS应用审核-Phased-Release-for-Automatic-Updates-阶段性自动更新发布/">
-            iOS应用审核 - Phased Release for Automatic Updates (阶段性自动更新发布)
+        <a href="/2016/10/23/English/">
+            English
         </a>
     </h1>
   
@@ -578,73 +355,91 @@ __weak
 
   <div class="excerpt">
   
-    Phased Release for Automatic Updates (阶段性自动更新发布)官方解释官方地址：https://itunespartner.apple.com/en/apps/faq/Managing%20Your%20Apps_Submission%20Process
-以下将Phased Release for Automatic Updates 翻译成“ 阶段性自动更新发布 ”，本文所有篇幅是对官方文档的部分（该部分是Phased Release for Automatic Updates）翻译解释。1. 什么是阶段性自动更新发布？在iTunes Connect，你可以开启Phased Release for Automatic Updates，那就意味着，你发布了一个阶段性更新的iOS应用。在阶段性更新发布版本中，7天之内，你的应用会以百分比的形式来增量更新。在阶段性发布的版本期间内，你的应用会每天都显示在iTunes Connect上，并且部分用户会完成更新。当然，所有的已安装过你的应用的用户也可以选择App Store手动更新，新用户会一直都能看到你最近发布的“可供销售”的版本。 如果你发现在阶段性更新过程中，你的应用有某些缺陷，你可以在任何时间内暂停阶段性更新，这个时间持续30天，不管暂停有多少次。
-2. 如何阶段性发布我的应用？阶段性发布一个更新版本：
+    此页的视频资源都在YouTube上，只有当你的网络可以连接google时便可打开视频列表 - 我添加了字幕4.主题是：How to learn English idioms related to colours
 
 
-在iTunes Connect首页，点击我的应用，然后选择一个应用；
-在左边的列表，点击你想要提交的版本的应用；
-在Phaed Release for Automatic Updates区域，选择 Release update over a 7-day period.
-点击右上角保存。
+3.主题是：Confusing English Words (worn vs warn) • Learn the difference between these two confusing words 
 
 
-3. 在阶段性发布中，成百分比例的用户是如何每天完成自动更新？自动更新打开时是任意选择的，这基于用户的Apple ID，而不是用户的设备。如果一个用户有多个设备，每个设备都开启了自动更新，那么当一个应用在阶段性发布更新时， 他们会在同一时间段内收到自动更新的提示。
-4. 在阶段性发布中，我能每天为用户设置自动更新的百分比值吗？不能，因为在阶段性发布中，百分比的用户每天完成自动更新的图表如下显示，当然也会显示在iTunes Connect上
+2.主题是：7 Phrasal Verbs you need to know to persuade someone • Phrasal Verbs for English Fluency! 
 
 
-
-天数
-百分比
-
-
-
-
-第一天
-1%
-
-
-第二天
-2%
-
-
-第三天
-5%
-
-
-第四天
-10%
-
-
-第五天
-20%
-
-
-第六天
-50%
-
-
-第七天
-100%
-
-
-
-5. 我能针对阶段性发布的应用进行特定的统计数据吗？不能，因为不可能针对指定统计数据的用户进行，如年龄，性别，地区，设备信息，系统系统，设备类型的查看。用户的更新是随机选择的。
-6. 在应用阶段性发布中，用户完成了自动更新会被通知到吗？不会被通知到
-7. 我可以取消我的应用版本的阶段性更新
+1.主题是：10 Common British English Slang Expressions &amp; Phrases
   
-  <a href="/2017/06/15/iOS应用审核-Phased-Release-for-Automatic-Updates-阶段性自动更新发布/">
+  <a href="/2016/10/23/English/">
     more
   </a>
   </div>
   <div class="index-meta">
     
-<time datetime="2017-06-15T01:55:56.000Z" itemprop="datePublished">
+<time datetime="2016-10-23T05:04:49.000Z" itemprop="datePublished">
 <svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
   &nbsp;
-  06-15
+  10-23
+</time>
+
+
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/English/">English</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2016/10/20/ERROR-iOS-unknown-Encountered-an-unknown-error/">
+            ERROR | [iOS] unknown: Encountered an unknown error 
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    使用环境Xcode 8.0 正式版cocoapods 1.0.1
+运行命令1&gt; pod spec lint ZRQRCodeViewController.podspec
+提交本人的ZRQRCodeViewController到cocoapods中心时，报错ERROR | [iOS] unknown: Encountered an unknown error  xxxxxxxxx
+123&gt; 原因：&gt; 1.XCode 8.0环境下，要求cocoapods 1.1.0&gt; 2.XCode 8.0必须下载iPhone Simulator 9.3的模拟器
+如果不安装这两个，会发生一些意想不到问题，建议安装和更新，虽然模拟器很慢，本人也是安装了好几天才把iPhone Simulator 9.3安装上，香菇蓝瘦~~~
+读者请阅读这里 https://github.com/CocoaPods/CocoaPods/issues/5702
+解决方案：1.更新cocoapods的版本到1.1.01234567891011&gt; //查看当前从哪里下载的cocopods&gt; gem sources -l&gt;&gt; //如果不是https://ruby.taobao.org/，就设置下载地址&gt; gem sources —add https://ruby.taobao.org/&gt;&gt; //安装cocoapods&gt; sudo gem install cocoapods&gt; //安装完了之后&gt; pod setup
+2.下载iPhone Simulator 9.3 ，这个就不用说了吧，直接去xcode 8.0的Preferences里找到Components菜单项，找到9.3的模拟器下载就行
+  
+  <a href="/2016/10/20/ERROR-iOS-unknown-Encountered-an-unknown-error/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2016-10-20T10:22:38.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-20
 </time>
 
 
@@ -668,7 +463,7 @@ __weak
       <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
     </svg>
     &nbsp;
-    <a href="/tags/iOS-应用审核-AppReview-Phased-Release-Automatic-Updates/">iOS, 应用审核, AppReview, Phased Release, Automatic Updates</a>
+    <a href="/tags/cocoapods/">cocoapods</a>
 
 
   </div>
@@ -686,8 +481,8 @@ __weak
   
   
     <h1 class="index-title">
-        <a href="/2017/06/04/iOS-Reverse-2-Theos-introduction-installation-and-usage/">
-            iOS Reverse - (2) Theos introduction, installation and usage 
+        <a href="/2016/10/04/使用一个Github的Repository管理hexo网站源文件和发布文件/">
+            使用一个Github的Repository管理hexo网站源文件和发布文件
         </a>
     </h1>
   
@@ -695,35 +490,44 @@ __weak
 
   <div class="excerpt">
   
-    1.IntroductionTheos is a jailbreak development tool written and shared on GitHub by a friend, Dustin Howett (@DHowett). Compared with other jailbreak development tools, Theos’ greatest feature is simplicity: It’s simple to download, install, compile and publish; the built-in Logos syntax is simple to understand. It greatly reduces our work besides coding.Additionally, iOSOpenDev, which runs as a plugin of Xcode is another frequently used tool in jailbreak development, developers who are familiar with Xcode may feel more interested in this tool, which is more integrated than Theos. But, reverse engineering deals with low-level knowledge a lot, most of the work can’t be done automatically by tools, it’d be better for you to get used to a less integrated environment. Therefore I strongly recommend Theos, when you use it to finish one practice after another, you will definitely gain a deeper understanding of iOS reverse engineering.
+    看到这篇文件的读者，表明您已经创建过了自己的博客网站通过hexo, 现在要解决的问题就是，如果在多台电脑管理（创建，修改，发布）hexo网站
+问题：如果在A电脑创建了hexo网站，并且已经发布到了github上，也在该电脑创建了多份博客，此时换成B电脑，如果保持A电脑的修改，并且新加文章，或者修改A电脑发布的文章解答：思路：那本博主的站点为例，
+     1.我创建了victorzhang2014.github.io的github的public repository
+     2.创建一个名为&quot;hexo&quot;的分支
+     3.&quot;master&quot;主分支用作存储发布Hexo网站的分支，
+       &quot;hexo&quot;分支用作存储hexo源文件的分支
+     4.多台电脑管理情况如下
+       4.1 各电脑都要安装nodejs, hexo，
+       4.2 各电脑指定一个目录，用来存放hexo所有源文件，并且需要`hexo init`初始化到当前目录
+       4.3 在该目录添加git库，remote地址指向github的分支&quot;hexo&quot;
+       4.4 把
+            .DS_Store
+            Thumbs.db
+            db.json
+            *.log
+            node_modules/
+            这些目录或者文件添加到.gitignore
+       4.5 然后提交到&quot;hexo&quot;分支
+           `git push origin hexo`
 
-2.Install and configure Theos2.1 Install Xcode and Command Line ToolsMost iOS developers have already installed Xcode, which contains Command Line Tools. For those who don’t have Xcode yet, please download it from Mac AppStore for free. If two or more Xcod
+           此时，其他电脑就可以下载试用了
   
-  <a href="/2017/06/04/iOS-Reverse-2-Theos-introduction-installation-and-usage/">
+  <a href="/2016/10/04/使用一个Github的Repository管理hexo网站源文件和发布文件/">
     more
   </a>
   </div>
   <div class="index-meta">
     
-<time datetime="2017-06-04T12:10:17.000Z" itemprop="datePublished">
+<time datetime="2016-10-03T16:04:16.000Z" itemprop="datePublished">
 <svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
   &nbsp;
-  06-04
+  10-04
 </time>
 
 
 
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
 
 
 
@@ -734,7 +538,7 @@ __weak
       <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
     </svg>
     &nbsp;
-    <a href="/tags/theos-ldid/">theos, ldid</a>
+    <a href="/tags/deployment/">deployment</a>
 
 
   </div>
@@ -752,8 +556,8 @@ __weak
   
   
     <h1 class="index-title">
-        <a href="/2017/06/04/iOS-Reverse-1-The-basic-tools-of-use-of-OpenSSH-iFile-MTerminal-and-syslogd/">
-            iOS Reverse - (1) The basic tools of use of OpenSSH, iFile, MTerminal and syslogd
+        <a href="/2016/10/03/使用Hexo搭建个人博客网站/">
+            使用Hexo搭建个人博客网站
         </a>
     </h1>
   
@@ -761,42 +565,41 @@ __weak
 
   <div class="excerpt">
   
-    1.OpenSSHOpenSSH will install SSH service on iOS (as shown in figure below). Only 2 commands are the most commonly used: ssh is used for remote logging, scp is used for remote file transfer. The usage of ssh is as follows:
-
-1ssh user@iOSIP
-For instance:1snakeninnysiMac:~ snakeninny$ ssh mobile@192.168.1.6
-The usage of scp is as follows:1.Copy a local file to iOS1scp /path/to/localFile user@iOSIP:/path/to/remoteFile
-For instance:1snakeninnysiMac:~ snakeninny$ scp ~/1.png root@192.168.1.6:/var/tmp/
-2.Copy a file from iOS to the local system1scp user@iOSIP:/path/to/remoteFile /path/to/localFile
-For instance:1snakeninnysiMac:~ snakeninny$ scp root@192.168.1.6:/var/log/syslog ~/iOSlog
-These two commands are relatively simple and intuitive. After installing OpenSSH, make sure to change the default login password “alpine”. There’re 2 users on iOS, i.e. root and mobile, we need to change both passwords like this:1234FunMaker-5:~ root# passwd root Changing password for root.New password:Retype new password: FunMaker-5:~ root# passwd mobile Changing password for mobile. New password:Retype new password:
-If we forget to change the default password, there’re chances that viruses like Ikee logi
+    使用Hexo搭建个人博客网站，类似这种文章在网上能找到很多，在这里我就不再一一赘述了，以下是个人搭建博客站点的经验所得，以分享。
+Hexo官方文档：https://hexo.io/
+Let’s get started!
+需要安装git和nodejs
+安装nvm，Node版本管理器1brew install nvm
+安装nodejs1nvm install 4.5.0
+注意：如果以上遇到nvm和nodejs的命令安装不成功的话，请使用各自官网的MAC OS X的Installer1.新建一个github的repository，名称必须后缀为.github.io   例如：  victorzhang2014.github.io 名称必须和自己的github账户名相同
+2.安装hexo必要的组件  全局安装，加-g参数  1234sudo npm install hexo-cli -gsudo npm install hexo --save   # 或者 sudo npm install -g hexosudo npm install hexo-deployer-git -save    # hexo发布时使用的命令sudo npm install hexo-server --save         # hexo调试时的本地server
+3.新建一个hexo文件夹  1hexo init victorzhang
+hexo会在victorzhang目录下新建hexo所需要的文件
+   依次执行以下命令   123npm install hexo-renderer-ejs --savenpm install hexo-renderer-stylus --savenpm install hexo-renderer-marked --save
+   主题的切换，hexo默认的主题的landscape, 也可以不需要下载jacman主题风格   主题网站：  https://hexo.io/themes/   找一个喜欢的，先clone到themes目录下，然后在_config.yml文件改下theme: 你指定的主题名称   1git clone https://github.com/duanhjlt/jacman.git themes/jacman
+   在_config.yml的配置文件中修改配置如下   1theme: jacman
+4.启动服务，可以在本地预览了   1hexo server
+5.新建文件   先停止本地运行的server    1hexo new “hello world“
+  会生成一个文件，然后编辑文件
+6.生成静态文件   1hexo  generate
+7.配置_config.yml文件   拖到最后，例如下面：   注意：冒号后面一定
   
-  <a href="/2017/06/04/iOS-Reverse-1-The-basic-tools-of-use-of-OpenSSH-iFile-MTerminal-and-syslogd/">
+  <a href="/2016/10/03/使用Hexo搭建个人博客网站/">
     more
   </a>
   </div>
   <div class="index-meta">
     
-<time datetime="2017-06-04T11:47:05.000Z" itemprop="datePublished">
+<time datetime="2016-10-03T15:50:11.000Z" itemprop="datePublished">
 <svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
     <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
   </svg>
   &nbsp;
-  06-04
+  10-03
 </time>
 
 
 
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
 
 
 
@@ -807,81 +610,7 @@ If we forget to change the default password, there’re chances that viruses lik
       <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
     </svg>
     &nbsp;
-    <a href="/tags/OpenSSH-iFile-MTerminal-syslogd/">OpenSSH, iFile, MTerminal, syslogd</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/04/15/iOS-App-Dumps-Encrypted-Shell-and-Disassembling/">
-            iOS App Dumps Encrypted Shell and Disassembling
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    OverviewSoftware reverse engineering refers to the process of deducing the implementation and design details of a program or a system by analyzing the functions, structures or behaviors of it. When we are very interested in a certain software feature while not having the access to the source code, we can try to analyze it by reverse engineering.
-Although the recipe of Coca-Cola is highly confidential, some other companies can still copy its taste. Although we don’t have access to the source code of others’ Apps, we can dig into their details of reverse engineering.
-PDF Document
-FOR MORE DETAILS OF iOS REVERSE ENGINEERING, SEE HERE.
-iOS应用逆向工程（第二版）
-
-Chinese BlogiOS逆向 - 获取AppStore上的应用的所有头文件和源文件  http://blog.csdn.net/u013538542/article/details/70196590
-What’s the main purpose of this article saying?
-1.Browses all directories on the iPhone;2.SSH login to the jailbreak iPhone;3.Dumps the encrypted App which is downloaded from the App Store and shows you a decrypted Mach-O file(It indicates the binary file of the IPA);4.Gets all header files and disassembles the binary file of the App, shows you the pseudo code of Objective-C;5.Copies files from Mac to iPhone, vice versa.
-
-Let’s get prepa
-  
-  <a href="/2017/04/15/iOS-App-Dumps-Encrypted-Shell-and-Disassembling/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-04-15T11:36:52.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  04-15
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/iOS-Reverse-Engineering-Unshell-Disassembling/">iOS Reverse Engineering, Unshell, Disassembling</a>
+    <a href="/tags/victor-hexo/">victor, hexo</a>
 
 
   </div>
@@ -895,7 +624,7 @@ Let’s get prepa
   
 </ul>
 <ul class="pager">
-    <a class="extend prev" rel="prev" href="../3/">Prev</a><a class="page-number" href="../../index.html">1</a><a class="page-number" href="../2/">2</a><a class="page-number" href="../3/">3</a><span class="page-number current">4</span><a class="page-number" href="../5/">5</a><a class="extend next" rel="next" href="../5/">Next</a>
+    <a class="extend prev" rel="prev" href="../3/">Prev</a><a class="page-number" href="../../index.html">1</a><a class="page-number" href="../2/">2</a><a class="page-number" href="../3/">3</a><span class="page-number current">4</span>
 </ul>
 
 

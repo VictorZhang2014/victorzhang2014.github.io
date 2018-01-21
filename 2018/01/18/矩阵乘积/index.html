@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="google-site-verification" content="" />
+  
+  <title>矩阵乘积</title>
+  <meta name="author" content="Victor Zhang">
+  <meta name="description" content="iOS,逆向工程,AI,.NET">
+  
+  
+  <meta property="og:title" content="矩阵乘积"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:site_name" content="Simple, but perfect"/>
+  <link href="/apple-touch-icon-precomposed.png" sizes="180x180" rel="apple-touch-icon-precomposed">
+  <link rel="alternate" href="/atom.xml" title="Simple, but perfect" type="application/atom+xml">
+  <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/m.min.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+
+<body>
+  <a id="top"></a>
+  <div id="main">
+    <div class="behind">
+      <a href="/" class="back black-color">
+        <svg class="i-close" viewBox="0 0 32 32" width="22" height="22" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M2 30 L30 2 M30 30 L2 2"></path>
+        </svg>
+      </a>
+      <div class="description">
+        &nbsp;What will you do if you weren't afraid ? 
+      </div>
+    </div>
+    <div class="container">
+      
+
+  <article class="standard post">
+    <div class="title">
+      
+  
+    <h1 class="page-title center">
+        矩阵乘积
+    </h1>
+  
+
+
+    </div>
+    <div class="meta center">
+      
+<time datetime="2018-01-18T13:54:20.000Z">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  2018-01-18
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/AI/">AI</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/AI-矩阵乘积/">AI, 矩阵乘积</a>
+
+
+    </div>
+    <hr>
+    <div class="picture-container">
+      
+    </div>
+    <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ul>
+<li><p>标量（Scalars）, 表示零维张量，它是一个单独的，独立的数值</p>
+</li>
+<li><p>向量（Vectors）, 表示一维张量，它是一维数组，可以是横向数组(rows vectors)，也可以纵向数组（columns vectors）</p>
+</li>
+<li><p>矩阵（Matrics）, 表示二维张量，它是一个二维数组，用行数和列数表示它的大小</p>
+</li>
+<li><p>张量（Tensor）, 任何大于二维的对象，就是张量</p>
+</li>
+</ul>
+<h2 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h2><ul>
+<li>1.左侧矩阵的列数必须等于右侧矩阵的行数</li>
+<li>2.结果矩阵始终与左侧矩阵有相同的行数，与右侧矩阵有相同的列数</li>
+<li>3.顺序很重要：乘法A <em> B不等于乘法B </em> A</li>
+<li>4.左侧矩阵中的数据应排列为行，而右侧矩阵中的数据应排列为列</li>
+</ul>
+<p>以下两个视频来自Youtube，所以需要你的网络可以连接上google<br>矩阵乘积视频地址1：</p>
+<iframe width="920" height="518" src="https://www.youtube.com/embed/JRoCFQRP4B0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<p>矩阵乘积视频地址2：</p>
+<iframe width="920" height="518" src="https://www.youtube.com/embed/8jtk8BzBdj8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
+<p>记住这四点，在你构建神经网络时，就能搞清楚如何正确排列矩阵乘法了</p>
+<p>矩阵乘积函数<code>matmul</code>和<code>dot</code>，这两个函数计算的结果实一样的，但是它们还是有差别的，请查阅文档。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"># 比如：第一个矩阵</span><br><span class="line">a = np.array([[1,2,3,4],[5,6,7,8]])</span><br><span class="line">a</span><br><span class="line"># 显示以下结果：</span><br><span class="line"># array([[1, 2, 3, 4],</span><br><span class="line">#        [5, 6, 7, 8]])</span><br><span class="line">a.shape</span><br><span class="line"># 显示以下结果：</span><br><span class="line"># (2, 4)</span><br><span class="line"></span><br><span class="line"># 第二个矩阵</span><br><span class="line">b = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12]])</span><br><span class="line">b</span><br><span class="line"># 显示以下结果：</span><br><span class="line"># array([[ 1,  2,  3],</span><br><span class="line">#        [ 4,  5,  6],</span><br><span class="line">#        [ 7,  8,  9],</span><br><span class="line">#        [10, 11, 12]])</span><br><span class="line">b.shape</span><br><span class="line"># 显示以下结果：</span><br><span class="line"># (4, 3)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 矩阵乘积</span><br><span class="line">c = np.matmul(a, b)</span><br><span class="line">c</span><br><span class="line"># 显示以下结果：</span><br><span class="line"># array([[ 70,  80,  90],</span><br><span class="line">#        [158, 184, 210]])</span><br><span class="line">c.shape</span><br><span class="line"># 显示以下结果：</span><br><span class="line"># (2, 3)</span><br></pre></td></tr></table></figure></p>
+<p>如果你的矩阵具有不兼容的形状，则会出现以下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">np.matmul(b, a)</span><br><span class="line"># 显示以下错误：</span><br><span class="line"># ValueError: shapes (4,3) and (2,4) not aligned: 3 (dim 1) != 2 (dim 0)</span><br></pre></td></tr></table></figure></p>
+<p>重点是，矩阵乘积的结果是如何计算得来的了？<br>过程如图：<br><img src="/img/Python/NumPy/Matrics_Multiplication_1.png" alt="Matrics_Multiplication_1"><br><img src="/img/Python/NumPy/Matrics_Multiplication_2.png" alt="Matrics_Multiplication_2"><br><img src="/img/Python/NumPy/Matrics_Multiplication_3.png" alt="Matrics_Multiplication_3"><br><img src="/img/Python/NumPy/Matrics_Multiplication_4.png" alt="Matrics_Multiplication_4"><br><img src="/img/Python/NumPy/Matrics_Multiplication_5.png" alt="Matrics_Multiplication_5"><br><img src="/img/Python/NumPy/Matrics_Multiplication_6.png" alt="Matrics_Multiplication_6"></p>
+
+
+  </article>
+  </script>
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <div class="busuanzi center">
+    page PV:&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;・&nbsp;
+    site PV:&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;・&nbsp;
+    site UV:&nbsp;<span id="busuanzi_value_site_uv"></span>
+  </div>
+
+
+
+
+    </div>
+  </div>
+  <footer class="page-footer"><div class="clearfix">
+</div>
+<div class="right-foot container">
+    <div class="firstrow">
+        <a href="#top" target="_self">
+        <svg class="i-caret-right" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3">
+            <path d="M10 30 L26 16 10 2 Z"></path>
+        </svg>
+        </a>
+        © Victor Zhang 2014-2018
+    </div>
+    <div class="secondrow">
+        <a href="https://github.com/gaoryrt/hexo-theme-pln">
+        Theme Pln
+        </a>
+    </div>
+</div>
+<div class="clearfix">
+</div>
+</footer>
+  <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="/js/search.min.js"></script>
+<script type="text/javascript">
+
+// disqus scripts
+
+
+// dropdown scripts
+$(".dropdown").click(function(event) {
+  var current = $(this);
+  event.stopPropagation();
+  $(current).children(".dropdown-content")[($(current).children(".dropdown-content").hasClass("open"))?'removeClass':'addClass']("open")
+});
+$(document).click(function(){
+    $(".dropdown-content").removeClass("open");
+})
+
+var path = "/search.xml";
+searchFunc(path, 'local-search-input', 'local-search-result');
+
+</script>
+
+</body>
+</html>
