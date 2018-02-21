@@ -55,7 +55,7 @@
       <ul class="dropdown-content">
 
           
-           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Tools/">Tools</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li>
+           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li><li><a href="/categories/Tools/">Tools</a></li>
 
       </ul>
     </li>
@@ -111,6 +111,80 @@
   </div>
 </nav></nav>
 <ul class="posts">
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
+            iOS跟踪内存分配和循环引用
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    概述我们在开发iOS应用期间，可能有时候就会遇到循环引用，或者内存分配状态等信息的问题，那么有没有办法可以在应用运行期间检测到了？答案是：当然有了！那就是开源的 FBMemoryProfiler ，由Facebook提供。使用起来也是非常的简单，下面我就讲解下
+FBMemoryProfilerFBMemoryProfiler是一个在应用运行期间也可以浏览内存使用情况，专为iOS开发者设计的，基本包含FBAllocationTracker和FBRetainCycleDetector。
+FBAllocationTracker是收集对象的信息，也支持生成和检测循环引用。
+
+一。FBMemoryProfiler的安装与使用跟踪与现实内存使用情况
+1.1 安装使用Carthage，那么你需要在项目的Cartfile文件里添加上代码如下：1github &quot;facebook/FBMemoryProfiler&quot;
+FBMemoryProfiler需要在非debug（non-debug）模式下编译，所以你需要键入如下命令：1carthage update --configuration Debug
+使用CocoaPods，那么需要你在Podfile文件里添加如下代码：1pod &apos;FBMemoryProfiler&apos;
+然后，在Terminal里cd到项目目录，最后键入pod install这个你完全可以在Debug模式下编译，这是有该编译标签控制的。
+1.2 使用1.在main.m文件里添加如下代码，意味着开启FBAllocationTracker1234567891011#import &lt;UIKit/UIKit.h&gt;#import &quot;AppDelegate.h&quot;#import &lt;FBAllocationTracker/FBAllocationTrackerManager.h&gt;int main(int argc, char * argv[]) &#123;    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];    [[FBAllocationTrackerManager sharedManager] enableGenerations];    @autoreleasepool &#123;        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));    &#125;&#125;
+2.开启内存占用剖析检测功能123456#import &lt;FBMemoryProfiler/FBMe
+  
+  <a href="/2017/10/27/iOS跟踪内存分配和循环引用/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-27T12:27:16.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-27
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-FBMemoryProfiler/">iOS, FBMemoryProfiler</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
   
     
 <div>
@@ -1322,94 +1396,6 @@ CFRunLoopObserverRef
     </svg>
     &nbsp;
     <a href="/tags/NSLock-NSCondition-NSRecursiveLock-NSConditionLock-pthread-mutex-dispatch-semaphore/">NSLock, NSCondition, NSRecursiveLock, NSConditionLock, pthread_mutex, dispatch_semaphore</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/10/15/NSOperation的认知/">
-            NSOperation的认知
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    【官方文档】
-NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使用2.1 创建任务2.2 创建队列2.3 将任务添加到队列中3.操作依赖4.一些其他方法
-1.NSOperation简介NSOperation是Apple提供给开发者的一套多线程解决方案，实际上是基于GCD的一套更高级封装，完全Objective-C代码。简单、易用、代码可读性高。
-NSOperation需要配合NSOperationQueue来实现多线程，因为默认情况下
-
-NSOperation单独使用时是系统同步执行操作，并没有开启新线程的能力，只有配合NSOperationQueue才能实现异步执行
-
-因为NSOperation是基于GCD的，那么使用起来也和GCD差不多，其中，NSOperation相当于GCD中的任务，而NSOperationQueue则相当于GCD中的队列。NSOperation实现多线程的使用步骤分为三步：
-
-1.创建任务：先将需要执行的操作封装到一个NSOperation对象中
-2.创建队列：创建NSOperationQueue对象
-3.将任务加入到队列中，然后将NSOperation对象加入到NSOperationQueue中，之后，系统就会从Queue中读取出来，在新线程中执行操作。
-
-以下我们来看下NSOperation和NSOperationQueue的基本使用
-
-2.NSOperation和NSOperationQueue的基本使用NSOperation是一个抽象类，不能封装任务，我们只有使用它的子类来封装任务。有三种方式来封装任务，如下：
-
-1.使用子类NSInvocationOperation
-2.使用子类NSBlockOperation
-3.自定义一个类派生自NSOperation，定义一些相应的方法
-
-
-2.1 创建任务比如：我们先不使用NSOperationQueue，而是单独使用NSInvocationOperation和NSBlockOperation，分别如下：
- 2.1.1 NSInvocationOperation 12345678- (void)invocationOp &#123;    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run) object:nil];    [op start];&#125;- (void)run &#123;    NSLog(@&quot;%@&quot;, [NSThread currentThread]);&#125;
-输出结果如下，证明了单独使用NSInvocatio
-  
-  <a href="/2017/10/15/NSOperation的认知/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-10-15T09:28:29.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  10-15
-</time>
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/categories/iOS/">iOS</a>
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/iOS-NSOperation/">iOS, NSOperation</a>
 
 
   </div>

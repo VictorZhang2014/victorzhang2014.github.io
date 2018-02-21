@@ -55,7 +55,7 @@
       <ul class="dropdown-content">
 
           
-           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Tools/">Tools</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li>
+           <li><a href="/categories/iOS/">iOS</a></li><li><a href="/categories/AI/">AI</a></li><li><a href="/categories/Life/">Life</a></li><li><a href="/categories/Esperanto/">Esperanto</a></li><li><a href="/categories/Tools/">Tools</a></li>
 
       </ul>
     </li>
@@ -111,6 +111,94 @@
   </div>
 </nav></nav>
 <ul class="posts">
+  
+    
+<div>
+<li class="post-item">
+  
+  
+    <h1 class="index-title">
+        <a href="/2017/10/15/NSOperation的认知/">
+            NSOperation的认知
+        </a>
+    </h1>
+  
+
+
+  <div class="excerpt">
+  
+    【官方文档】
+NSOperation目录1.NSOperation简介2.NSOperation和NSOperationQueue的基本使用2.1 创建任务2.2 创建队列2.3 将任务添加到队列中3.操作依赖4.一些其他方法
+1.NSOperation简介NSOperation是Apple提供给开发者的一套多线程解决方案，实际上是基于GCD的一套更高级封装，完全Objective-C代码。简单、易用、代码可读性高。
+NSOperation需要配合NSOperationQueue来实现多线程，因为默认情况下
+
+NSOperation单独使用时是系统同步执行操作，并没有开启新线程的能力，只有配合NSOperationQueue才能实现异步执行
+
+因为NSOperation是基于GCD的，那么使用起来也和GCD差不多，其中，NSOperation相当于GCD中的任务，而NSOperationQueue则相当于GCD中的队列。NSOperation实现多线程的使用步骤分为三步：
+
+1.创建任务：先将需要执行的操作封装到一个NSOperation对象中
+2.创建队列：创建NSOperationQueue对象
+3.将任务加入到队列中，然后将NSOperation对象加入到NSOperationQueue中，之后，系统就会从Queue中读取出来，在新线程中执行操作。
+
+以下我们来看下NSOperation和NSOperationQueue的基本使用
+
+2.NSOperation和NSOperationQueue的基本使用NSOperation是一个抽象类，不能封装任务，我们只有使用它的子类来封装任务。有三种方式来封装任务，如下：
+
+1.使用子类NSInvocationOperation
+2.使用子类NSBlockOperation
+3.自定义一个类派生自NSOperation，定义一些相应的方法
+
+
+2.1 创建任务比如：我们先不使用NSOperationQueue，而是单独使用NSInvocationOperation和NSBlockOperation，分别如下：
+ 2.1.1 NSInvocationOperation 12345678- (void)invocationOp &#123;    NSInvocationOperation *op = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(run) object:nil];    [op start];&#125;- (void)run &#123;    NSLog(@&quot;%@&quot;, [NSThread currentThread]);&#125;
+输出结果如下，证明了单独使用NSInvocatio
+  
+  <a href="/2017/10/15/NSOperation的认知/">
+    more
+  </a>
+  </div>
+  <div class="index-meta">
+    
+<time datetime="2017-10-15T09:28:29.000Z" itemprop="datePublished">
+<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
+  </svg>
+  &nbsp;
+  10-15
+</time>
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/categories/iOS/">iOS</a>
+
+
+
+
+    
+    &nbsp;
+    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+      <circle cx="24" cy="8" r="2"></circle>
+      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
+    </svg>
+    &nbsp;
+    <a href="/tags/iOS-NSOperation/">iOS, NSOperation</a>
+
+
+  </div>
+</li>
+</div>
+<hr>
+
+
+
+
   
     
 <div>
@@ -1180,67 +1268,6 @@ Let’s get prepa
     </svg>
     &nbsp;
     <a href="/tags/iOS-app-installation/">iOS app installation</a>
-
-
-  </div>
-</li>
-</div>
-<hr>
-
-
-
-
-  
-    
-<div>
-<li class="post-item">
-  
-  
-    <h1 class="index-title">
-        <a href="/2017/04/01/CA证书的介绍与使用/">
-            CA证书的介绍与使用
-        </a>
-    </h1>
-  
-
-
-  <div class="excerpt">
-  
-    CA证书
-1.域名型SSL证书（DV SSL）：信任等级普通，只需验证网站的真实性便可颁发证书保护网站；一般是免费的2.企业型SSL证书（OV SSL）：信任等级强，须要验证企业的身份，审核严格，安全性更高；收费的3.增强型SSL证书（EV SSL）：信任等级最高，一般用于银行证券等金融机构，审核严格，安全性最高，同时可以激活绿色网址栏。收费的，比OV证书贵一些4.自签名证书(SelfSigned Cert) : 创建的工具有很多。如Mac中的钥匙串可以创建，IIS的服务器证书可以创建
-
-https://help.aliyun.com/knowledge_detail/42216.html公钥（Public Key）与私钥（Private Key）是通过一种算法得到的一个密钥对（即一个公钥和一个私钥），公钥是密钥对中公开的部分，私钥则是非公开的部分。公钥通常用于加密会话密钥、验证数字签名，或加密可以用相应的私钥解密的数据。通过这种算法得到的密钥对能保证在世界范围内是唯一的。使用这个密钥对的时候，如果用其中一个密钥加密一段数据，必须用另一个密钥解密。比如用公钥加密数据就必须用私钥解密，如果用私钥加密也必须用公钥解密，否则解密将不会成功。
-x509是数字证书的规范，P7和P12是两种封装形式。比如说同样的电影，有的是avi格式，有的是mpg。SSL/TLS/HTTPS的区别SSL (Secure Socket Layer) 安全套接层  目前有三个版本1.0, 2.0, 3.0TLS (Transport Layer Security) 传输层安全协议   是SSL的标准化后的产物，目前有1.0, 1.1, 1.2三个版本HTTPS (Hyper Text Transfer Protocol over Secure Socket Layer) 也就是HTTP 加上 SSL/TLS
-用于网站HTTPS化的SSL数字证书，当前主要分为DV SSL、OV SSL、EV SSL三种类型的证书。symantec证书检测https://cryptoreport.websecurity.symantec.com/checker/views/certCheck.jsp
-当你的网站配置了https后，如果在IE浏览器提示证书配置错误，chrome浏览器提示不安全的连接，那就是因为IIS默认没有开启TLS，所以我们需要手动开启SSL/TLS，具体步骤如下链接https://social.technet.microsoft.com/Forums/forefront/en-US/ec033ff6-091d-441d-8ad3-7ea411100009/ssl-with-256bit-strength这篇链接中最重要的步骤就是In order to get IIS7 to do 256 
-  
-  <a href="/2017/04/01/CA证书的介绍与使用/">
-    more
-  </a>
-  </div>
-  <div class="index-meta">
-    
-<time datetime="2017-04-01T08:29:23.000Z" itemprop="datePublished">
-<svg class="i-calendar" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-    <path d="M2 6 L2 30 30 30 30 6 Z M2 15 L30 15 M7 3 L7 9 M13 3 L13 9 M19 3 L19 9 M25 3 L25 9"></path>
-  </svg>
-  &nbsp;
-  04-01
-</time>
-
-
-
-
-
-
-    
-    &nbsp;
-    <svg class="i-tag" viewBox="0 0 32 32" width="14" height="14" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
-      <circle cx="24" cy="8" r="2"></circle>
-      <path d="M2 18 L18 2 30 2 30 14 14 30 Z"></path>
-    </svg>
-    &nbsp;
-    <a href="/tags/CA/">CA</a>
 
 
   </div>
